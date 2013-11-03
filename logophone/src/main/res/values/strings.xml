@@ -5,7 +5,12 @@
     </string>
     <string name="action_settings" >Settings
     </string>
-    <string name="hello_world" >Hello world!
-    </string>
+    <string name="spravka">Справка</string>
+    <string name="table">Таблица</string>
+    <string name="newbie">Знакомство</string>
+    <string name="training">Тренировка</string>
+    <string name="test">Тест</string>
+    <string name="construct">Конструктор</string>
+    <string name="exit">Выход</string>
 
 </resources>

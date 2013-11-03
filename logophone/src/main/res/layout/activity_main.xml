@@ -8,9 +8,39 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/spravka"
+            android:id="@+id/btnInfo" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"/>
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/table"
+            android:id="@+id/btnTable" android:layout_below="@+id/btnInfo" android:layout_alignLeft="@+id/btnInfo"/>
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/newbie"
+            android:id="@+id/btnLearn" android:layout_below="@+id/btnTable" android:layout_alignLeft="@+id/btnTable"/>
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/training"
+            android:id="@+id/btnTraining" android:layout_below="@+id/btnLearn" android:layout_alignLeft="@+id/btnLearn"/>
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/test"
+            android:id="@+id/btnTest" android:layout_below="@+id/btnTraining" android:layout_alignLeft="@+id/btnTraining"/>
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/construct"
+            android:id="@+id/btnConstruct" android:layout_below="@+id/btnTest" android:layout_alignLeft="@+id/btnTest"/>
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/exit"
+            android:id="@+id/btnExit" android:layout_below="@+id/btnConstruct" android:layout_alignLeft="@+id/btnConstruct"/>
 </RelativeLayout>
