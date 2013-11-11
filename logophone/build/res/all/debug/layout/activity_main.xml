@@ -44,3 +44,4 @@
             android:text="@string/exit"
             android:id="@+id/btnExit" android:layout_below="@+id/btnConstruct" android:layout_alignLeft="@+id/btnConstruct"/>
 </RelativeLayout>
+<!-- From: file:/F:/Homework/logophone/logophone/src/main/res/layout/activity_main.xml -->

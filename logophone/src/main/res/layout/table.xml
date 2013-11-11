@@ -7,10 +7,10 @@
         android:layout_height="fill_parent"
         android:gravity="center_horizontal"
         android:id="@+id/fillable_area">
-    <TableLayout
-            android:id="@+id/table_header"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+    <!--<TableLayout-->
+            <!--android:id="@+id/table_header"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"/>-->
     <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
@@ -29,7 +29,8 @@
                 <TableLayout
                         android:id="@+id/scrollable_part"
                         android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"/>
+                        android:layout_height="fill_parent"
+                    android:baselineAligned="false" />
             </HorizontalScrollView>
         </LinearLayout>
     </ScrollView>

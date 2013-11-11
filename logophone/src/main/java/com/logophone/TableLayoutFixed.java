@@ -17,44 +17,47 @@ public class TableLayoutFixed extends Activity {
         setContentView(R.layout.table);
 
         TableRow.LayoutParams wrapWrapTableRowParams = new TableRow.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        int[] fixedColumnWidths = new int[]{20, 20, 20, 20, 20};
-        int[] scrollableColumnWidths = new int[]{20, 20, 20, 30, 30};
-        int fixedRowHeight = 50;
-        int fixedHeaderHeight = 60;
+        String[][] doublearray = new String[][]{{"Character", "Closes", "Color", "Symbol", "Draw", "Glasses"},
+                {"Duck", "Necktie", "White", "Circle", "Circles", "Circles"},
+                {"Mouse", "Pants", "Red", "Vertical rectangle", "Vertical stripes", "Vertical rectangle"},
+                {"Cat", "Undershirt", "Orange", "Horizontal rectangle", "Horizontal stripes", "Horizontal rectangle"},
+                {"Dog", "Shorts", "Yellow", "Triangle", "Triangles", "Triangles"},
+                {"Gorilla", "T-shirt", "Green", "Square", "Squares", "Squares"},
+                {"Bull", "Trousers", "Sky-blue", "Five-point star", "Five-point stars", "Five-point stars"},
+                {"Lion", "Shirt", "Blue", "Six-pint star", "Six-pint stars", "Six-pint stars"},
+                {"Crocodile", "Jacket", "Purple", "Parallelepiped", "Parallelepiped's", "Parallelepiped's"},
+                {"Bear", "Coat", "Brown", "Octahedron", "Octahedron's", "Octahedron's"},
+                {"Behemoth", "Topcoat", "Black", "Rhombus", "Rhombuses", "Rhombuses"}};
+        int[] scrollableColumnWidths = new int[]{20, 25, 30, 35, 30};
+        int fixedRowHeight = 70;
 
         TableRow row = new TableRow(this);
-        //header (fixed vertically)
-        TableLayout header = (TableLayout) findViewById(R.id.table_header);
-        row.setLayoutParams(wrapWrapTableRowParams);
-        row.setGravity(Gravity.CENTER);
-        row.setBackgroundColor(Color.YELLOW);
-        row.addView(makeTableRowWithText("col 1", fixedColumnWidths[0], fixedHeaderHeight));
-        row.addView(makeTableRowWithText("col 2", fixedColumnWidths[1], fixedHeaderHeight));
-        row.addView(makeTableRowWithText("col 3", fixedColumnWidths[2], fixedHeaderHeight));
-        row.addView(makeTableRowWithText("col 4", fixedColumnWidths[3], fixedHeaderHeight));
-        row.addView(makeTableRowWithText("col 5", fixedColumnWidths[4], fixedHeaderHeight));
-        header.addView(row);
         //header (fixed horizontally)
         TableLayout fixedColumn = (TableLayout) findViewById(R.id.fixed_column);
         //rest of the table (within a scroll view)
         TableLayout scrollablePart = (TableLayout) findViewById(R.id.scrollable_part);
-        for(int i = 0; i < 10; i++) {
-            TextView fixedView = makeTableRowWithText("row number " + i, scrollableColumnWidths[0], fixedRowHeight);
-            fixedView.setBackgroundColor(Color.BLUE);
+        for(int i = 0; i < 11; i++) {
+            TextView fixedView;
+            if(i == 0)
+                fixedView = makeTableRowWithText("Number", scrollableColumnWidths[0], fixedRowHeight);
+            else
+                fixedView = makeTableRowWithText(String.valueOf(i-1), scrollableColumnWidths[0], fixedRowHeight);
+            fixedView.setBackgroundColor(Color.CYAN);
             fixedColumn.addView(fixedView);
             row = new TableRow(this);
             row.setLayoutParams(wrapWrapTableRowParams);
             row.setGravity(Gravity.CENTER);
             row.setBackgroundColor(Color.WHITE);
-            row.addView(makeTableRowWithText("value 2", scrollableColumnWidths[1], fixedRowHeight));
-            row.addView(makeTableRowWithText("value 3", scrollableColumnWidths[2], fixedRowHeight));
-            row.addView(makeTableRowWithText("value 4", scrollableColumnWidths[3], fixedRowHeight));
-            row.addView(makeTableRowWithText("value 5", scrollableColumnWidths[4], fixedRowHeight));
+            row.addView(makeTableRowWithText(doublearray[i][0], scrollableColumnWidths[1], fixedRowHeight));
+            row.addView(makeTableRowWithText(doublearray[i][1], scrollableColumnWidths[2], fixedRowHeight));
+            row.addView(makeTableRowWithText(doublearray[i][2], scrollableColumnWidths[3], fixedRowHeight));
+            row.addView(makeTableRowWithText(doublearray[i][3], scrollableColumnWidths[3], fixedRowHeight));
+            row.addView(makeTableRowWithText(doublearray[i][4], scrollableColumnWidths[3], fixedRowHeight));
+            row.addView(makeTableRowWithText(doublearray[i][5], scrollableColumnWidths[3], fixedRowHeight));
             scrollablePart.addView(row);
         }
 
     }
-
 
     //util method
     private TextView recyclableTextView;
@@ -63,8 +66,9 @@ public class TableLayoutFixed extends Activity {
         int screenWidth = getResources().getDisplayMetrics().widthPixels;
         recyclableTextView = new TextView(this);
         recyclableTextView.setText(text);
+        recyclableTextView.setGravity(Gravity.CENTER);
         recyclableTextView.setTextColor(Color.BLACK);
-        recyclableTextView.setTextSize(20);
+        recyclableTextView.setTextSize(15);
         recyclableTextView.setWidth(widthInPercentOfScreenWidth * screenWidth / 100);
         recyclableTextView.setHeight(fixedHeightInPixels);
         return recyclableTextView;

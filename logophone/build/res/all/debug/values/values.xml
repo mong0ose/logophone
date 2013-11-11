@@ -1,18 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- From: file:/F:/Homework/logophone/logophone/src/main/res/values/dimens.xml -->
+    <eat-comment />
+
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- From: file:/F:/Homework/logophone/logophone/src/main/res/values/strings.xml -->
+    <eat-comment />
 
     <string name="action_settings">Settings</string>
     <string name="app_name">logophone</string>
     <string name="construct">Конструктор</string>
     <string name="exit">Выход</string>
+    <string name="img1">i1</string>
+    <string name="img2">i2</string>
+    <string name="img3">i3</string>
+    <string name="img4">i4</string>
+    <string name="img5">i5</string>
+    <string name="img6">i6</string>
+    <string name="img7">i7</string>
+    <string name="img8">i8</string>
+    <string name="img9">i9</string>
+    <string name="imgB1">ib1</string>
+    <string name="imgB2">ib2</string>
+    <string name="imgB3">ib3</string>
     <string name="newbie">Знакомство</string>
     <string name="spravka">Справка</string>
     <string name="table">Таблица</string>
     <string name="test">Тест</string>
     <string name="training">Тренировка</string>
+    <!-- From: file:/F:/Homework/logophone/logophone/src/main/res/values/styles.xml -->
+    <eat-comment />
 
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--

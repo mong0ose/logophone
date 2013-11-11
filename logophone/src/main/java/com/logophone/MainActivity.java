@@ -1,5 +1,6 @@
 package com.logophone;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
@@ -15,12 +16,26 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         System.out.println("Git test!");
 
-        Button bTable;
+        Button bTable, bConstructor, bExit;
         bTable = (Button)findViewById(R.id.btnTable);
         bTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getBaseContext(), TableLayoutFixed.class));
+            }
+        });
+        bConstructor = (Button)findViewById(R.id.btnConstruct);
+        bConstructor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getBaseContext(), Constructor.class));
+            }
+        });
+        bExit = (Button)findViewById(R.id.btnExit);
+        bExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }

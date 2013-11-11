@@ -12,5 +12,17 @@
     <string name="test">Тест</string>
     <string name="construct">Конструктор</string>
     <string name="exit">Выход</string>
+    <string name="imgB1">ib1</string>
+    <string name="imgB2">ib2</string>
+    <string name="imgB3">ib3</string>
+    <string name="img1">i1</string>
+    <string name="img2">i2</string>
+    <string name="img3">i3</string>
+    <string name="img4">i4</string>
+    <string name="img5">i5</string>
+    <string name="img6">i6</string>
+    <string name="img7">i7</string>
+    <string name="img8">i8</string>
+    <string name="img9">i9</string>
 
 </resources>

@@ -1,52 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.system.id="GRADLE" type="JAVA_MODULE" version="4">
+<module external.linked.project.path="$MODULE_DIR$/logophone" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="android" name="Android">
       <configuration>
-        <option name="SELECTED_BUILD_VARIANT" value="debug" />
+        <option name="SELECTED_BUILD_VARIANT" value="Debug" />
         <option name="ASSEMBLE_TASK_NAME" value="assembleDebug" />
+        <option name="COMPILE_JAVA_TASK_NAME" value="compileDebug" />
+        <option name="ASSEMBLE_TEST_TASK_NAME" value="assembleTest" />
+        <option name="SOURCE_GEN_TASK_NAME" value="generateDebugSources" />
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
         <option name="GEN_FOLDER_RELATIVE_PATH_APT" value="/logophone/build/source/aidl/debug" />
-        <option name="MANIFEST_FILE_RELATIVE_PATH" value="/logophone/src/main/AndroidManifest.xml" />
-        <option name="RES_FOLDER_RELATIVE_PATH" value="/logophone/src/main/res" />
-        <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/logophone/src/main/assets" />
+        <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
+        <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
+        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/logophone/src/main/res" />
+        <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
       </configuration>
     </facet>
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
         <option name="GRADLE_PROJECT_PATH" value=":logophone" />
-        <option name="PROJECT_ABSOLUTE_PATH" value="F:\Homework\logophone" />
-        <option name="GRADLE_HOME_DIR_PATH" />
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/logophone/build/classes/debug" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/logophone">
-      <sourceFolder url="file://$MODULE_DIR$/logophone/build/source/r/debug" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/logophone/build/source/aidl/debug" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/logophone/build/source/rs/debug" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/logophone/build/source/buildConfig/debug" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/logophone/build/res/rs/debug" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/logophone/build/source/r/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/logophone/build/source/aidl/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/logophone/build/source/rs/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/logophone/build/source/buildConfig/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/logophone/build/res/rs/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/logophone/build/source/r/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/logophone/build/source/aidl/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/logophone/build/source/rs/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/logophone/build/source/buildConfig/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/logophone/build/res/rs/test" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/logophone/src/debug/aidl" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/logophone/src/debug/assets" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/logophone/src/debug/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/logophone/src/debug/jni" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/logophone/src/debug/rs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/logophone/src/debug/res" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/logophone/src/debug/resources" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/logophone/src/main/aidl" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/logophone/src/main/assets" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/logophone/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/logophone/src/main/jni" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/logophone/src/main/rs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/logophone/src/main/res" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/logophone/src/main/resources" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/logophone/src/debug/aidl" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/logophone/src/debug/assets" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/logophone/src/debug/java" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/logophone/src/debug/jni" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/logophone/src/debug/rs" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/logophone/src/debug/res" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/logophone/src/debug/resources" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/logophone/src/main/aidl" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/logophone/src/main/assets" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/logophone/src/main/java" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/logophone/src/main/jni" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/logophone/src/main/rs" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/logophone/src/main/res" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/logophone/src/main/resources" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/logophone/src/instrumentTest/aidl" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/logophone/src/instrumentTest/assets" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/logophone/src/instrumentTest/java" isTestSource="true" />
@@ -59,7 +62,6 @@
       <excludeFolder url="file://$MODULE_DIR$/logophone/build/bundles" />
       <excludeFolder url="file://$MODULE_DIR$/logophone/build/classes" />
       <excludeFolder url="file://$MODULE_DIR$/logophone/build/dependency-cache" />
-      <excludeFolder url="file://$MODULE_DIR$/logophone/build/exploded-bundles" />
       <excludeFolder url="file://$MODULE_DIR$/logophone/build/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/logophone/build/libs" />
       <excludeFolder url="file://$MODULE_DIR$/logophone/build/manifests" />
@@ -68,7 +70,7 @@
     </content>
     <orderEntry type="jdk" jdkName="Android 4.2.2" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="android-support-v4" level="project" />
+    <orderEntry type="library" exported="" name="android-support-v4" level="project" />
   </component>
 </module>
 

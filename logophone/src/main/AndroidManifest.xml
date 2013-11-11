@@ -22,7 +22,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.logophone.TableLayoutFixed">
+            android:name="com.logophone.TableLayoutFixed"
+            android:parentActivityName="com.logophone.MainActivity">
+        </activity>
+        <activity
+            android:name="com.logophone.Constructor"
+            android:parentActivityName="com.logophone.MainActivity">
         </activity>
     </application>
 
