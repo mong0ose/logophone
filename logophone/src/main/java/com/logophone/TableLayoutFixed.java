@@ -3,6 +3,9 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.HorizontalScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
@@ -24,7 +27,7 @@ public class TableLayoutFixed extends Activity {
                 {"Dog", "Shorts", "Yellow", "Triangle", "Triangles", "Triangles"},
                 {"Gorilla", "T-shirt", "Green", "Square", "Squares", "Squares"},
                 {"Bull", "Trousers", "Sky-blue", "Five-point star", "Five-point stars", "Five-point stars"},
-                {"Lion", "Shirt", "Blue", "Six-pint star", "Six-pint stars", "Six-pint stars"},
+                {"Lion", "Shirt", "Blue", "Hexahedron", "Hexahedrones", "Hexahedrones"},
                 {"Crocodile", "Jacket", "Purple", "Parallelepiped", "Parallelepiped's", "Parallelepiped's"},
                 {"Bear", "Coat", "Brown", "Octahedron", "Octahedron's", "Octahedron's"},
                 {"Behemoth", "Topcoat", "Black", "Rhombus", "Rhombuses", "Rhombuses"}};
@@ -36,6 +39,28 @@ public class TableLayoutFixed extends Activity {
         TableLayout fixedColumn = (TableLayout) findViewById(R.id.fixed_column);
         //rest of the table (within a scroll view)
         TableLayout scrollablePart = (TableLayout) findViewById(R.id.scrollable_part);
+        HorizontalScrollView scrollView = (HorizontalScrollView)findViewById(R.id.hScroll);
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+
+                // Handle ListView touch events.
+                v.onTouchEvent(event);
+                return true;
+            }
+        });
         for(int i = 0; i < 11; i++) {
             TextView fixedView;
             if(i == 0)

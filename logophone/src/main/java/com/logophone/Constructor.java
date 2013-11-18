@@ -1,15 +1,20 @@
 package com.logophone;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -25,51 +30,52 @@ public class Constructor extends Activity {
 
 //        final View v = new ImageView(getBaseContext());
         final ImageView image1, image2, image3, image4, image5, image6, image7, image8, image9;
+
         Display disp = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         Point p = new Point();
         disp.getSize(p);
         System.out.println("Screen resolution: " + p.x + "x" + p.y);
-        Bitmap bMap;
+        Bitmap bMap, bmapOverlay;
+        bmapOverlay = Bitmap.createBitmap(p.x, p.y, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bmapOverlay);
         //setting image resource
 //------
         image1 = (ImageView)findViewById(R.id.image1);
         bMap = BitmapFactory.decodeResource(getBaseContext().getResources(), R.drawable._21);
-        image1.setImageBitmap(resizeBitmap(bMap, p.x, p.y, 0));
+        canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
 //------
         image2 = (ImageView)findViewById(R.id.image2);
         bMap = BitmapFactory.decodeResource(getBaseContext().getResources(), R.drawable._22);
-        image2.setImageBitmap(resizeBitmap(bMap, p.x, p.y, 0));
+        canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
 //------
         image3 = (ImageView)findViewById(R.id.image3);
         bMap = BitmapFactory.decodeResource(getBaseContext().getResources(), R.drawable._23);
-        image3.setImageBitmap(resizeBitmap(bMap, p.x, p.y, Color.RED));
+        canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y,Color.WHITE, Color.RED), new Matrix(), null);
 //------
         image4 = (ImageView)findViewById(R.id.image4);
         bMap = BitmapFactory.decodeResource(getBaseContext().getResources(), R.drawable._24);
-        image4.setImageBitmap(resizeBitmap(bMap, p.x, p.y, 0));
+        canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
 //------
         image5 = (ImageView)findViewById(R.id.image5);
         bMap = BitmapFactory.decodeResource(getBaseContext().getResources(), R.drawable._25);
-        image5.setImageBitmap(resizeBitmap(bMap, p.x, p.y, 0));
+        canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
 //------
         image6 = (ImageView)findViewById(R.id.image6);
         bMap = BitmapFactory.decodeResource(getBaseContext().getResources(), R.drawable._26);
-        image6.setImageBitmap(resizeBitmap(bMap, p.x, p.y, 0));
+        canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
 //------
         image7 = (ImageView)findViewById(R.id.image7);
         bMap = BitmapFactory.decodeResource(getBaseContext().getResources(), R.drawable._27);
-        image7.setImageBitmap(resizeBitmap(bMap, p.x, p.y, 0));
+        canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
 //------
         image8 = (ImageView)findViewById(R.id.image8);
         bMap = BitmapFactory.decodeResource(getBaseContext().getResources(), R.drawable._28);
-        image8.setImageBitmap(resizeBitmap(bMap, p.x, p.y, 0));
-//------
-        image9 = (ImageView)findViewById(R.id.image9);
-        bMap = BitmapFactory.decodeResource(getBaseContext().getResources(), R.drawable._29);
-        image9.setImageBitmap(resizeBitmap(bMap, p.x, p.y, 0));
+        canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
+
+        image8.setImageBitmap(bmapOverlay);
     }
 
-    private Bitmap resizeBitmap(Bitmap bMap, int w, int h, int replaceColor){
+    private Bitmap resizeBitmap(Bitmap bMap, int w, int h, int searchColor, int replaceColor){
         Bitmap rbMap = Bitmap.createScaledBitmap(bMap, w, h, false);
 
 //        bMix = Bitmap.createScaledBitmap(bMap, w, h, false);
@@ -85,7 +91,7 @@ public class Constructor extends Activity {
                 int y = i/rbMap.getWidth();
                 int x = i - (y*rbMap.getWidth());
                 int pixel = rbMap.getPixel(x, y);
-                if(pixel == Color.WHITE){
+                if(pixel == searchColor){
                     rbMap.setPixel(x, y, replaceColor);
                 }
             }
