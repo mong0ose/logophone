@@ -25,4 +25,7 @@
     <string name="img8">i8</string>
     <string name="img9">i9</string>
     <string name="phone">Get phone number</string>
+    <string name="create_img">Create image</string>
+    <string name="create_phone">Create by number</string>
+    <string name="back">Back</string>
 </resources>

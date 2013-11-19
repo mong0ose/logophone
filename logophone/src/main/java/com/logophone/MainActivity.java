@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
         bTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(), ContactsTest.class));
+                startActivity(new Intent(getBaseContext(), Constructor.class));
             }
         });
         bTable = (Button)findViewById(R.id.btnTable);
@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
         bConstructor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(), Constructor.class));
+                startActivity(new Intent(getBaseContext(), ContactsTest.class));
             }
         });
         bExit = (Button)findViewById(R.id.btnExit);

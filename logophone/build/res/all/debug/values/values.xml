@@ -11,7 +11,10 @@
 
     <string name="action_settings">Settings</string>
     <string name="app_name">logophone</string>
+    <string name="back">Back</string>
     <string name="construct">Конструктор</string>
+    <string name="create_img">Create image</string>
+    <string name="create_phone">Create by number</string>
     <string name="exit">Выход</string>
     <string name="img1">i1</string>
     <string name="img2">i2</string>
