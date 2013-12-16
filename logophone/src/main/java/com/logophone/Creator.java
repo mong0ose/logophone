@@ -11,13 +11,13 @@ public class Creator {
     int elements[][] = {
         {1,0,0,0,0,0,0,0,0,0},
         {0,1,0,1,0,1,0,0,0,0},
-        {0,0,1,0,1,0,2,2,0,0},
+        {0,0,1,0,1,0,2,2,2,0},
         {0,1,0,1,0,1,0,0,0,0},
-        {0,0,1,0,1,0,2,2,0,0},
+        {0,0,1,0,1,0,2,2,2,0},
         {0,1,0,1,0,1,0,0,0,0},
-        {0,0,2,0,2,0,1,2,0,0},
+        {0,0,2,0,2,0,1,2,2,0},
         {0,0,2,0,2,0,2,1,0,0},
-        {0,0,0,0,0,0,0,0,1,1},
+        {0,0,2,0,2,0,2,0,1,1},
         {0,0,0,0,0,0,0,0,1,1}};
 
 
@@ -57,6 +57,26 @@ public class Creator {
             else
             {
                 return 2;	// second cloth must be unbuttoned
+            }
+        }
+        return 0;
+    }
+
+    public int checkForOverlap_3rd(int number[]){
+        if(elements[number[5]][number[9]] == 2 ||
+            elements[number[7]][number[9]] == 2)
+        {
+            if(number[5] > number[9])
+            {
+                return 1;	// second cloth must be unbuttoned
+            }
+            else if(number[7] > number[9])
+            {
+                return 2;	// second cloth must be unbuttoned
+            }
+            else
+            {
+                return 3;
             }
         }
         return 0;
