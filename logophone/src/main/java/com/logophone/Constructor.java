@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -44,7 +46,7 @@ public class Constructor extends Activity {
         setContentView(R.layout.create_logo_by_number);
 
         final ImageView image;
-        int phone_number[] = {};
+        int phone_number[] = {0,6,7,4,6,8,5,4,9,0};
 
         Display disp = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         Point p = new Point();
@@ -70,76 +72,124 @@ public class Constructor extends Activity {
         et9 = (EditText)findViewById(R.id.editText9);
         et10 = (EditText)findViewById(R.id.editText10);
 
-        if(phone_number.length > 0){
-            et1.setText(phone_number[1]);
-            et2.setText(phone_number[2]);
-            et3.setText(phone_number[3]);
-            et4.setText(phone_number[4]);
-            et5.setText(phone_number[5]);
-            et6.setText(phone_number[6]);
-            et7.setText(phone_number[7]);
-            et8.setText(phone_number[8]);
-            et9.setText(phone_number[9]);
-            et10.setText(phone_number[10]);
+        if(phone_number.length != 0){
+            et1.setText(String.valueOf(phone_number[0]));
+            et2.setText(String.valueOf(phone_number[1]));
+            et3.setText(String.valueOf(phone_number[2]));
+            et4.setText(String.valueOf(phone_number[3]));
+            et5.setText(String.valueOf(phone_number[4]));
+            et6.setText(String.valueOf(phone_number[5]));
+            et7.setText(String.valueOf(phone_number[6]));
+            et8.setText(String.valueOf(phone_number[7]));
+            et9.setText(String.valueOf(phone_number[8]));
+            et10.setText(String.valueOf(phone_number[9]));
         }
 
-        String[] filename = null;
-//        int[] number_array = convert(phone_number);
+        String[] filename = new String[10];
         Creator check = new Creator();
-        boolean strict_state = check.checkForStrict(phone_number);
+        int overlap = check.chechForOverlap(phone_number);
 
-        filename[3] = phone_number[3] + "00000.png";
-        bMap = BitmapFactory.decodeFile(filename[3]);
-        canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
+        filename[3] = phone_number[3] + "XXXXXXX.png";
+        try {
+            InputStream is = getAssets().open("raw/" + filename[3]);
+            bMap = BitmapFactory.decodeStream(is);
+            is.close();
+            canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 //------
-        filename[5] = phone_number[3] + phone_number[5] + phone_number[4] + "000.png";
-        bMap = BitmapFactory.decodeFile(filename[5]);
-        canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
+        if(overlap == 1 && !check.checkForStrict(phone_number)){
+            filename[5] = phone_number[3] + "" + phone_number[7] + "0" + phone_number[6] + "XXXX.png"; //растегнута
+        } else {
+            if(phone_number[5] == 6 || phone_number[5] == 7)
+                filename[5] = phone_number[3] + "" + phone_number[5] + "1" + phone_number[4] + "XXXX.png";          //застегнут
+            else
+                filename[5] = phone_number[3] + "" + phone_number[5] + "0" + phone_number[4] + "XXXX.png";          //рпстегнут
+            try {
+                InputStream is = getAssets().open("raw/" + filename[5]);
+                bMap = BitmapFactory.decodeStream(is);
+                is.close();
+                canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 //------
-        if(strict_state){
+        if(check.checkForStrict(phone_number)){
             // с узорами
-            filename[7] = phone_number[3] + phone_number[5] + "0" + phone_number[6] + "00.png";
-            bMap = BitmapFactory.decodeFile(filename[7]);
-            canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, Color.BLACK, colors_array[phone_number[7]]), new Matrix(), null);
+            filename[7] = phone_number[3] + "" + phone_number[5] + "0X" + phone_number[7] + "XX.png"; //одежда
+            try {
+                InputStream is = getAssets().open("raw/uzors/" + filename[7]);
+                bMap = BitmapFactory.decodeStream(is);
+                is.close();
+                canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, Color.BLACK, colors_array[phone_number[7]]), new Matrix(), null);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 //------
             if(check.checkForGlasses(phone_number)){
-                filename[9] = phone_number[3] + "000" + phone_number[9] + "0.png";
-                bMap = BitmapFactory.decodeFile(filename[9]);
-                canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, Color.BLACK, colors_array[phone_number[7]]), new Matrix(), null);
+                filename[9] = phone_number[3] + "00000" + phone_number[9] + ".png";              //очки
+                try {
+                    InputStream is = getAssets().open("raw/glasses/" + filename[9]);
+                    bMap = BitmapFactory.decodeStream(is);
+                    is.close();
+                    canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
-                filename[9] = phone_number[3] + phone_number[9] + phone_number[8] + "000.png";
-                bMap = BitmapFactory.decodeFile(filename[9]);
-                canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, Color.BLACK, colors_array[phone_number[7]]), new Matrix(), null);
+                filename[9] = phone_number[3] + "" + phone_number[9] + "0" + phone_number[8] + "000.png";  //одежда
+                try {
+                    InputStream is = getAssets().open("raw/" + filename[9]);
+                    bMap = BitmapFactory.decodeStream(is);
+                    is.close();
+                    canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         } else {
+            if(overlap == 1){
+                filename[7] = phone_number[3] + "" + phone_number[5] + "0" + phone_number[4] + "XXXX.png";  //растегнут
+            } else {
+                if (phone_number[7] == 6 || phone_number[7] == 7)
+                    filename[7] = phone_number[3] + "" + phone_number[7] + "1" + phone_number[6] + "XXXX.png"; //застегнута
+                else
+                    filename[7] = phone_number[3] + "" + phone_number[7] + "0" + phone_number[6] + "XXXX.png"; //растегнута
+                try {
+                    InputStream is = getAssets().open("raw/" + filename[7]);
+                    bMap = BitmapFactory.decodeStream(is);
+                    is.close();
+                    canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 
+            if(check.checkForGlasses(phone_number)){
+                filename[9] = phone_number[3] + "XXXXX" + phone_number[9] + phone_number[8] + ".png";              //очки
+                try {
+                    InputStream is = getAssets().open("raw/glasses/" + filename[9]);
+                    bMap = BitmapFactory.decodeStream(is);
+                    is.close();
+                    canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                filename[9] = phone_number[3] + "" + phone_number[9] + "0" + phone_number[8] + "XXXX.png";  //одежда
+                try {
+                    InputStream is = getAssets().open("raw/" + filename[9]);
+                    bMap = BitmapFactory.decodeStream(is);
+                    is.close();
+                    canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-
-
-//------
-        bMap = BitmapFactory.decodeResource(getBaseContext().getResources(), R.drawable._21);
-        canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
-//------
-        bMap = BitmapFactory.decodeResource(getBaseContext().getResources(), R.drawable._22);
-        canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
-//------
-        bMap = BitmapFactory.decodeResource(getBaseContext().getResources(), R.drawable._23);
-        canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y,Color.WHITE, Color.RED), new Matrix(), null);
-//------
-        bMap = BitmapFactory.decodeResource(getBaseContext().getResources(), R.drawable._24);
-        canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
-//------
-        bMap = BitmapFactory.decodeResource(getBaseContext().getResources(), R.drawable._25);
-        canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
-//------
-        bMap = BitmapFactory.decodeResource(getBaseContext().getResources(), R.drawable._26);
-        canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
-//------
-        bMap = BitmapFactory.decodeResource(getBaseContext().getResources(), R.drawable._27);
-        canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
-//------
-        bMap = BitmapFactory.decodeResource(getBaseContext().getResources(), R.drawable._28);
-        canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), null);
+        System.out.println(filename[3] + "\n" + filename[5] + "\n" + filename[7] + "\n" + filename[9] + "\n");
 
         image = (ImageView)findViewById(R.id.imgCreateLogo);
         image.setImageBitmap(bmapOverlay);
@@ -153,26 +203,6 @@ public class Constructor extends Activity {
         }
         return number;
     }
-
-
-    private String[] get_filename_of_image(int element, String[] number){
-        String[] filename = null;
-        int[] number_array = convert(number);
-        Creator check = new Creator();
-        boolean strict_state = check.checkForStrict(number_array);
-        filename[3] = number[3] + "000000.png";
-
-        filename[5] = number[3] + number[5] + number[4] + "0000.png";
-        if(strict_state){
-
-        } else {
-            // с узорами
-            filename[7] = number[3] + number[5] + number[4] + number[6] + "000.png";
-        }
-        return filename;
-    }
-
-
 
     private Bitmap resizeBitmap(Bitmap bMap, int w, int h, int searchColor, int replaceColor){
         Bitmap rbMap = Bitmap.createScaledBitmap(bMap, w, h, false);
