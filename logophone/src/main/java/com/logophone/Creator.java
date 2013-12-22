@@ -21,7 +21,7 @@ public class Creator {
         {0,0,0,0,0,0,0,0,1,1}};
 
 
-    public boolean checkForStrict(int number[]){
+    public boolean checkForStrict(Integer number[]){
         boolean result = false;
 
         if( number[5] == number[7] || 				    //
@@ -36,7 +36,7 @@ public class Creator {
         return result;
     }
 
-    public boolean checkForGlasses(int number[]){
+    public boolean checkForGlasses(Integer number[]){
         boolean result = false;
 
         if( number[5] == number[9] ||				// 6 and 10 are equal
@@ -47,38 +47,48 @@ public class Creator {
         return result;
     }
 
-    public int chechForOverlap(int number[]){
+    public int chechForOverlap(Integer number[]){
         if(elements[number[5]][number[7]] == 2)
         {
             if(number[5] > number[7])
             {
-                return 1;	// second cloth must be unbuttoned
+                return 1;
             }
             else
             {
-                return 2;	// second cloth must be unbuttoned
+                return 2;
             }
         }
         return 0;
     }
 
-    public int checkForOverlap_3rd(int number[]){
+    public int checkForOverlap_3rd(Integer number[]){
         if(elements[number[5]][number[9]] == 2 ||
             elements[number[7]][number[9]] == 2)
         {
-            if(number[5] > number[9])
+            if(number[5] > number[9] && number[7] > number[9])
             {
-                return 1;	// second cloth must be unbuttoned
-            }
-            else if(number[7] > number[9])
-            {
-                return 2;	// second cloth must be unbuttoned
+                return 1;
             }
             else
             {
-                return 3;
+                return 2;
             }
         }
+        return 0;
+    }
+
+    public int checkGalstuk(Integer number[]){
+        if(number[5] == 0 || number[7] == 0 || number[9] == 0)
+            return 1;
+        return 0;
+    }
+
+    public int checkLower(Integer number[]){
+        if(number[5] == 5 || number[5] == 3 || number[5] == 1
+            || number[7] == 5 || number[7] == 3 || number[7] == 1
+            || number[9] == 5 || number[9] == 3 || number[9] == 1)
+            return 2;
         return 0;
     }
 
