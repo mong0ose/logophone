@@ -17,112 +17,128 @@
         android:gravity="center">
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
             android:id="@+id/editText1"
             android:maxLength="1"
             android:textAlignment="center"
-            android:layout_weight="1" />
+            android:gravity="center" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
             android:id="@+id/editText2"
             android:maxLength="1"
             android:textAlignment="center"
-            android:layout_weight="1" />
+            android:gravity="center" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
             android:id="@+id/editText3"
             android:maxLength="1"
             android:textAlignment="center"
-            android:layout_weight="1" />
+            android:gravity="center" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
             android:id="@+id/editText4"
             android:maxLength="1"
             android:textAlignment="center"
-            android:layout_weight="1" />
+            android:layout_marginLeft="10dp"
+            android:gravity="center" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
             android:id="@+id/editText5"
             android:maxLength="1"
             android:textAlignment="center"
-            android:layout_weight="1" />
+            android:gravity="center" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
             android:id="@+id/editText6"
             android:maxLength="1"
             android:textAlignment="center"
-            android:layout_weight="1" />
+            android:gravity="center" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
             android:id="@+id/editText7"
             android:maxLength="1"
             android:textAlignment="center"
-            android:layout_weight="1" />
+            android:gravity="center"
+            android:layout_marginLeft="10dp" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
             android:id="@+id/editText8"
             android:maxLength="1"
             android:textAlignment="center"
-            android:layout_weight="1" />
+            android:gravity="center" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
             android:id="@+id/editText9"
             android:maxLength="1"
             android:textAlignment="center"
-            android:layout_weight="1" />
+            android:gravity="center" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
             android:id="@+id/editText10"
             android:maxLength="1"
             android:textAlignment="center"
-            android:layout_weight="1" />
+            android:gravity="center" />
     </LinearLayout>
 
-    <Button
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/phone"
-        android:id="@+id/btnConstContacts"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/phone"
+            android:id="@+id/btnConstContacts"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/gen"
+            android:id="@+id/btnConstGen"
+            android:layout_weight="1" />
+    </LinearLayout>
 
 </RelativeLayout>

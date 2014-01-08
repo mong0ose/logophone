@@ -2,8 +2,10 @@ package com.logophone;
 
 import android.content.Context;
 import android.content.Intent;
+import android.drm.DrmStore;
 import android.os.Bundle;
 import android.app.Activity;
+import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +24,8 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getBaseContext(), ContactsTest.class));
+//                Intent iPick = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+//                startActivityForResult(iPick, PICK_CONTACT);
             }
         });
         bTable = (Button)findViewById(R.id.btnTable);

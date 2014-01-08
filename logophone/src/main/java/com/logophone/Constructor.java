@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,9 +12,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Contacts;
 import android.provider.ContactsContract;
 import android.view.Display;
 import android.view.View;
@@ -25,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,12 +42,9 @@ import java.util.List;
  */
 public class Constructor extends Activity {
     private Bitmap bMap;
+    private static final int PICK_CONTACT = 3245;
     private ProgressDialog mProgressDialog;
-    private static final int DIALOG_CONTACTS = 0;
-    private static final int DIALOG_PHONES = 1;
     private Context mContext = this;
-    private ArrayAdapter contacts_array;
-    private ArrayAdapter phones_array;
     private int[] colors_array = {
             Color.rgb(245, 245, 245),   //WHITE
             Color.RED,
@@ -66,24 +67,8 @@ public class Constructor extends Activity {
         bGet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Cursor cur = getContentResolver().query(ContactsContract.Contacts.CONTENT_URI,
-                        null, null, null, null);
-                ArrayList<String> mArrayList = new ArrayList<String>();
-                try {
-                    if (cur != null && cur.getCount() > 0) {
-                        for(cur.moveToFirst(); !cur.isAfterLast(); cur.moveToNext()) {
-                            String name = cur.getString(
-                                    cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-                            if (Integer.parseInt(cur.getString(cur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.HAS_PHONE_NUMBER))) > 0) {
-                                mArrayList.add(name);
-                            }
-                        }
-                        contacts_array = new ArrayAdapter(mContext, android.R.layout.simple_list_item_single_choice, mArrayList);
-                        DialogManager(DIALOG_CONTACTS);
-                    }
-                }finally {
-                    cur.close();
-                }
+                Intent iPick = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                startActivityForResult(iPick, PICK_CONTACT);
             }
         });
 
@@ -125,81 +110,19 @@ public class Constructor extends Activity {
         }
     }
 
-    private void DialogManager(int D_ID){
-        final Dialog dialog = new Dialog(mContext);
-
-        switch (D_ID){
-            case DIALOG_CONTACTS:
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.list_contacts);
-                Button back_contacts = (Button)dialog.findViewById(R.id.btnBackListContacts);
-                back_contacts.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case (PICK_CONTACT) :
+                if (resultCode == Activity.RESULT_OK) {
+                    Uri contactData = data.getData();
+                    Cursor c = getContentResolver().query(contactData, null, ContactsContract.CommonDataKinds.Phone.NUMBER, null, null);
+                    if (c.moveToFirst()) {
+                        String phone = (String) c.getString(c.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                        new CreateImageFromContact().execute(convert(phone.replaceAll("\\D+", "")));
                     }
-                });
-                ListView listContacts = (ListView)dialog.findViewById(R.id.listViewContacts);
-
-                listContacts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        ArrayList<String> phones = new ArrayList<String>();
-                        Cursor curs = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                                null, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + "=\"" + adapterView.getItemAtPosition(i) + "\"", null, null);
-                        try{
-                            if(curs != null && curs.getCount() > 0){
-                                curs.moveToFirst();
-                                if (Integer.parseInt(curs.getString(curs.getColumnIndex(ContactsContract.CommonDataKinds.Phone.HAS_PHONE_NUMBER))) > 0) {
-                                    do{
-                                        String number = curs.getString(curs.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                        System.out.println(number);
-                                        phones.add(number);
-                                    }while(curs.moveToNext());
-                                    phones_array = new ArrayAdapter(mContext, android.R.layout.simple_list_item_single_choice, phones);
-                                    DialogManager(DIALOG_PHONES);
-                                    dialog.dismiss();
-                                }
-                            }
-                        }finally {
-                            curs.close();
-                        }
-                    }
-                });
-                listContacts.setAdapter(contacts_array);
-                dialog.show();
-                break;
-            case DIALOG_PHONES:
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.list_phones);
-                Button back_phones = (Button)dialog.findViewById(R.id.btnBackListPhones);
-                back_phones.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                        DialogManager(DIALOG_CONTACTS);
-                    }
-                });
-                ListView listPhones = (ListView)dialog.findViewById(R.id.listViewPhones);
-
-                listPhones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        mProgressDialog = new ProgressDialog(view.getContext());
-                        mProgressDialog.setCancelable(false);
-                        mProgressDialog.setMessage("Создание логотипа...");
-                        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                        mProgressDialog.show();
-                        String phone = (String) phones_array.getItem(i);
-
-                        new CreateImageFromContact().execute(convert(phone.replace("-", "")));
-                        dialog.dismiss();
-                    }
-                });
-                listPhones.setAdapter(phones_array);
-                dialog.show();
-                break;
-            default:
+                }
                 break;
         }
     }
@@ -211,11 +134,15 @@ public class Constructor extends Activity {
         } else {
             replace = string.toCharArray();
         }
-        Integer number[] = new Integer[10];
-
-        for (int i = 0; i < 10; i++) {
+        Integer number[] = new Integer[replace.length];
+        for (int i = 0; i < replace.length; i++)
             number[i] = Integer.parseInt(String.valueOf(replace[i]));
-        }
+
+        mProgressDialog = new ProgressDialog(mContext);
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setMessage("Создание логотипа...");
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.show();
         return number;
     }
 
@@ -244,11 +171,14 @@ public class Constructor extends Activity {
 
                     image.setImageBitmap(bmapOverlay);
                 }
+            } else {
+                Toast.makeText(mContext, "Bad phone number!", Toast.LENGTH_LONG).show();
             }
         }
 
         @Override
         protected Boolean doInBackground(Integer... ints) {
+            if(ints.length != 10) return false;
             phone_number = ints;
             Display disp = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
             Point p = new Point();
@@ -369,7 +299,7 @@ public class Constructor extends Activity {
         public class MyIntComparable implements Comparator<String>{
             @Override
             public int compare(String o1, String o2) {
-                if(Integer.parseInt(o1)/10 == phone_number[3] * 100 || Integer.parseInt(o2)/10 == phone_number[3] * 100)
+                if(Integer.parseInt(o1)/10 == phone_number[3] * 100)
                     return 100;
                 return Integer.parseInt(o1) - Integer.parseInt(o2);
             }
