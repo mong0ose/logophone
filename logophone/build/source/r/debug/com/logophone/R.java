@@ -37,16 +37,14 @@ public final class R {
         public static final int triangle=0x7f020013;
     }
     public static final class id {
-        public static final int action_settings=0x7f08002f;
-        public static final int btnBackListContacts=0x7f080023;
-        public static final int btnBackListPhones=0x7f080025;
+        public static final int action_settings=0x7f080035;
         public static final int btnConstContacts=0x7f080013;
         public static final int btnConstGen=0x7f080014;
         public static final int btnConstruct=0x7f080005;
-        public static final int btnCreateByNumberPN=0x7f08002a;
-        public static final int btnCreateImagePN=0x7f080029;
+        public static final int btnCreateByNumberPN=0x7f080030;
+        public static final int btnCreateImagePN=0x7f08002f;
         public static final int btnExit=0x7f080006;
-        public static final int btnGetNumberFromContactsPN=0x7f080028;
+        public static final int btnGetNumberFromContactsPN=0x7f08002e;
         public static final int btnInfo=0x7f080000;
         public static final int btnLearn=0x7f080002;
         public static final int btnTable=0x7f080001;
@@ -62,9 +60,9 @@ public final class R {
         public static final int editText7=0x7f08000f;
         public static final int editText8=0x7f080010;
         public static final int editText9=0x7f080011;
-        public static final int fillable_area=0x7f08002b;
-        public static final int fixed_column=0x7f08002c;
-        public static final int hScroll=0x7f08002d;
+        public static final int fillable_area=0x7f080031;
+        public static final int fixed_column=0x7f080032;
+        public static final int hScroll=0x7f080033;
         public static final int image1=0x7f080019;
         public static final int image2=0x7f08001a;
         public static final int image3=0x7f08001b;
@@ -79,22 +77,28 @@ public final class R {
         public static final int imageBack3=0x7f080018;
         public static final int imgCreateLogo=0x7f080007;
         public static final int linearLayout=0x7f080008;
-        public static final int listViewContacts=0x7f080022;
-        public static final int listViewPhones=0x7f080024;
-        public static final int phone_number=0x7f080027;
-        public static final int scrollable_part=0x7f08002e;
+        public static final int phone_number=0x7f08002d;
+        public static final int scrollable_part=0x7f080034;
         public static final int tricolor=0x7f080015;
-        public static final int viewFlipper=0x7f080026;
+        public static final int visEditText1=0x7f080023;
+        public static final int visEditText10=0x7f08002c;
+        public static final int visEditText2=0x7f080024;
+        public static final int visEditText3=0x7f080025;
+        public static final int visEditText4=0x7f080026;
+        public static final int visEditText5=0x7f080027;
+        public static final int visEditText6=0x7f080028;
+        public static final int visEditText7=0x7f080029;
+        public static final int visEditText8=0x7f08002a;
+        public static final int visEditText9=0x7f08002b;
+        public static final int visImage=0x7f080022;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int create_logo_by_number=0x7f030001;
         public static final int image_show=0x7f030002;
-        public static final int list_contacts=0x7f030003;
-        public static final int list_phones=0x7f030004;
-        public static final int logo_visualizer=0x7f030005;
-        public static final int phone_number=0x7f030006;
-        public static final int table=0x7f030007;
+        public static final int logo_visualizer=0x7f030003;
+        public static final int phone_number=0x7f030004;
+        public static final int table=0x7f030005;
     }
     public static final class menu {
         public static final int main=0x7f070000;

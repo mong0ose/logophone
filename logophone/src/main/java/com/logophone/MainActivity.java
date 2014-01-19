@@ -18,7 +18,14 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         System.out.println("Git test!");
 
-        Button bTable, bTest, bConstructor, bExit;
+        Button bTable, bTest, bVisualizer, bConstructor, bExit;
+        bVisualizer = (Button)findViewById(R.id.btnLearn);
+        bVisualizer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getBaseContext(), Visualizer.class));
+            }
+        });
         bTest = (Button)findViewById(R.id.btnTest);
         bTest.setOnClickListener(new View.OnClickListener() {
             @Override

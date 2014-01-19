@@ -26,6 +26,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.logophone.Visualizer"
+            android:screenOrientation="portrait"
+            android:hardwareAccelerated="false"
+            android:parentActivityName="com.logophone.MainActivity">
+        </activity>
         <activity
             android:name="com.logophone.TableLayoutFixed"
             android:screenOrientation="portrait"

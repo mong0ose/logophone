@@ -3,10 +3,128 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <ViewFlipper
+    <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/viewFlipper"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/visImage" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout"
+        android:gravity="center">
+
+        <EditText
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/visEditText1"
+            android:editable="false"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:gravity="center" />
+
+        <EditText
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/visEditText2"
+            android:editable="false"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:gravity="center" />
+
+        <EditText
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/visEditText3"
+            android:editable="false"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:gravity="center" />
+
+        <EditText
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/visEditText4"
+            android:editable="false"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:layout_marginLeft="10dp"
+            android:gravity="center" />
+
+        <EditText
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/visEditText5"
+            android:editable="false"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:gravity="center" />
+
+        <EditText
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/visEditText6"
+            android:editable="false"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:gravity="center" />
+
+        <EditText
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/visEditText7"
+            android:editable="false"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_marginLeft="10dp" />
+
+        <EditText
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/visEditText8"
+            android:editable="false"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:gravity="center" />
+
+        <EditText
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/visEditText9"
+            android:editable="false"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:gravity="center" />
+
+        <EditText
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/visEditText10"
+            android:editable="false"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:gravity="center" />
+    </LinearLayout>
 </RelativeLayout>
