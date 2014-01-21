@@ -36,14 +36,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by mongOose on 11.11.13.
  */
 public class Constructor extends Activity {
     private Bitmap bMap;
+    private EditText et1, et2, et3, et4, et5, et6, et7, et8, et9, et10;
     private static final int PICK_CONTACT = 3245;
     private ProgressDialog mProgressDialog;
+    private Integer phone_number[] = {};
+    private Button bGet, bGen;
     private Context mContext = this;
     private int[] colors_array = {
             Color.rgb(245, 245, 245),   //WHITE
@@ -63,7 +67,18 @@ public class Constructor extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_logo_by_number);
 
-        Button bGet = (Button)findViewById(R.id.btnConstContacts);
+        et1 = (EditText)findViewById(R.id.editText1);
+        et2 = (EditText)findViewById(R.id.editText2);
+        et3 = (EditText)findViewById(R.id.editText3);
+        et4 = (EditText)findViewById(R.id.editText4);
+        et5 = (EditText)findViewById(R.id.editText5);
+        et6 = (EditText)findViewById(R.id.editText6);
+        et7 = (EditText)findViewById(R.id.editText7);
+        et8 = (EditText)findViewById(R.id.editText8);
+        et9 = (EditText)findViewById(R.id.editText9);
+        et10 = (EditText)findViewById(R.id.editText10);
+
+        bGet = (Button)findViewById(R.id.btnConstContacts);
         bGet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +86,15 @@ public class Constructor extends Activity {
                 startActivityForResult(iPick, PICK_CONTACT);
             }
         });
-
+        bGen = (Button) findViewById(R.id.btnConstGen);
+        bGen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String tel = et1.getText() + "" + et2.getText() + "" + et3.getText() + "" + et4.getText() + "" + et5.getText() + "" +
+                        et6.getText() + "" + et7.getText() + "" + et8.getText() + "" + et9.getText() + "" + et10.getText();
+                new CreateImageFromContact().execute(convert(tel));
+            }
+        });
     }
 
 
@@ -99,12 +122,12 @@ public class Constructor extends Activity {
         return rbMap;
     }
 
-    private void addLayoutToCanvas(String filename, Canvas canvas, Point p, int color){
+    private void addLayoutToCanvas(String filename, Canvas canvas, Point p, int color, int changeColor){
         try {
             InputStream is = getAssets().open("raw/" + filename);
             bMap = BitmapFactory.decodeStream(is);
             is.close();
-            canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, colors_array[9], color), new Matrix(), null);
+            canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, changeColor, color), new Matrix(), null);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -148,8 +171,6 @@ public class Constructor extends Activity {
 
     private class CreateImageFromContact extends AsyncTask<Integer, Integer, Boolean>{
         private ImageView image;
-        private EditText et1, et2, et3, et4, et5, et6, et7, et8, et9, et10;
-        private Integer phone_number[] = {};
         private Bitmap bmapOverlay;
 
         @Override
@@ -191,16 +212,7 @@ public class Constructor extends Activity {
             bmapOverlay = Bitmap.createBitmap(p.x, p.y, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bmapOverlay);
 
-            et1 = (EditText)findViewById(R.id.editText1);
-            et2 = (EditText)findViewById(R.id.editText2);
-            et3 = (EditText)findViewById(R.id.editText3);
-            et4 = (EditText)findViewById(R.id.editText4);
-            et5 = (EditText)findViewById(R.id.editText5);
-            et6 = (EditText)findViewById(R.id.editText6);
-            et7 = (EditText)findViewById(R.id.editText7);
-            et8 = (EditText)findViewById(R.id.editText8);
-            et9 = (EditText)findViewById(R.id.editText9);
-            et10 = (EditText)findViewById(R.id.editText10);
+
 
             String[] filename = new String[10];
             Creator check = new Creator();
@@ -211,9 +223,36 @@ public class Constructor extends Activity {
             Boolean isGlasses = check.checkForGlasses(phone_number);
             Boolean isStrict = check.checkForStrict(phone_number);
 
+            Random rand = new Random();
+            int type = rand.nextInt(2-0) + 0;
+            switch (type){
+                case 0:
+                    filename[0] = "flag/40.png";
+                    addLayoutToCanvas(filename[0], canvas, p, colors_array[phone_number[0]], Color.WHITE);
+                    filename[2] = "figure/" + phone_number[2] + "01.png";
+                    addLayoutToCanvas(filename[2], canvas, p, colors_array[phone_number[1]], Color.WHITE);
+                    break;
+                case 1:
+                    filename[0] = "flag/10.png";
+                    addLayoutToCanvas(filename[0], canvas, p, colors_array[phone_number[0]], Color.WHITE);
+                    filename[1] = "flag/20.png";
+                    addLayoutToCanvas(filename[1], canvas, p, colors_array[phone_number[1]], Color.WHITE);
+                    filename[2] = "flag/30.png";
+                    addLayoutToCanvas(filename[2], canvas, p, colors_array[phone_number[2]], Color.WHITE);
+                    break;
+                case 2:
+                    filename[2] = "figure/" + phone_number[2] + "01.png";
+                    addLayoutToCanvas(filename[2], canvas, p, colors_array[phone_number[1]], Color.WHITE);
+                    filename[1] = "figure/" + phone_number[2] + "00.png";
+                    addLayoutToCanvas(filename[1], canvas, p, colors_array[phone_number[0]], Color.WHITE);
+                    break;
+                default:
+                    break;
+            }
+
 //_______________________CHARACTER__________________________________________________________________
             filename[3] = phone_number[3] + "XXXXXXX.png";
-            addLayoutToCanvas(filename[3], canvas, p, 0);
+            addLayoutToCanvas(filename[3], canvas, p, 0, 0);
 
 //_______________________FIRST_LAY__________________________________________________________________
             if((phone_number[5] == 6 || phone_number[5] == 7) && isLower == 2
@@ -234,9 +273,9 @@ public class Constructor extends Activity {
 //_______________________GLASSES_OR_LAY_____________________________________________________________
                 if(isGlasses){
                     filename[9] = "glasses/" + phone_number[3] + "XXXXX" + phone_number[9] + phone_number[8] + ".png";              //очки
-                    addLayoutToCanvas(filename[5] + "XXXX.png", canvas, p, 0);
-                    addLayoutToCanvas(filename[7], canvas, p, colors_array[phone_number[6]]);
-                    addLayoutToCanvas(filename[9], canvas, p, 0);
+                    addLayoutToCanvas(filename[5] + "XXXX.png", canvas, p, 0, 0);
+                    addLayoutToCanvas(filename[7], canvas, p, colors_array[phone_number[6]], colors_array[9]);
+                    addLayoutToCanvas(filename[9], canvas, p, 0, 0);
                 } else {
                     if((phone_number[9] == 6 || phone_number[9] == 7) && overlap3rd == 1
                             || phone_number[9] == 6 && galstuk == 1 && phone_number[5] != 4 && phone_number[5] != 2)
@@ -248,9 +287,9 @@ public class Constructor extends Activity {
                     list.add(filename[9]);
                     Collections.sort(list, new MyIntComparable());
                     for(String integer : list){
-                        addLayoutToCanvas(integer + "XXXX.png", canvas, p, 0);
+                        addLayoutToCanvas(integer + "XXXX.png", canvas, p, 0, 0);
                         if(filename[7].contains(String.valueOf(Integer.parseInt(integer) / 10))){
-                            addLayoutToCanvas(filename[7], canvas, p, colors_array[phone_number[6]]);
+                            addLayoutToCanvas(filename[7], canvas, p, colors_array[phone_number[6]], colors_array[9]);
                         }
                     }
                 }
@@ -271,9 +310,9 @@ public class Constructor extends Activity {
                     list.add(filename[7]);
                     Collections.sort(list, new MyIntComparable());
                     for(String integer : list){
-                        addLayoutToCanvas(integer + "XXXX.png", canvas, p, 0);
+                        addLayoutToCanvas(integer + "XXXX.png", canvas, p, 0, 0);
                     }
-                    addLayoutToCanvas(filename[9], canvas, p, 0);
+                    addLayoutToCanvas(filename[9], canvas, p, 0, 0);
                 } else {
                     if((phone_number[9] == 6 || phone_number[9] == 7) && overlap3rd == 1
                             || phone_number[9] == 6 && galstuk == 1 && phone_number[5] != 4 && phone_number[5] != 2)
@@ -286,7 +325,7 @@ public class Constructor extends Activity {
                     list.add(filename[9]);
                     Collections.sort(list, new MyIntComparable());
                     for(String integer : list){
-                        addLayoutToCanvas(integer + "XXXX.png", canvas, p, 0);
+                        addLayoutToCanvas(integer + "XXXX.png", canvas, p, 0, 0);
                     }
                 }
             }
