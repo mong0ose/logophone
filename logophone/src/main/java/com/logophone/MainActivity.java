@@ -18,7 +18,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         System.out.println("Git test!");
 
-        Button bTable, bTest, bVisualizer, bConstructor, bExit;
+        Button bTable, bTest, bTraining, bVisualizer, bConstructor, bExit;
         bVisualizer = (Button)findViewById(R.id.btnLearn);
         bVisualizer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,11 +26,18 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(getBaseContext(), Visualizer.class));
             }
         });
+        bTraining = (Button) findViewById(R.id.btnTraining);
+        bTraining.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getBaseContext(), TrainingPart.class));
+            }
+        });
         bTest = (Button)findViewById(R.id.btnTest);
         bTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(), ContactsTest.class));
+                startActivity(new Intent(getBaseContext(), TestingGame.class));
 //                Intent iPick = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
 //                startActivityForResult(iPick, PICK_CONTACT);
             }

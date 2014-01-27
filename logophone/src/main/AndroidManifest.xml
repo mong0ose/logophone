@@ -31,6 +31,11 @@
             android:hardwareAccelerated="false"
             android:parentActivityName="com.logophone.MainActivity">
         </activity>
+        <activity android:name="com.logophone.TrainingPart"
+            android:screenOrientation="portrait"
+            android:hardwareAccelerated="false"
+            android:parentActivityName="com.logophone.MainActivity">
+        </activity>
         <activity
             android:name="com.logophone.TableLayoutFixed"
             android:screenOrientation="portrait"
@@ -39,6 +44,11 @@
         </activity>
         <activity
             android:name="com.logophone.Constructor"
+            android:screenOrientation="portrait"
+            android:parentActivityName="com.logophone.MainActivity">
+        </activity>
+        <activity
+            android:name="com.logophone.TestingGame"
             android:screenOrientation="portrait"
             android:parentActivityName="com.logophone.MainActivity">
         </activity>

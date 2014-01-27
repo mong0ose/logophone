@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <ViewFlipper
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/testViewFlipper">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/testImage" />
+    </ViewFlipper>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/testLinearLayout"
+        android:gravity="center">
+
+        <EditText
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/testEditText1"
+            android:editable="false"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:focusable="false" />
+
+        <EditText
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/testEditText2"
+            android:editable="false"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:focusable="false" />
+
+        <EditText
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/testEditText3"
+            android:editable="false"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:focusable="false" />
+
+        <EditText
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/testEditText4"
+            android:editable="false"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:focusable="false" />
+
+        <EditText
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/testEditText5"
+            android:editable="false"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:focusable="false" />
+
+        <EditText
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/testEditText6"
+            android:editable="false"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:focusable="false" />
+
+        <EditText
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/testEditText7"
+            android:editable="false"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:focusable="false" />
+
+        <EditText
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/testEditText8"
+            android:editable="false"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:focusable="false" />
+
+        <EditText
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/testEditText9"
+            android:editable="false"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:focusable="false" />
+
+        <EditText
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/testEditText10"
+            android:editable="false"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:focusable="false" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Check"
+        android:id="@+id/btnChecktest"
+        android:layout_alignBottom="@+id/testViewFlipper"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentStart="false" />
+</RelativeLayout>
