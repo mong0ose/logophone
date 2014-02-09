@@ -45,6 +45,7 @@ public class Visualizer extends Activity{
     private int TypeSize;
     private float lastX;
     private ProgressDialog mProgressDialog;
+    private EditText et1, et2, et3, et4, et5, et6, et7, et8, et9, et10;
     private int[] colors_array = {
             Color.rgb(245, 245, 245),   //WHITE
             Color.RED,
@@ -63,6 +64,16 @@ public class Visualizer extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.logo_visualizer);
         TypeSize = 1;
+        et1 = (EditText)findViewById(R.id.visEditText1);
+        et2 = (EditText)findViewById(R.id.visEditText2);
+        et3 = (EditText)findViewById(R.id.visEditText3);
+        et4 = (EditText)findViewById(R.id.visEditText4);
+        et5 = (EditText)findViewById(R.id.visEditText5);
+        et6 = (EditText)findViewById(R.id.visEditText6);
+        et7 = (EditText)findViewById(R.id.visEditText7);
+        et8 = (EditText)findViewById(R.id.visEditText8);
+        et9 = (EditText)findViewById(R.id.visEditText9);
+        et10 = (EditText)findViewById(R.id.visEditText10);
         rButton = (RadioButton) findViewById(R.id.radioButton);
         rButton.setChecked(true);
         viewFlipper = (ViewFlipper) findViewById(R.id.visViewFlipper);
@@ -132,34 +143,42 @@ public class Visualizer extends Activity{
 
     private class ImageBuilder extends AsyncTask<Integer, Integer, Boolean>{
         private Bitmap bmapOverlay;
-        private EditText et1, et2, et3, et4, et5, et6, et7, et8, et9, et10;
         private Integer phone_number[] = new Integer[10];
         private Integer charge_number[] = new Integer[10];
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            et1.setText("");
+            et1.setFocusable(false);
+            et2.setText("");
+            et2.setFocusable(false);
+            et3.setText("");
+            et3.setFocusable(false);
+            et4.setText("");
+            et4.setFocusable(false);
+            et5.setText("");
+            et5.setFocusable(false);
+            et6.setText("");
+            et6.setFocusable(false);
+            et7.setText("");
+            et7.setFocusable(false);
+            et8.setText("");
+            et8.setFocusable(false);
+            et9.setText("");
+            et9.setFocusable(false);
+            et10.setText("");
+            et10.setFocusable(false);
             mProgressDialog = new ProgressDialog(mContext);
             mProgressDialog.setCancelable(false);
             mProgressDialog.setMessage("Создание логотипа...");
             mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             mProgressDialog.show();
-//            int selectId = group.getCheckedRadioButtonId();
-//            rButton = (RadioButton) findViewById(selectId);
         }
 
         @Override
         protected Boolean doInBackground(Integer... integers) {
-            et1 = (EditText)findViewById(R.id.visEditText1);
-            et2 = (EditText)findViewById(R.id.visEditText2);
-            et3 = (EditText)findViewById(R.id.visEditText3);
-            et4 = (EditText)findViewById(R.id.visEditText4);
-            et5 = (EditText)findViewById(R.id.visEditText5);
-            et6 = (EditText)findViewById(R.id.visEditText6);
-            et7 = (EditText)findViewById(R.id.visEditText7);
-            et8 = (EditText)findViewById(R.id.visEditText8);
-            et9 = (EditText)findViewById(R.id.visEditText9);
-            et10 = (EditText)findViewById(R.id.visEditText10);
+
 
             Display disp = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
             Point p = new Point();
@@ -467,6 +486,16 @@ public class Visualizer extends Activity{
             mProgressDialog.dismiss();
             if(aBoolean){
                 if(phone_number.length != 0){
+                    et1.setFocusableInTouchMode((charge_number[0] != null) ? true : false);
+                    et2.setFocusableInTouchMode((charge_number[1] != null) ? true : false);
+                    et3.setFocusableInTouchMode((charge_number[2] != null) ? true : false);
+                    et4.setFocusableInTouchMode((charge_number[3] != null) ? true : false);
+                    et5.setFocusableInTouchMode((charge_number[4] != null) ? true : false);
+                    et6.setFocusableInTouchMode((charge_number[5] != null) ? true : false);
+                    et7.setFocusableInTouchMode((charge_number[6] != null) ? true : false);
+                    et8.setFocusableInTouchMode((charge_number[7] != null) ? true : false);
+                    et9.setFocusableInTouchMode((charge_number[8] != null) ? true : false);
+                    et10.setFocusableInTouchMode((charge_number[9] != null) ? true : false);
                     et1.setText((charge_number[0] != null) ? String.valueOf(phone_number[0]) : "");
                     et2.setText((charge_number[1] != null) ? String.valueOf(phone_number[1]) : "");
                     et3.setText((charge_number[2] != null) ? String.valueOf(phone_number[2]) : "");

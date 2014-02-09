@@ -1,6 +1,7 @@
 package com.logophone;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,15 +13,16 @@ import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Display;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
@@ -32,17 +34,26 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 /**
  * Created by mongOose on 27.01.14.
  */
 public class TestingGame extends Activity {
+    private String time[];
     private Bitmap bMap;
     private EditText et1, et2, et3, et4, et5, et6, et7, et8, et9, et10;
     private ViewFlipper viewFlipper;
     private Context mContext = this;
     private ImageView image;
-    private int TypeSize;
+    private int GbTypeSize;
+    private int TypeSizeIteration;
+    private int counter;
+    private Double Timer;
+
+    private static final int D_TIME_CHOOSER = 1;
+
     private Integer charge_number[] = new Integer[10];
     private ProgressDialog mProgressDialog;
     private int[] colors_array = {
@@ -62,18 +73,177 @@ public class TestingGame extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.logo_testgame);
+        time = new String[] {"5", "4", "3", "2", "1", "0.9", "0.8", "0.7", "0.6", "0.5", "0.4", "0.3", "0.2"};
+        DialogManager(D_TIME_CHOOSER);
         et1 = (EditText)findViewById(R.id.testEditText1);
+        et1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                if(et1.getText().toString().length() > 0 && et2.isFocusable())
+                    et2.requestFocus();
+                else
+                    et4.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         et2 = (EditText)findViewById(R.id.testEditText2);
+        et2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                if(et2.getText().toString().length() > 0)
+                    et3.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         et3 = (EditText)findViewById(R.id.testEditText3);
+        et3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                if(et3.getText().toString().length() > 0)
+                    et4.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         et4 = (EditText)findViewById(R.id.testEditText4);
+        et4.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                if(et4.getText().toString().length() > 0)
+                    et5.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         et5 = (EditText)findViewById(R.id.testEditText5);
+        et5.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                if(et5.getText().toString().length() > 0)
+                    et6.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         et6 = (EditText)findViewById(R.id.testEditText6);
+        et6.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                if(et6.getText().toString().length() > 0)
+                    et7.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         et7 = (EditText)findViewById(R.id.testEditText7);
+        et7.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                if(et7.getText().toString().length() > 0)
+                    et8.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         et8 = (EditText)findViewById(R.id.testEditText8);
+        et8.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                if(et8.getText().toString().length() > 0)
+                    et9.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         et9 = (EditText)findViewById(R.id.testEditText9);
+        et9.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                if(et9.getText().toString().length() > 0)
+                    et10.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         et10 = (EditText)findViewById(R.id.testEditText10);
 
-        TypeSize = 1;
+        GbTypeSize = 1;
+        TypeSizeIteration = 0;
+        counter = 0;
         viewFlipper = (ViewFlipper) findViewById(R.id.testViewFlipper);
 
         image = (ImageView)findViewById(R.id.testImage);
@@ -82,6 +252,7 @@ public class TestingGame extends Activity {
             @Override
             public void onClick(View view) {
                 Integer tel[] = new Integer[10];
+                int showThis = 1;
                 tel[0] = et1.getText().length() != 0 ? Integer.parseInt(String.valueOf(et1.getText().toString())) : null;
                 tel[1] = et2.getText().length() != 0 ? Integer.parseInt(String.valueOf(et2.getText().toString())) : null;
                 tel[2] = et3.getText().length() != 0 ? Integer.parseInt(String.valueOf(et3.getText().toString())) : null;
@@ -93,21 +264,34 @@ public class TestingGame extends Activity {
                 tel[8] = et9.getText().length() != 0 ? Integer.parseInt(String.valueOf(et9.getText().toString())) : null;
                 tel[9] = et10.getText().length() != 0 ? Integer.parseInt(String.valueOf(et10.getText().toString())) : null;
                 if(Arrays.equals(tel, charge_number)){
-                    TypeSize++;
-                    Toast.makeText(mContext, "CORRECT!", Toast.LENGTH_SHORT).show();
+                    if(GbTypeSize >= 10){
+                        TypeSizeIteration = GbTypeSize / 10;
+                        if(TypeSizeIteration > counter){
+                            counter++;
+                            showThis = 10;
+                        } else{
+                            GbTypeSize++;
+                            counter = 0;
+                            showThis = GbTypeSize % 10;
+                        }
+                    } else{
+                        GbTypeSize++;
+                        showThis = GbTypeSize;
+                    }
+                    Toast.makeText(mContext, "CORRECT! NEXT LEVEL ->", Toast.LENGTH_SHORT).show();
                 } else{
-                    TypeSize = 1;
-                    Toast.makeText(mContext, "WRONG NUMBER!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "WRONG NUMBER! SCORE: " + GbTypeSize, Toast.LENGTH_SHORT).show();
+                    GbTypeSize = 1;
+                    TypeSizeIteration = 0;
                 }
-                new ImageBuilder().execute();
+                new ImageBuilder().execute(showThis);
             }
         });
-
-        new ImageBuilder().execute();
     }
 
     private class ImageBuilder extends AsyncTask<Integer, Integer, Boolean> {
         private Bitmap bmapOverlay;
+        private int TypeSize;
         private Integer phone_number[] = new Integer[10];
 
         @Override
@@ -143,6 +327,7 @@ public class TestingGame extends Activity {
 
         @Override
         protected Boolean doInBackground(Integer... integers) {
+            TypeSize = integers[0];
             Display disp = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
             Point p = new Point();
             if(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR2){
@@ -154,7 +339,8 @@ public class TestingGame extends Activity {
             Canvas canvas = new Canvas(bmapOverlay);
             Random rand = new Random();
             for(int i = 0; i < 10; i++){
-                phone_number[i] = rand.nextInt(9-0) + 0;
+//                phone_number[i] = rand.nextInt(9-0) + 0;
+                phone_number[i] = 0;
             }
             Creator check = new Creator();
             Boolean isGlasses = check.checkForGlasses(phone_number);
@@ -461,6 +647,7 @@ public class TestingGame extends Activity {
                     et10.setFocusableInTouchMode((charge_number[9] != null) ? true : false);
 
                     image.setImageBitmap(bmapOverlay);
+                    new CloseImage().execute();
                     viewFlipper.showPrevious();
                 }
             }
@@ -473,6 +660,27 @@ public class TestingGame extends Activity {
                     return 100;
                 return Integer.parseInt(o1) - Integer.parseInt(o2);
             }
+        }
+    }
+
+    private class CloseImage extends AsyncTask<Integer, Integer, Boolean>{
+
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            image.setVisibility(View.GONE);
+        }
+
+        @Override
+        protected Boolean doInBackground(Integer... integers) {
+            long millis = (long) (Timer * 1000);
+            try {
+                Thread.sleep(millis);
+            } catch (InterruptedException e) {
+                //do nothing
+            }
+            return true;
         }
     }
 
@@ -498,6 +706,43 @@ public class TestingGame extends Activity {
             }
         }
         return rbMap;
+    }
+
+    private Dialog DialogManager(int DialogID){
+        final Dialog dialog = new Dialog(mContext);
+        switch (DialogID){
+            case D_TIME_CHOOSER:
+                dialog.setContentView(R.layout.dialog_time_chooser);
+                dialog.setTitle("Set Timer:");
+                dialog.setCancelable(false);
+                final Spinner dSpinner = (Spinner) dialog.findViewById(R.id.spinseconds);
+                Button bdExit = (Button) dialog.findViewById(R.id.btnDialogExit);
+                bdExit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+                Button bdSelect = (Button) dialog.findViewById(R.id.btnDialogSelect);
+                bdSelect.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Timer = Double.parseDouble(String.valueOf(dSpinner.getSelectedItem().toString()));
+                        new ImageBuilder().execute(GbTypeSize);
+                        dialog.dismiss();
+                    }
+                });
+                ArrayAdapter<String> dSpinnerArrayAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, time);
+                dSpinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                dSpinner.setAdapter(dSpinnerArrayAdapter);
+
+                dialog.show();
+                break;
+            default:
+                break;
+        }
+        return null;
     }
 
     private void addLayoutToCanvas(String filename, Canvas canvas, Point p, int color, int bColor){
