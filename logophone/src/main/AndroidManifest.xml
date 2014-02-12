@@ -28,12 +28,12 @@
         </activity>
         <activity android:name="com.logophone.Visualizer"
             android:screenOrientation="portrait"
-            android:hardwareAccelerated="false"
+            android:hardwareAccelerated="true"
             android:parentActivityName="com.logophone.MainActivity">
         </activity>
         <activity android:name="com.logophone.TrainingPart"
             android:screenOrientation="portrait"
-            android:hardwareAccelerated="false"
+            android:hardwareAccelerated="true"
             android:parentActivityName="com.logophone.MainActivity">
         </activity>
         <activity
@@ -45,11 +45,13 @@
         <activity
             android:name="com.logophone.Constructor"
             android:screenOrientation="portrait"
+            android:hardwareAccelerated="true"
             android:parentActivityName="com.logophone.MainActivity">
         </activity>
         <activity
             android:name="com.logophone.TestingGame"
             android:screenOrientation="portrait"
+            android:hardwareAccelerated="true"
             android:parentActivityName="com.logophone.MainActivity">
         </activity>
         <activity

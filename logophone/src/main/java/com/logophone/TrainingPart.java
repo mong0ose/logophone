@@ -18,6 +18,7 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -290,33 +291,25 @@ public class TrainingPart extends Activity {
                 // if left to right swipe on screen
                 if (lastX < currentX)
                 {
-                    // If no more View/Child to flip
-                    if (viewFlipper.getDisplayedChild() == 0)
-                        break;
-
                     // set the required Animation type to ViewFlipper
                     // The Next screen will come in form Left and current Screen will go OUT from Right
-                    viewFlipper.setInAnimation(this, R.anim.in_from_left);
-                    viewFlipper.setOutAnimation(this, R.anim.out_to_right);
+                    viewFlipper.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.out_to_right));
+                    viewFlipper.setInAnimation(AnimationUtils.loadAnimation(mContext, R.anim.in_from_left));
+//                    viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(mContext, R.anim.out_to_right));
                     // Show the next Screen
-                    image.setImageBitmap(null);
-                    new ImageBuilder().execute(5);
-//                    viewFlipper.showNext();
+                    new ImageBuilder().execute();
                 }
 
                 // if right to left swipe on screen
                 if (lastX > currentX)
                 {
-                    if (viewFlipper.getDisplayedChild() == 1)
-                        break;
                     // set the required Animation type to ViewFlipper
                     // The Next screen will come in form Right and current Screen will go OUT from Left
-                    viewFlipper.setInAnimation(this, R.anim.in_from_right);
-                    viewFlipper.setOutAnimation(this, R.anim.out_to_left);
+                    viewFlipper.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.out_to_left));
+                    viewFlipper.setInAnimation(AnimationUtils.loadAnimation(mContext, R.anim.in_from_right));
+//                    viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(mContext, R.anim.out_to_left));
                     // Show The Previous Screen
-                    image.setImageBitmap(null);
-                    new ImageBuilder().execute(5);
-//                    viewFlipper.showPrevious();
+                    new ImageBuilder().execute();
                 }
                 break;
             }
@@ -680,7 +673,7 @@ public class TrainingPart extends Activity {
                     et10.setFocusableInTouchMode((charge_number[9] != null) ? true : false);
 
                     image.setImageBitmap(bmapOverlay);
-                    viewFlipper.showPrevious();
+                    viewFlipper.showNext();
                 }
             }
         }
