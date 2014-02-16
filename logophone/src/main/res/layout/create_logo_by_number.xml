@@ -6,7 +6,7 @@
     <ViewFlipper
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/ConstructorViewFlipper"
+        android:id="@+id/ConstructorViewFlipperBackground"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="false"
         android:layout_alignParentTop="false">
@@ -16,15 +16,12 @@
             android:layout_height="match_parent"
             android:id="@+id/imgCreateBackground"
             />
-    </ViewFlipper>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/imgCreateLogo"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentTop="false" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imgCreateBackground2" />
+    </ViewFlipper>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -42,7 +39,8 @@
             android:maxLength="1"
             android:textAlignment="center"
             android:gravity="center"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:phoneNumber="true" />
 
         <EditText
             android:layout_width="35dp"
@@ -53,7 +51,8 @@
             android:maxLength="1"
             android:textAlignment="center"
             android:gravity="center"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:phoneNumber="true" />
 
         <EditText
             android:layout_width="35dp"
@@ -64,7 +63,8 @@
             android:maxLength="1"
             android:textAlignment="center"
             android:gravity="center"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:phoneNumber="true" />
 
         <EditText
             android:layout_width="35dp"
@@ -76,7 +76,8 @@
             android:textAlignment="center"
             android:layout_marginLeft="10dp"
             android:gravity="center"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:phoneNumber="true" />
 
         <EditText
             android:layout_width="35dp"
@@ -87,7 +88,8 @@
             android:maxLength="1"
             android:textAlignment="center"
             android:gravity="center"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:phoneNumber="true" />
 
         <EditText
             android:layout_width="35dp"
@@ -98,7 +100,8 @@
             android:maxLength="1"
             android:textAlignment="center"
             android:gravity="center"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:phoneNumber="true" />
 
         <EditText
             android:layout_width="35dp"
@@ -110,7 +113,8 @@
             android:textAlignment="center"
             android:gravity="center"
             android:layout_marginLeft="10dp"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:phoneNumber="true" />
 
         <EditText
             android:layout_width="35dp"
@@ -121,7 +125,8 @@
             android:maxLength="1"
             android:textAlignment="center"
             android:gravity="center"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:phoneNumber="true" />
 
         <EditText
             android:layout_width="35dp"
@@ -132,7 +137,8 @@
             android:maxLength="1"
             android:textAlignment="center"
             android:gravity="center"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:phoneNumber="true" />
 
         <EditText
             android:layout_width="35dp"
@@ -143,8 +149,27 @@
             android:maxLength="1"
             android:textAlignment="center"
             android:gravity="center"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:phoneNumber="true" />
     </LinearLayout>
+
+    <ViewFlipper
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/ConstructorViewFlipperMain"
+        android:layout_above="@+id/llayoutBtns"
+        android:layout_below="@+id/linearLayout" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imgCreateLogo" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgCreateLogo2" />
+    </ViewFlipper>
 
     <LinearLayout
         android:id="@+id/llayoutBtns"
@@ -155,19 +180,33 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true">
 
-        <Button
+        <ImageButton
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/phone"
-            android:id="@+id/btnConstContacts"
-            android:layout_weight="1" />
+            android:layout_height="fill_parent"
+            android:id="@+id/imgBtnContacts"
+            android:layout_weight="1"
+            android:src="@android:drawable/ic_input_get" />
 
-        <Button
+        <ImageButton
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/gen"
-            android:id="@+id/btnConstGen"
-            android:layout_weight="1" />
+            android:layout_height="fill_parent"
+            android:id="@+id/imgBtnShare"
+            android:layout_weight="1"
+            android:src="@android:drawable/ic_menu_share" />
+
+        <ImageButton
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/imgBtnSave"
+            android:layout_weight="1"
+            android:src="@android:drawable/ic_menu_save" />
+
+        <ImageButton
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/imgBtnCreate"
+            android:layout_weight="1"
+            android:src="@android:drawable/btn_star_big_on" />
     </LinearLayout>
 
 </RelativeLayout>

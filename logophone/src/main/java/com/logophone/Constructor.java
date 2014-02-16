@@ -1,7 +1,6 @@
 package com.logophone;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -15,51 +14,43 @@ import android.graphics.LightingColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Contacts;
+import android.os.Environment;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
  * Created by mongOose on 11.11.13.
  */
 public class Constructor extends Activity {
-    private ImageView image, imgBackground;
+    private ImageView image, image2, imgBackground, imgBackground2;
     private EditText et1, et2, et3, et4, et5, et6, et7, et8, et9, et10;
     private static final int PICK_CONTACT = 3245;
-    private ProgressDialog mProgressDialog, mbProgressDialog;
+    private ProgressDialog mProgressDialog, SaveProgressDialog;
     private Integer phone_number[] = {};
-    private Button bGet, bGen;
-    private ViewFlipper vFlip;
-    private float lastX;
-    private int background_round;
+    private ViewFlipper vFlip, vFlipMain;
+    private float lastX, lastY;
+    private int background_round, showtype, currentShowType;
     private Context mContext = this;
     private Point p = new Point();
     private int[] colors_array = {
@@ -77,10 +68,13 @@ public class Constructor extends Activity {
 
     private Bitmap bmapOverlay, bmapBackground;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_logo_by_number);
+        ImageButton ibGenerate, ibContacts, ibShare, ibSave;
 
         Display disp = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR2){
@@ -287,20 +281,48 @@ public class Constructor extends Activity {
             }
         });
 
-        vFlip = (ViewFlipper) findViewById(R.id.ConstructorViewFlipper);
+        vFlip = (ViewFlipper) findViewById(R.id.ConstructorViewFlipperBackground);
+        vFlip.setOutAnimation(mContext, R.anim.out_to_left);
+        vFlip.setInAnimation(mContext, R.anim.in_from_right);
+        vFlipMain = (ViewFlipper) findViewById(R.id.ConstructorViewFlipperMain);
+        vFlipMain.setOutAnimation(mContext, R.anim.out_to_left);
+        vFlipMain.setInAnimation(mContext, R.anim.in_from_right);
         image = (ImageView)findViewById(R.id.imgCreateLogo);
+        image2 = (ImageView)findViewById(R.id.imgCreateLogo2);
         imgBackground = (ImageView)findViewById(R.id.imgCreateBackground);
+        imgBackground2 = (ImageView)findViewById(R.id.imgCreateBackground2);
 
-        bGet = (Button)findViewById(R.id.btnConstContacts);
-        bGet.setOnClickListener(new View.OnClickListener() {
+        Toast.makeText(mContext, "W: " + p.x + "\nH: " + p.y, Toast.LENGTH_SHORT).show();
+
+        ibSave = (ImageButton)findViewById(R.id.imgBtnSave);
+        ibSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new SaveImage().execute();
+            }
+        });
+
+        ibShare = (ImageButton)findViewById(R.id.imgBtnShare);
+        ibShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentShare = new Intent(Intent.ACTION_SEND);
+                intentShare.setType("text/plain");
+                intentShare.putExtra(android.content.Intent.EXTRA_TEXT, "Img");
+                startActivity(Intent.createChooser(intentShare, "Отправить логотип:"));
+            }
+        });
+
+        ibContacts = (ImageButton)findViewById(R.id.imgBtnContacts);
+        ibContacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent iPick = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
                 startActivityForResult(iPick, PICK_CONTACT);
             }
         });
-        bGen = (Button) findViewById(R.id.btnConstGen);
-        bGen.setOnClickListener(new View.OnClickListener() {
+        ibGenerate = (ImageButton)findViewById(R.id.imgBtnCreate);
+        ibGenerate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String tel = et1.getText() + "" + et2.getText() + "" + et3.getText() + "" + et4.getText() + "" + et5.getText() + "" +
@@ -308,6 +330,7 @@ public class Constructor extends Activity {
                 phone_number = convert(tel);
                 Random rand = new Random();
                 int type = rand.nextInt(3-0) + 0;
+                currentShowType = 0;
                 new CreateImageFromContact().execute();
                 new CreateImageBackground().execute(type);
             }
@@ -327,6 +350,7 @@ public class Constructor extends Activity {
                         phone_number = convert(phone.replaceAll("\\D+", ""));
                         Random rand = new Random();
                         int type = rand.nextInt(3-0) + 0;
+                        currentShowType = 0;
                         new CreateImageFromContact().execute();
                         new CreateImageBackground().execute(type);
                     }
@@ -346,11 +370,6 @@ public class Constructor extends Activity {
         for (int i = 0; i < replace.length; i++)
             number[i] = Integer.parseInt(String.valueOf(replace[i]));
 
-        mProgressDialog = new ProgressDialog(mContext);
-        mProgressDialog.setCancelable(false);
-        mProgressDialog.setMessage("Creating logo...");
-        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        mProgressDialog.show();
         return number;
     }
 
@@ -402,6 +421,7 @@ public class Constructor extends Activity {
             case MotionEvent.ACTION_DOWN:
             {
                 lastX = touchevent.getX();
+                lastY = touchevent.getY();
                 break;
             }
             case MotionEvent.ACTION_UP:
@@ -410,31 +430,90 @@ public class Constructor extends Activity {
 
                 // if left to right swipe on screen
                 if (phone_number != null){
-                    if (lastX < currentX)
-                    {
-                        // set the required Animation type to ViewFlipper
-                        // The Next screen will come in form Left and current Screen will go OUT from Right
-                        vFlip.setOutAnimation(mContext, R.anim.out_to_right);
-                        vFlip.setInAnimation(mContext, R.anim.in_from_left);
-                        // Show the next Screen
-    //                    image.setImageBitmap(null);
-    //                    viewFlipper.showNext();
-                        new CreateImageBackground().execute(background_round > 0 ? background_round-1 : 2);
-                    } else if (lastX > currentX) {
-                        // set the required Animation type to ViewFlipper
-                        // The Next screen will come in form Right and current Screen will go OUT from Left
-                        vFlip.setOutAnimation(mContext, R.anim.out_to_left);
-                        vFlip.setInAnimation(mContext, R.anim.in_from_right);
-                        // Show The Previous Screen
-    //                    image.setImageBitmap(null);
-    //                    viewFlipper.showPrevious();
-                        new CreateImageBackground().execute(background_round < 2 ? background_round+1 : 0);
+                    if(lastY < p.y / 2)  {
+                        if (lastX < currentX)
+                        {
+                            // set the required Animation type to ViewFlipper
+                            // The Next screen will come in form Left and current Screen will go OUT from Right
+                            vFlip.setOutAnimation(mContext, R.anim.out_to_right);
+                            vFlip.setInAnimation(mContext, R.anim.in_from_left);
+                            // Show the next Screen
+                            new CreateImageBackground().execute(background_round > 0 ? background_round-1 : 2);
+                        } else if (lastX > currentX) {
+                            // set the required Animation type to ViewFlipper
+                            // The Next screen will come in form Right and current Screen will go OUT from Left
+                            vFlip.setOutAnimation(mContext, R.anim.out_to_left);
+                            vFlip.setInAnimation(mContext, R.anim.in_from_right);
+                            // Show The Previous Screen
+                            new CreateImageBackground().execute(background_round < 2 ? background_round+1 : 0);
+                        }
+                    } else {
+                        if (lastX < currentX)
+                        {
+                            // set the required Animation type to ViewFlipper
+                            // The Next screen will come in form Left and current Screen will go OUT from Right
+                            vFlipMain.setOutAnimation(mContext, R.anim.out_to_right);
+                            vFlipMain.setInAnimation(mContext, R.anim.in_from_left);
+                            // Show the next Screen
+                            new CreateImageFromContact().execute(currentShowType > 1 ? currentShowType-1 : showtype);
+                        } else if (lastX > currentX) {
+                            // set the required Animation type to ViewFlipper
+                            // The Next screen will come in form Right and current Screen will go OUT from Left
+                            vFlipMain.setOutAnimation(mContext, R.anim.out_to_left);
+                            vFlipMain.setInAnimation(mContext, R.anim.in_from_right);
+                            // Show The Previous Screen
+                            new CreateImageFromContact().execute(currentShowType < showtype ? currentShowType+1 : 1);
+                        }
                     }
                 }
                 break;
             }
         }
         return false;
+    }
+
+    private class SaveImage extends AsyncTask<Integer, Integer, Boolean>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            SaveProgressDialog = new ProgressDialog(mContext);
+            SaveProgressDialog.setCancelable(false);
+            SaveProgressDialog.setMessage("Saving image to card...");
+            SaveProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            SaveProgressDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            SaveProgressDialog.dismiss();
+            if(aBoolean)
+                Toast.makeText(mContext, "Image was saved!", Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(mContext, "Cannot save image!", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected Boolean doInBackground(Integer... integers) {
+            boolean result = false;
+            String filename = String.valueOf(System.currentTimeMillis()) + ".jpg";
+            File sd = Environment.getExternalStorageDirectory();
+            File dest = new File(sd, filename);
+            Bitmap bmpToSave = Bitmap.createBitmap(p.x, p.y, Bitmap.Config.ARGB_8888);
+            Canvas saveCanvas = new Canvas(bmpToSave);
+            saveCanvas.drawBitmap(bmapBackground, new Matrix(), null);
+            saveCanvas.drawBitmap(bmapOverlay, new Matrix(), null);
+            try{
+                FileOutputStream out = new FileOutputStream(dest);
+                bmpToSave.compress(Bitmap.CompressFormat.PNG, 90, out);
+                out.flush();
+                out.close();
+                result = true;
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+            return result;
+        }
     }
 
     private class CreateImageBackground extends AsyncTask<Integer, Integer, Boolean>{
@@ -476,13 +555,26 @@ public class Constructor extends Activity {
         protected void onPostExecute(Boolean aBoolean) {
             super.onPostExecute(aBoolean);
             if(aBoolean){
-                imgBackground.setImageBitmap(bmapBackground);
+                if(!imgBackground.isShown())
+                    imgBackground.setImageBitmap(bmapBackground);
+                else if(!imgBackground2.isShown())
+                    imgBackground2.setImageBitmap(bmapBackground);
                 vFlip.showNext();
             }
         }
     }
 
     private class CreateImageFromContact extends AsyncTask<Integer, Integer, Boolean>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressDialog = new ProgressDialog(mContext);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.setMessage("Creating logo...");
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            mProgressDialog.show();
+        }
 
         @Override
         protected void onPostExecute(Boolean doCreate) {
@@ -499,7 +591,7 @@ public class Constructor extends Activity {
                     et3.setText(String.valueOf(phone_number[2]));
                     et3.setBackgroundColor(Color.LTGRAY);
                     et3.setFocusable(false);
-                    et4.setText(String.valueOf(phone_number[3]));
+                    et4.setText(String.valueOf(phone_number[3] == 10 ? 0 :phone_number[3]));
                     et4.setBackgroundColor(Color.LTGRAY);
                     et4.setFocusable(false);
                     et5.setText(String.valueOf(phone_number[4]));
@@ -521,12 +613,34 @@ public class Constructor extends Activity {
                     et10.setBackgroundColor(Color.LTGRAY);
                     et10.setFocusable(false);
 
-                    image.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    image.setImageBitmap(bmapOverlay);
+                    if(!image.isShown()){
+//                        Toast.makeText(mContext, "Img 1 shown: " + showtype, Toast.LENGTH_LONG).show();
+                        image.setScaleY((float) 0.95);
+                        image.setScaleX((float) 0.95);
+                        image.setImageBitmap(bmapOverlay);
+                    } else if(!image2.isShown()){
+//                        Toast.makeText(mContext, "Img 2 shown: " + showtype, Toast.LENGTH_LONG).show();
+                        image2.setScaleY((float) 0.95);
+                        image2.setScaleX((float) 0.95);
+                        image2.setImageBitmap(bmapOverlay);
+                    }
+                    vFlipMain.showNext();
+
                 }
             } else {
                 Toast.makeText(mContext, "Bad phone number!", Toast.LENGTH_LONG).show();
             }
+        }
+
+        private int indexOfIntArray(int[] array, int key) {
+            int returnvalue = -1;
+            for (int i = 0; i < array.length; i++) {
+                if (key == array[i]) {
+                    returnvalue = i;
+                    break;
+                }
+            }
+            return returnvalue;
         }
 
         @Override
@@ -536,132 +650,73 @@ public class Constructor extends Activity {
             Canvas canvas = new Canvas(bmapOverlay);
 
             String[] filename = new String[10];
-            Creator check = new Creator();
-            int overlap = check.chechForOverlap(phone_number);
-            int overlap3rd = check.checkForOverlap_3rd(phone_number);
-            int galstuk = check.checkGalstuk(phone_number);
-            int isLower = check.checkLower(phone_number);
-            Boolean isGlasses = check.checkForGlasses(phone_number);
-            Boolean isStrict = check.checkForStrict(phone_number);
+            Creator check = new Creator(phone_number);
 
-//            Random rand = new Random();
-//            int type = rand.nextInt(2-0) + 0;
-//            switch (type){
-//                case 0:
-//                    filename[0] = "flag/40.png";
-//                    addLayoutToCanvas(filename[0], canvas, colors_array[phone_number[0]], Color.WHITE, true);
-//                    filename[2] = "figure/" + phone_number[2] + "01.png";
-//                    addLayoutToCanvas(filename[2], canvas, colors_array[phone_number[1]], Color.WHITE, true);
-//                    break;
-//                case 1:
-//                    filename[0] = "flag/10.png";
-//                    addLayoutToCanvas(filename[0], canvas, colors_array[phone_number[0]], Color.WHITE, true);
-//                    filename[1] = "flag/20.png";
-//                    addLayoutToCanvas(filename[1], canvas, colors_array[phone_number[1]], Color.WHITE, true);
-//                    filename[2] = "flag/30.png";
-//                    addLayoutToCanvas(filename[2], canvas, colors_array[phone_number[2]], Color.WHITE, true);
-//                    break;
-//                case 2:
-//                    filename[2] = "figure/" + phone_number[2] + "01.png";
-//                    addLayoutToCanvas(filename[2], canvas, colors_array[phone_number[1]], Color.WHITE, true);
-//                    filename[1] = "figure/" + phone_number[2] + "00.png";
-//                    addLayoutToCanvas(filename[1], canvas, colors_array[phone_number[0]], Color.WHITE, true);
-//                    break;
-//                default:
-//                    break;
-//            }
+            int[] aZipperType = check.GetZipperType();
+
+            if(ints.length == 0) {
+                showtype = 0;
+                if(check.newCheckNoStrict()) showtype = 3;
+                else if(check.newCheckPleasure()) showtype = 2;
+                else if(check.newCheckStrict()) showtype = 1;
+                currentShowType = showtype;
+            } else {
+                currentShowType = ints[0];
+            }
 
 //_______________________CHARACTER__________________________________________________________________
-            filename[3] = phone_number[3] + "XXXXXXX.png";
+            filename[3] = (phone_number[3] == 10 ? 0 : phone_number[3]) + "XXXXXXX.png";
             addLayoutToCanvas(filename[3], canvas, 0, 0, false);
 
-//_______________________FIRST_LAY__________________________________________________________________
-            if((phone_number[5] == 6 || phone_number[5] == 7) && isLower == 2
-                    || phone_number[5] == 6 && galstuk == 1 && phone_number[5] != 4 && phone_number[5] != 2)
-                filename[5] = phone_number[3] + "" + phone_number[5] + "1" + phone_number[4];          //застегнут
-            else
-                filename[5] = phone_number[3] + "" + phone_number[5] + "0" + phone_number[4];          //рпстегнут
-
-//_______________________SECOND_LAY_________________________________________________________________
-            if(isStrict){
-                // с узорами
-                if((phone_number[5] == 6 || phone_number[5] == 7) && isLower == 2
-                        || phone_number[5] == 6 && galstuk == 1 && phone_number[5] != 4 && phone_number[5] != 2)
-                    filename[7] = "uzors/" + phone_number[3] + "" + phone_number[5] + "1X" + phone_number[7] + "0XX.png"; //одежда
-                else
-                    filename[7] = "uzors/" + phone_number[3] + "" + phone_number[5] + "0X" + phone_number[7] + "0XX.png"; //одежда
-
-//_______________________GLASSES_OR_LAY_____________________________________________________________
-                if(isGlasses){
-                    filename[9] = "glasses/" + phone_number[3] + "XXXXX" + phone_number[9] + phone_number[8] + ".png";              //очки
-                    addLayoutToCanvas(filename[5] + "XXXX.png", canvas, 0, 0, false);
-                    addLayoutToCanvas(filename[7], canvas, colors_array[phone_number[6]], colors_array[9], true);
-                    addLayoutToCanvas(filename[9], canvas, 0, 0, false);
-                } else {
-                    if((phone_number[9] == 6 || phone_number[9] == 7) && overlap3rd == 1
-                            || phone_number[9] == 6 && galstuk == 1 && phone_number[5] != 4 && phone_number[5] != 2)
-                        filename[9] = phone_number[3] + "" + phone_number[9] + "1" + phone_number[8];  //одежда
-                    else
-                        filename[9] = phone_number[3] + "" + phone_number[9] + "0" + phone_number[8];  //одежда
-                    List<String> list = new ArrayList<String>();
-                    list.add(filename[5]);
-                    list.add(filename[9]);
-                    Collections.sort(list, new MyIntComparable());
-                    for(String integer : list){
-                        addLayoutToCanvas(integer + "XXXX.png", canvas, 0, 0, false);
-                        if(filename[7].contains(String.valueOf(Integer.parseInt(integer) / 10))){
-                            addLayoutToCanvas(filename[7], canvas, colors_array[phone_number[6]], colors_array[9], true);
+            int[] aSorted = check.SortClothes(aZipperType);
+            System.out.println(Arrays.toString(aSorted) + " == " + Arrays.toString(aZipperType));
+            switch (currentShowType){
+                case 3:
+                    for( int file : aSorted ){
+//                        System.out.println(String.valueOf(file).length() > 4 ? String.valueOf(file).substring(1) : String.valueOf(file) + "XXXX.png");
+                        addLayoutToCanvas((String.valueOf(file).length() > 4 ? String.valueOf(file).substring(1) : String.valueOf(file)) + "XXXX.png", canvas, 0, 0, false);
+                    }
+                    break;
+                case 2:
+                    int indexOfClothes = indexOfIntArray(aSorted, aZipperType[0]);
+                    int indexOfUzor = indexOfIntArray(aSorted, aZipperType[1]);
+                    System.out.println(indexOfClothes + "\n" + indexOfUzor);
+                    for(int i = 0; i < aSorted.length; i++){
+                        if(i == indexOfClothes){
+//                            System.out.println(String.valueOf(aSorted[i]).length() > 4 ? String.valueOf(aSorted[i]).substring(1) : String.valueOf(aSorted[i]) + "XXXX.png");
+                            addLayoutToCanvas((String.valueOf(aSorted[i]).length() > 4 ? String.valueOf(aSorted[i]).substring(1) : String.valueOf(aSorted[i])) + "XXXX.png", canvas, 0, 0, false);
+//                            System.out.println("uzors/" + (String.valueOf(aSorted[i]).length() > 4 ? String.valueOf(aSorted[i]).substring(1, 4) : String.valueOf(aSorted[i]).substring(0, 3))
+//                                    + "X" + (String.valueOf(aSorted[indexOfUzor]).length() > 4 ? String.valueOf(aSorted[indexOfUzor]).substring(2, 3) : String.valueOf(aSorted[indexOfUzor]).substring(1, 2))
+//                                    + "0XX.png");
+                            addLayoutToCanvas("uzors/" + (String.valueOf(aSorted[i]).length() > 4 ? String.valueOf(aSorted[i]).substring(1, 4) : String.valueOf(aSorted[i]).substring(0, 3))
+                                    + "X" + (String.valueOf(aSorted[indexOfUzor]).length() > 4 ? String.valueOf(aSorted[indexOfUzor]).substring(2, 3) : String.valueOf(aSorted[indexOfUzor]).substring(1, 2))
+                                    + "0XX.png", canvas, colors_array[aSorted[indexOfUzor] % 10], colors_array[9], true);
+                        } else if(i == indexOfUzor){
+                            //do nothing
+                        } else{
+//                            System.out.println(String.valueOf(aSorted[i]).length() > 4 ? String.valueOf(aSorted[i]).substring(1) : String.valueOf(aSorted[i]) + "XXXX.png");
+                            addLayoutToCanvas((String.valueOf(aSorted[i]).length() > 4 ? String.valueOf(aSorted[i]).substring(1) : String.valueOf(aSorted[i])) + "XXXX.png", canvas, 0, 0, false);
                         }
                     }
-                }
 
-//_______________________SECOND_LAY_________________________________________________________________
-            } else {
-                if ((phone_number[7] == 6 || phone_number[7] == 7) && isLower == 2
-                        || phone_number[7] == 6 && galstuk == 1 && phone_number[5] != 4 && phone_number[5] != 2)
-                    filename[7] = phone_number[3] + "" + phone_number[7] + "1" + phone_number[6]; //застегнута
-                else
-                    filename[7] = phone_number[3] + "" + phone_number[7] + "0" + phone_number[6]; //растегнута
-
-//_______________________GLASSES_OR_LAY_____________________________________________________________
-                if(isGlasses){
-                    filename[9] = "glasses/" + phone_number[3] + "XXXXX" + phone_number[9] + phone_number[8] + ".png";              //очки
-                    List<String> list = new ArrayList<String>();
-                    list.add(filename[5]);
-                    list.add(filename[7]);
-                    Collections.sort(list, new MyIntComparable());
-                    for(String integer : list){
-                        addLayoutToCanvas(integer + "XXXX.png", canvas, 0, 0, false);
-                    }
+                    break;
+                case 1:
+                    filename[5] = (String.valueOf(aZipperType[0]).length() > 4 ? String.valueOf(aZipperType[0]).substring(1) : String.valueOf(aZipperType[0])) + "XXXX.png";
+                    filename[7] = "uzors/" + (String.valueOf(aZipperType[0]).length() > 4 ? String.valueOf(aZipperType[0]).substring(1, 4) : String.valueOf(aZipperType[0]).substring(0, 3))
+                            + "X" + (String.valueOf(aZipperType[1]).length() > 4 ? String.valueOf(aZipperType[1]).substring(2, 3) : String.valueOf(aZipperType[1]).substring(1, 2)) + "0XX.png";
+                    filename[9] = "glasses/" + (phone_number[3] == 10 ? 0 : phone_number[3]) + "XXXXX" + phone_number[9] + phone_number[8] + ".png";
+                    addLayoutToCanvas(filename[5], canvas, 0, 0, false);
+                    addLayoutToCanvas(filename[7], canvas, colors_array[aZipperType[1] % 10], colors_array[9], true);
                     addLayoutToCanvas(filename[9], canvas, 0, 0, false);
-                } else {
-                    if((phone_number[9] == 6 || phone_number[9] == 7) && overlap3rd == 1
-                            || phone_number[9] == 6 && galstuk == 1 && phone_number[5] != 4 && phone_number[5] != 2)
-                        filename[9] = phone_number[3] + "" + phone_number[9] + "1" + phone_number[8];  //одежда
-                    else
-                        filename[9] = phone_number[3] + "" + phone_number[9] + "0" + phone_number[8];  //одежда
-                    List<String> list = new ArrayList<String>();
-                    list.add(filename[5]);
-                    list.add(filename[7]);
-                    list.add(filename[9]);
-                    Collections.sort(list, new MyIntComparable());
-                    for(String integer : list){
-                        addLayoutToCanvas(integer + "XXXX.png", canvas, 0, 0, false);
-                    }
-                }
+//                    System.out.println(filename[5]);
+//                    System.out.println(filename[7]);
+//                    System.out.println(filename[9]);
+                    break;
+                default:
+                    break;
             }
-            System.out.println(filename[3] + "\n" + filename[5] + "\n" + filename[7] + "\n" + filename[9] + "\n");
             publishProgress();
             return true;
-        }
-
-        public class MyIntComparable implements Comparator<String>{
-            @Override
-            public int compare(String o1, String o2) {
-                if(Integer.parseInt(o1)/10 == phone_number[3] * 100)
-                    return 100;
-                return Integer.parseInt(o1) - Integer.parseInt(o2);
-            }
         }
     }
 }
