@@ -44,6 +44,16 @@ public class TestingGame extends Activity {
     private String time[];
     private Bitmap bMap;
     private EditText et1, et2, et3, et4, et5, et6, et7, et8, et9, et10;
+//    private EditText[] etArray = new EditText[]{(EditText)findViewById(R.id.testEditText1),
+//                                                (EditText)findViewById(R.id.testEditText2),
+//                                                (EditText)findViewById(R.id.testEditText3),
+//                                                (EditText)findViewById(R.id.testEditText4),
+//                                                (EditText)findViewById(R.id.testEditText5),
+//                                                (EditText)findViewById(R.id.testEditText6),
+//                                                (EditText)findViewById(R.id.testEditText7),
+//                                                (EditText)findViewById(R.id.testEditText8),
+//                                                (EditText)findViewById(R.id.testEditText9),
+//                                                (EditText)findViewById(R.id.testEditText10)};
     private ViewFlipper viewFlipper;
     private Context mContext = this;
     private ImageView image;
@@ -57,16 +67,16 @@ public class TestingGame extends Activity {
     private Integer charge_number[] = new Integer[10];
     private ProgressDialog mProgressDialog;
     private int[] colors_array = {
-            Color.rgb(245, 245, 245),   //WHITE
-            Color.RED,
-            Color.rgb(255, 165, 0),     // #FF8000
-            Color.YELLOW,
-            Color.GREEN,
-            Color.rgb(0, 184, 217),     // #00B8D9
-            Color.BLUE,
-            Color.rgb(90, 0, 157),      // #5A009D
-            Color.rgb(150, 75, 0),      // #964B00
-            Color.rgb(2, 2, 2)          //BLACK
+            Color.rgb(245, 245, 245),           // WHITE
+            Color.rgb(255, 1, 1),               // RED
+            Color.rgb(255, 153, 51),            // ORANGE
+            Color.rgb(255, 255, 1),             // YELLOW
+            Color.rgb(5, 233, 5),               // GREEN
+            Color.rgb(140, 190, 252),           // SKY-BLUE
+            Color.rgb(1, 1, 255),               // BLUE
+            Color.rgb(182, 29, 142),            // PURPLE
+            Color.rgb(186, 114, 41),            // BROWN
+            Color.rgb(1, 1, 1)                  // BLACK
     };
 
     @Override
@@ -75,6 +85,41 @@ public class TestingGame extends Activity {
         setContentView(R.layout.logo_testgame);
         time = new String[] {"5", "4", "3", "2", "1", "0.9", "0.8", "0.7", "0.6", "0.5", "0.4", "0.3", "0.2"};
         DialogManager(D_TIME_CHOOSER);
+
+//        for (int cnt=0; cnt<etArray.length; cnt++){
+//            etArray[cnt].addTextChangedListener(new TextWatcher() {
+//                private int c;
+//
+//                public void TextWatcher(int cnt){
+//                    c = cnt;
+//                }
+//
+//                @Override
+//                public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+//
+//                }
+//
+//                @Override
+//                public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+//                    if(etArray[c].getText().toString().length() > 0 && etArray[c+1].isFocusable()){
+//                        etArray[c+1].requestFocus();
+//                    } else if(c == 0 && etArray[c].getText().toString().length() > 0 && !etArray[c+1].isFocusable()){
+//                        etArray[3].requestFocus();
+//                    } else if(etArray[c].getText().toString().length() < 1 && etArray[c-1].isFocusable() && c != 0){
+//                        etArray[c-1].requestFocus();
+//                    } else if(c == 3 && etArray[c].getText().toString().length() < 1 && !etArray[c-1].isFocusable() ){
+//                        etArray[0].requestFocus();
+//                    }
+//
+//                }
+//
+//                @Override
+//                public void afterTextChanged(Editable editable) {
+//
+//                }
+//            });
+//        }
+
         et1 = (EditText)findViewById(R.id.testEditText1);
         et1.addTextChangedListener(new TextWatcher() {
             @Override
@@ -106,6 +151,8 @@ public class TestingGame extends Activity {
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 if(et2.getText().toString().length() > 0)
                     et3.requestFocus();
+                else if(et2.getText().toString().length() < 1)
+                    et1.requestFocus();
             }
 
             @Override
@@ -124,6 +171,8 @@ public class TestingGame extends Activity {
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 if(et3.getText().toString().length() > 0)
                     et4.requestFocus();
+                else if(et3.getText().toString().length() < 1)
+                    et2.requestFocus();
             }
 
             @Override
@@ -142,6 +191,10 @@ public class TestingGame extends Activity {
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 if(et4.getText().toString().length() > 0)
                     et5.requestFocus();
+                else if(et4.getText().toString().length() < 1 && et3.isFocusable())
+                    et3.requestFocus();
+                else if(et4.getText().toString().length() < 1)
+                    et1.requestFocus();
             }
 
             @Override
@@ -160,6 +213,8 @@ public class TestingGame extends Activity {
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 if(et5.getText().toString().length() > 0)
                     et6.requestFocus();
+                else if(et5.getText().toString().length() < 1)
+                    et4.requestFocus();
             }
 
             @Override
@@ -178,6 +233,8 @@ public class TestingGame extends Activity {
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 if(et6.getText().toString().length() > 0)
                     et7.requestFocus();
+                else if(et6.getText().toString().length() < 1)
+                    et5.requestFocus();
             }
 
             @Override
@@ -196,6 +253,8 @@ public class TestingGame extends Activity {
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 if(et7.getText().toString().length() > 0)
                     et8.requestFocus();
+                else if(et7.getText().toString().length() < 1)
+                    et6.requestFocus();
             }
 
             @Override
@@ -214,6 +273,8 @@ public class TestingGame extends Activity {
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 if(et8.getText().toString().length() > 0)
                     et9.requestFocus();
+                else if(et8.getText().toString().length() < 1)
+                    et7.requestFocus();
             }
 
             @Override
@@ -232,6 +293,8 @@ public class TestingGame extends Activity {
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 if(et9.getText().toString().length() > 0)
                     et10.requestFocus();
+                else if(et9.getText().toString().length() < 1)
+                    et8.requestFocus();
             }
 
             @Override
@@ -240,6 +303,23 @@ public class TestingGame extends Activity {
             }
         });
         et10 = (EditText)findViewById(R.id.testEditText10);
+        et10.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                if(et10.getText().toString().length() < 1)
+                    et9.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         GbTypeSize = 1;
         TypeSizeIteration = 0;

@@ -42,6 +42,7 @@ import java.util.Random;
 public class TrainingPart extends Activity {
     private Bitmap bMap;
     private EditText et1, et2, et3, et4, et5, et6, et7, et8, et9, et10;
+    private EditText[] etArray = new EditText[]{};
     private ViewFlipper viewFlipper;
     private RadioGroup group;
     private RadioButton rButton;
@@ -52,22 +53,68 @@ public class TrainingPart extends Activity {
     private Integer charge_number[] = new Integer[10];
     private ProgressDialog mProgressDialog;
     private int[] colors_array = {
-            Color.rgb(245, 245, 245),   //WHITE
-            Color.RED,
-            Color.rgb(255, 165, 0),     // #FF8000
-            Color.YELLOW,
-            Color.GREEN,
-            Color.rgb(0, 184, 217),     // #00B8D9
-            Color.BLUE,
-            Color.rgb(90, 0, 157),      // #5A009D
-            Color.rgb(150, 75, 0),      // #964B00
-            Color.rgb(2, 2, 2)          //BLACK
+            Color.rgb(245, 245, 245),           // WHITE
+            Color.rgb(255, 1, 1),               // RED
+            Color.rgb(255, 153, 51),            // ORANGE
+            Color.rgb(255, 255, 1),             // YELLOW
+            Color.rgb(5, 233, 5),               // GREEN
+            Color.rgb(140, 190, 252),           // SKY-BLUE
+            Color.rgb(1, 1, 255),               // BLUE
+            Color.rgb(182, 29, 142),            // PURPLE
+            Color.rgb(186, 114, 41),            // BROWN
+            Color.rgb(1, 1, 1)                  // BLACK
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.logo_training);
+
+//        etArray[0] = (EditText)findViewById(R.id.trainEditText1);
+//        etArray[1] = (EditText)findViewById(R.id.trainEditText2);
+//        etArray[2] = (EditText)findViewById(R.id.trainEditText3);
+//        etArray[3] = (EditText)findViewById(R.id.trainEditText4);
+//        etArray[4] = (EditText)findViewById(R.id.trainEditText5);
+//        etArray[5] = (EditText)findViewById(R.id.trainEditText6);
+//        etArray[6] = (EditText)findViewById(R.id.trainEditText7);
+//        etArray[7] = (EditText)findViewById(R.id.trainEditText8);
+//        etArray[8] = (EditText)findViewById(R.id.trainEditText9);
+//        etArray[9] = (EditText)findViewById(R.id.trainEditText10);
+//
+//        for (int cnt=0; cnt<etArray.length; cnt++){
+//            etArray[cnt].addTextChangedListener(new TextWatcher() {
+//                private int c;
+//
+//                public void TextWatcher(int cnt){
+//                    c = cnt;
+//                }
+//
+//                @Override
+//                public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+//
+//                }
+//
+//                @Override
+//                public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+//                    if(etArray[c].getText().toString().length() > 0 && etArray[c+1].isFocusable()){
+//                        etArray[c+1].requestFocus();
+//                    } else if(c == 0 && etArray[c].getText().toString().length() > 0 && !etArray[c+1].isFocusable()){
+//                        etArray[3].requestFocus();
+//                    } else if(etArray[c].getText().toString().length() < 1 && etArray[c-1].isFocusable() && c != 0){
+//                        etArray[c-1].requestFocus();
+//                    } else if(c == 3 && etArray[c].getText().toString().length() < 1 && !etArray[c-1].isFocusable() ){
+//                        etArray[0].requestFocus();
+//                    }
+//
+//                }
+//
+//                @Override
+//                public void afterTextChanged(Editable editable) {
+//
+//                }
+//            });
+//        }
+        
         et1 = (EditText)findViewById(R.id.trainEditText1);
         et1.addTextChangedListener(new TextWatcher() {
             @Override

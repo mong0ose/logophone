@@ -7,8 +7,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,10 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
-
-import org.apache.http.client.protocol.RequestAddCookies;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,21 +43,22 @@ public class Visualizer extends Activity{
     private RadioButton rButton;
     private Context mContext = this;
     private ImageView image;
-    private int TypeSize;
+    private int TypeSize, showtype;
     private float lastX;
     private ProgressDialog mProgressDialog;
+    private Point p = new Point();
     private EditText et1, et2, et3, et4, et5, et6, et7, et8, et9, et10;
     private int[] colors_array = {
-            Color.rgb(245, 245, 245),   //WHITE
-            Color.RED,
-            Color.rgb(255, 165, 0),     // #FF8000
-            Color.YELLOW,
-            Color.GREEN,
-            Color.rgb(0, 184, 217),     // #00B8D9
-            Color.BLUE,
-            Color.rgb(90, 0, 157),      // #5A009D
-            Color.rgb(150, 75, 0),      // #964B00
-            Color.rgb(2, 2, 2)          //BLACK
+            Color.rgb(245, 245, 245),           // WHITE
+            Color.rgb(255, 1, 1),               // RED
+            Color.rgb(255, 153, 51),            // ORANGE
+            Color.rgb(255, 255, 1),             // YELLOW
+            Color.rgb(5, 233, 5),               // GREEN
+            Color.rgb(140, 190, 252),           // SKY-BLUE
+            Color.rgb(1, 1, 255),               // BLUE
+            Color.rgb(182, 29, 142),            // PURPLE
+            Color.rgb(186, 114, 41),            // BROWN
+            Color.rgb(1, 1, 1)                  // BLACK
     };
 
     @Override
@@ -64,16 +66,35 @@ public class Visualizer extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.logo_visualizer);
         TypeSize = 1;
+        Display disp = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR2){
+            p.x = disp.getWidth();
+            p.y = disp.getHeight();
+        } else
+            disp.getSize(p);
+        p.y = p.x*1528/1080;
+
         et1 = (EditText)findViewById(R.id.visEditText1);
+        et1.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.MULTIPLY);
         et2 = (EditText)findViewById(R.id.visEditText2);
+        et2.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.MULTIPLY);
         et3 = (EditText)findViewById(R.id.visEditText3);
+        et3.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.MULTIPLY);
         et4 = (EditText)findViewById(R.id.visEditText4);
+        et4.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.MULTIPLY);
         et5 = (EditText)findViewById(R.id.visEditText5);
+        et5.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.MULTIPLY);
         et6 = (EditText)findViewById(R.id.visEditText6);
+        et6.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.MULTIPLY);
         et7 = (EditText)findViewById(R.id.visEditText7);
+        et7.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.MULTIPLY);
         et8 = (EditText)findViewById(R.id.visEditText8);
+        et8.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.MULTIPLY);
         et9 = (EditText)findViewById(R.id.visEditText9);
+        et9.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.MULTIPLY);
         et10 = (EditText)findViewById(R.id.visEditText10);
+        et10.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.MULTIPLY);
+        
         rButton = (RadioButton) findViewById(R.id.radioButton);
         rButton.setChecked(true);
         viewFlipper = (ViewFlipper) findViewById(R.id.visViewFlipper);
@@ -150,25 +171,15 @@ public class Visualizer extends Activity{
         protected void onPreExecute() {
             super.onPreExecute();
             et1.setText("");
-            et1.setFocusable(false);
             et2.setText("");
-            et2.setFocusable(false);
             et3.setText("");
-            et3.setFocusable(false);
             et4.setText("");
-            et4.setFocusable(false);
             et5.setText("");
-            et5.setFocusable(false);
             et6.setText("");
-            et6.setFocusable(false);
             et7.setText("");
-            et7.setFocusable(false);
             et8.setText("");
-            et8.setFocusable(false);
             et9.setText("");
-            et9.setFocusable(false);
             et10.setText("");
-            et10.setFocusable(false);
             mProgressDialog = new ProgressDialog(mContext);
             mProgressDialog.setCancelable(false);
             mProgressDialog.setMessage("Создание логотипа...");
@@ -178,22 +189,21 @@ public class Visualizer extends Activity{
 
         @Override
         protected Boolean doInBackground(Integer... integers) {
-
-
-            Display disp = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-            Point p = new Point();
-            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR2){
-                p.x = disp.getWidth();
-                p.y = disp.getHeight();
-            } else
-                disp.getSize(p);
             bmapOverlay = Bitmap.createBitmap(p.x, p.y, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bmapOverlay);
             Random rand = new Random();
             for(int i = 0; i < 10; i++){
                 phone_number[i] = rand.nextInt(9-0) + 0;
             }
-            Creator check = new Creator();
+            Creator check = new Creator(phone_number);
+
+            int[] aZipperType = check.GetZipperType();
+            showtype = 0;
+            if(check.newCheckPleasure())
+                showtype = 2;
+            else if(check.newCheckStrict())
+                showtype = 1;
+
             Boolean isGlasses = check.checkForGlasses(phone_number);
             String[] filename = new String[10];
             int type = 0;
@@ -203,7 +213,7 @@ public class Visualizer extends Activity{
                     if(type >= 5){
                         charge_number[3] = phone_number[3];
                         filename[3] = phone_number[3] + "XXXXXXX.png";
-                        addLayoutToCanvas(filename[3], canvas, p, 0, 0);
+                        addLayoutToCanvas(filename[3], canvas, 0, 0, false);
                         //          char
                     } else {
                         charge_number[0] = phone_number[0];
@@ -215,9 +225,9 @@ public class Visualizer extends Activity{
                     charge_number[1] = phone_number[1];
                     charge_number[2] = phone_number[2];
                     filename[2] = "figure/" + phone_number[2] + "01.png";
-                    addLayoutToCanvas(filename[2], canvas, p, colors_array[phone_number[1]], Color.WHITE);
+                    addLayoutToCanvas(filename[2], canvas, colors_array[phone_number[1]], Color.WHITE, true);
                     filename[1] = "figure/" + phone_number[2] + "00.png";
-                    addLayoutToCanvas(filename[1], canvas, p, 0, 0);
+                    addLayoutToCanvas(filename[1], canvas, 0, 0, false);
 
                     break;
                 case  3:
@@ -228,9 +238,9 @@ public class Visualizer extends Activity{
                             charge_number[4] = phone_number[4];
                             charge_number[5] = phone_number[5];
                             filename[3] = phone_number[3] + "XXXXXXX.png";
-                            addLayoutToCanvas(filename[3], canvas, p, 0, 0);
+                            addLayoutToCanvas(filename[3], canvas, 0, 0, false);
                             filename[5] = phone_number[3] + "" + phone_number[5] + "0" + phone_number[4];
-                            addLayoutToCanvas(filename[5] + "XXXX.png", canvas, p, 0, 0);
+                            addLayoutToCanvas(filename[5] + "XXXX.png", canvas, 0, 0, false);
                             //          char
                             break;
                         case 1:
@@ -238,29 +248,29 @@ public class Visualizer extends Activity{
                             charge_number[1] = phone_number[1];
                             charge_number[2] = phone_number[2];
                             filename[0] = "flag/40.png";
-                            addLayoutToCanvas(filename[0], canvas, p, colors_array[phone_number[0]], Color.WHITE);
+                            addLayoutToCanvas(filename[0], canvas, colors_array[phone_number[0]], Color.WHITE, true);
                             filename[2] = "figure/" + phone_number[2] + "01.png";
-                            addLayoutToCanvas(filename[2], canvas, p, colors_array[phone_number[1]], Color.WHITE);
+                            addLayoutToCanvas(filename[2], canvas, colors_array[phone_number[1]], Color.WHITE, true);
                             break;
                         case 2:
                             charge_number[0] = phone_number[0];
                             charge_number[1] = phone_number[1];
                             charge_number[2] = phone_number[2];
                             filename[0] = "flag/10.png";
-                            addLayoutToCanvas(filename[0], canvas, p, colors_array[phone_number[0]], Color.WHITE);
+                            addLayoutToCanvas(filename[0], canvas, colors_array[phone_number[0]], Color.WHITE, true);
                             filename[1] = "flag/20.png";
-                            addLayoutToCanvas(filename[1], canvas, p, colors_array[phone_number[1]], Color.WHITE);
+                            addLayoutToCanvas(filename[1], canvas, colors_array[phone_number[1]], Color.WHITE, true);
                             filename[2] = "flag/30.png";
-                            addLayoutToCanvas(filename[2], canvas, p, colors_array[phone_number[2]], Color.WHITE);
+                            addLayoutToCanvas(filename[2], canvas, colors_array[phone_number[2]], Color.WHITE, true);
                             break;
                         case 3:
                             charge_number[0] = phone_number[0];
                             charge_number[1] = phone_number[1];
                             charge_number[2] = phone_number[2];
                             filename[2] = "figure/" + phone_number[2] + "01.png";
-                            addLayoutToCanvas(filename[2], canvas, p, colors_array[phone_number[1]], Color.WHITE);
+                            addLayoutToCanvas(filename[2], canvas, colors_array[phone_number[1]], Color.WHITE, true);
                             filename[1] = "figure/" + phone_number[2] + "00.png";
-                            addLayoutToCanvas(filename[1], canvas, p, colors_array[phone_number[0]], Color.WHITE);
+                            addLayoutToCanvas(filename[1], canvas, colors_array[phone_number[0]], Color.WHITE, true);
                             break;
                         default:
                             break;
@@ -272,11 +282,11 @@ public class Visualizer extends Activity{
                     charge_number[4] = phone_number[4];
                     charge_number[5] = phone_number[5];
                     filename[0] = "flag/40.png";
-                    addLayoutToCanvas(filename[0], canvas, p, colors_array[phone_number[0]], Color.WHITE);
+                    addLayoutToCanvas(filename[0], canvas, colors_array[phone_number[0]], Color.WHITE, true);
                     filename[3] = phone_number[3] + "XXXXXXX.png";
-                    addLayoutToCanvas(filename[3], canvas, p, 0, 0);
+                    addLayoutToCanvas(filename[3], canvas, 0, 0, false);
                     filename[5] = phone_number[3] + "" + phone_number[5] + "0" + phone_number[4];
-                    addLayoutToCanvas(filename[5] + "XXXX.png", canvas, p, 0, 0);
+                    addLayoutToCanvas(filename[5] + "XXXX.png", canvas, 0, 0, false);
                     //          char
                     break;
                 case 5:
@@ -286,11 +296,11 @@ public class Visualizer extends Activity{
                     charge_number[6] = phone_number[6];
                     charge_number[7] = phone_number[7];
                     filename[3] = phone_number[3] + "XXXXXXX.png";
-                    addLayoutToCanvas(filename[3], canvas, p, 0, 0);
+                    addLayoutToCanvas(filename[3], canvas, 0, 0, false);
                     filename[5] = phone_number[3] + "" + phone_number[5] + "0" + phone_number[4];
-                    addLayoutToCanvas(filename[5] + "XXXX.png", canvas, p, 0, 0);
-                    filename[7] = "uzors/" + phone_number[3] + "" + phone_number[5] + "0X" + phone_number[7] + "9XX.png";
-                    addLayoutToCanvas(filename[7], canvas, p, colors_array[phone_number[6]], colors_array[9]);
+                    addLayoutToCanvas(filename[5] + "XXXX.png", canvas, 0, 0, false);
+                    filename[7] = "uzors/" + phone_number[3] + "" + phone_number[5] + "0X" + phone_number[7] + "0XX.png";
+                    addLayoutToCanvas(filename[7], canvas, colors_array[phone_number[6]], colors_array[9], true);
                     //          char
                     break;
                 case 6:
@@ -301,13 +311,13 @@ public class Visualizer extends Activity{
                     charge_number[6] = phone_number[6];
                     charge_number[7] = phone_number[7];
                     filename[0] = "flag/40.png";
-                    addLayoutToCanvas(filename[0], canvas, p, colors_array[phone_number[0]], Color.WHITE);
+                    addLayoutToCanvas(filename[0], canvas, colors_array[phone_number[0]], Color.WHITE, true);
                     filename[3] = phone_number[3] + "XXXXXXX.png";
-                    addLayoutToCanvas(filename[3], canvas, p, 0, 0);
+                    addLayoutToCanvas(filename[3], canvas, 0, 0, false);
                     filename[5] = phone_number[3] + "" + phone_number[5] + "0" + phone_number[4];
-                    addLayoutToCanvas(filename[5] + "XXXX.png", canvas, p, 0, 0);
-                    filename[7] = "uzors/" + phone_number[3] + "" + phone_number[5] + "0X" + phone_number[7] + "9XX.png";
-                    addLayoutToCanvas(filename[7], canvas, p, colors_array[phone_number[6]], colors_array[9]);
+                    addLayoutToCanvas(filename[5] + "XXXX.png", canvas, 0, 0, false);
+                    filename[7] = "uzors/" + phone_number[3] + "" + phone_number[5] + "0X" + phone_number[7] + "0XX.png";
+                    addLayoutToCanvas(filename[7], canvas, colors_array[phone_number[6]], colors_array[9], true);
                     //          char
                     break;
                 case 7:
@@ -319,14 +329,14 @@ public class Visualizer extends Activity{
                     charge_number[8] = phone_number[8];
                     charge_number[9] = phone_number[9];
                     filename[3] = phone_number[3] + "XXXXXXX.png";
-                    addLayoutToCanvas(filename[3], canvas, p, 0, 0);
+                    addLayoutToCanvas(filename[3], canvas, 0, 0, false);
                     filename[5] = phone_number[3] + "" + phone_number[5] + "0" + phone_number[4];
-                    filename[7] = "uzors/" + phone_number[3] + "" + phone_number[5] + "0X" + phone_number[7] + "9XX.png";
+                    filename[7] = "uzors/" + phone_number[3] + "" + phone_number[5] + "0X" + phone_number[7] + "0XX.png";
                     if(isGlasses){
                         filename[9] = "glasses/" + phone_number[3] + "XXXXX" + phone_number[9] + phone_number[8] + ".png";
-                        addLayoutToCanvas(filename[5] + "XXXX.png", canvas, p, 0, 0);
-                        addLayoutToCanvas(filename[7], canvas, p, colors_array[phone_number[6]], colors_array[9]);
-                        addLayoutToCanvas(filename[9], canvas, p, 0, 0);
+                        addLayoutToCanvas(filename[5] + "XXXX.png", canvas, 0, 0, false);
+                        addLayoutToCanvas(filename[7], canvas, colors_array[phone_number[6]], colors_array[9], true);
+                        addLayoutToCanvas(filename[9], canvas, 0, 0, false);
                     }else{
                         filename[9] = phone_number[3] + "" + phone_number[9] + "0" + phone_number[8];
                         List<String> list = new ArrayList<String>();
@@ -334,9 +344,9 @@ public class Visualizer extends Activity{
                         list.add(filename[9]);
                         Collections.sort(list, new MyIntComparable());
                         for(String integer : list){
-                            addLayoutToCanvas(integer + "XXXX.png", canvas, p, 0, 0);
+                            addLayoutToCanvas(integer + "XXXX.png", canvas, 0, 0, false);
                             if(filename[7].contains(String.valueOf(Integer.parseInt(integer) / 10))){
-                                addLayoutToCanvas(filename[7], canvas, p, colors_array[phone_number[6]], colors_array[9]);
+                                addLayoutToCanvas(filename[7], canvas, colors_array[phone_number[6]], colors_array[9], true);
                             }
                         }
                     }
@@ -352,16 +362,16 @@ public class Visualizer extends Activity{
                     charge_number[8] = phone_number[8];
                     charge_number[9] = phone_number[9];
                     filename[0] = "flag/40.png";
-                    addLayoutToCanvas(filename[0], canvas, p, colors_array[phone_number[0]], Color.WHITE);
+                    addLayoutToCanvas(filename[0], canvas, colors_array[phone_number[0]], Color.WHITE, true);
                     filename[3] = phone_number[3] + "XXXXXXX.png";
-                    addLayoutToCanvas(filename[3], canvas, p, 0, 0);
+                    addLayoutToCanvas(filename[3], canvas, 0, 0, false);
                     filename[5] = phone_number[3] + "" + phone_number[5] + "0" + phone_number[4];
-                    filename[7] = "uzors/" + phone_number[3] + "" + phone_number[5] + "0X" + phone_number[7] + "9XX.png";
+                    filename[7] = "uzors/" + phone_number[3] + "" + phone_number[5] + "0X" + phone_number[7] + "0XX.png";
                     if(isGlasses){
                         filename[9] = "glasses/" + phone_number[3] + "XXXXX" + phone_number[9] + phone_number[8] + ".png";
-                        addLayoutToCanvas(filename[5] + "XXXX.png", canvas, p, 0, 0);
-                        addLayoutToCanvas(filename[7], canvas, p, colors_array[phone_number[6]], colors_array[9]);
-                        addLayoutToCanvas(filename[9], canvas, p, 0, 0);
+                        addLayoutToCanvas(filename[5] + "XXXX.png", canvas, 0, 0, false);
+                        addLayoutToCanvas(filename[7], canvas, colors_array[phone_number[6]], colors_array[9], true);
+                        addLayoutToCanvas(filename[9], canvas, 0, 0, false);
                     }else{
                         filename[9] = phone_number[3] + "" + phone_number[9] + "0" + phone_number[8];
                         List<String> list = new ArrayList<String>();
@@ -369,9 +379,9 @@ public class Visualizer extends Activity{
                         list.add(filename[9]);
                         Collections.sort(list, new MyIntComparable());
                         for(String integer : list){
-                            addLayoutToCanvas(integer + "XXXX.png", canvas, p, 0, 0);
+                            addLayoutToCanvas(integer + "XXXX.png", canvas, 0, 0, false);
                             if(filename[7].contains(String.valueOf(Integer.parseInt(integer) / 10))){
-                                addLayoutToCanvas(filename[7], canvas, p, colors_array[phone_number[6]], colors_array[9]);
+                                addLayoutToCanvas(filename[7], canvas, colors_array[phone_number[6]], colors_array[9], true);
                             }
                         }
                     }
@@ -388,18 +398,18 @@ public class Visualizer extends Activity{
                     charge_number[8] = phone_number[8];
                     charge_number[9] = phone_number[9];
                     filename[2] = "figure/" + phone_number[2] + "01.png";
-                    addLayoutToCanvas(filename[2], canvas, p, colors_array[phone_number[1]], Color.WHITE);
+                    addLayoutToCanvas(filename[2], canvas, colors_array[phone_number[1]], Color.WHITE, true);
                     filename[1] = "figure/" + phone_number[2] + "00.png";
-                    addLayoutToCanvas(filename[1], canvas, p, colors_array[phone_number[0]], Color.WHITE);
+                    addLayoutToCanvas(filename[1], canvas, colors_array[phone_number[0]], Color.WHITE, true);
                     filename[3] = phone_number[3] + "XXXXXXX.png";
-                    addLayoutToCanvas(filename[3], canvas, p, 0, 0);
+                    addLayoutToCanvas(filename[3], canvas, 0, 0, false);
                     filename[5] = phone_number[3] + "" + phone_number[5] + "0" + phone_number[4];
-                    filename[7] = "uzors/" + phone_number[3] + "" + phone_number[5] + "0X" + phone_number[7] + "9XX.png";
+                    filename[7] = "uzors/" + phone_number[3] + "" + phone_number[5] + "0X" + phone_number[7] + "0XX.png";
                     if(isGlasses){
                         filename[9] = "glasses/" + phone_number[3] + "XXXXX" + phone_number[9] + phone_number[8] + ".png";
-                        addLayoutToCanvas(filename[5] + "XXXX.png", canvas, p, 0, 0);
-                        addLayoutToCanvas(filename[7], canvas, p, colors_array[phone_number[6]], colors_array[9]);
-                        addLayoutToCanvas(filename[9], canvas, p, 0, 0);
+                        addLayoutToCanvas(filename[5] + "XXXX.png", canvas, 0, 0, false);
+                        addLayoutToCanvas(filename[7], canvas, colors_array[phone_number[6]], colors_array[9], true);
+                        addLayoutToCanvas(filename[9], canvas, 0, 0, false);
                     }else{
                         filename[9] = phone_number[3] + "" + phone_number[9] + "0" + phone_number[8];
                         List<String> list = new ArrayList<String>();
@@ -407,9 +417,9 @@ public class Visualizer extends Activity{
                         list.add(filename[9]);
                         Collections.sort(list, new MyIntComparable());
                         for(String integer : list){
-                            addLayoutToCanvas(integer + "XXXX.png", canvas, p, 0, 0);
+                            addLayoutToCanvas(integer + "XXXX.png", canvas, 0, 0, false);
                             if(filename[7].contains(String.valueOf(Integer.parseInt(integer) / 10))){
-                                addLayoutToCanvas(filename[7], canvas, p, colors_array[phone_number[6]], colors_array[9]);
+                                addLayoutToCanvas(filename[7], canvas, colors_array[phone_number[6]], colors_array[9], true);
                             }
                         }
                     }
@@ -430,36 +440,36 @@ public class Visualizer extends Activity{
                     switch (type){
                         case 0:
                             filename[0] = "flag/40.png";
-                            addLayoutToCanvas(filename[0], canvas, p, colors_array[phone_number[0]], Color.WHITE);
+                            addLayoutToCanvas(filename[0], canvas, colors_array[phone_number[0]], Color.WHITE, true);
                             filename[2] = "figure/" + phone_number[2] + "01.png";
-                            addLayoutToCanvas(filename[2], canvas, p, colors_array[phone_number[1]], Color.WHITE);
+                            addLayoutToCanvas(filename[2], canvas, colors_array[phone_number[1]], Color.WHITE, true);
                             break;
                         case 1:
                             filename[0] = "flag/10.png";
-                            addLayoutToCanvas(filename[0], canvas, p, colors_array[phone_number[0]], Color.WHITE);
+                            addLayoutToCanvas(filename[0], canvas, colors_array[phone_number[0]], Color.WHITE, true);
                             filename[1] = "flag/20.png";
-                            addLayoutToCanvas(filename[1], canvas, p, colors_array[phone_number[1]], Color.WHITE);
+                            addLayoutToCanvas(filename[1], canvas, colors_array[phone_number[1]], Color.WHITE, true);
                             filename[2] = "flag/30.png";
-                            addLayoutToCanvas(filename[2], canvas, p, colors_array[phone_number[2]], Color.WHITE);
+                            addLayoutToCanvas(filename[2], canvas, colors_array[phone_number[2]], Color.WHITE, true);
                             break;
                         case 2:
                             filename[2] = "figure/" + phone_number[2] + "01.png";
-                            addLayoutToCanvas(filename[2], canvas, p, colors_array[phone_number[1]], Color.WHITE);
+                            addLayoutToCanvas(filename[2], canvas, colors_array[phone_number[1]], Color.WHITE, true);
                             filename[1] = "figure/" + phone_number[2] + "00.png";
-                            addLayoutToCanvas(filename[1], canvas, p, colors_array[phone_number[0]], Color.WHITE);
+                            addLayoutToCanvas(filename[1], canvas, colors_array[phone_number[0]], Color.WHITE, true);
                             break;
                         default:
                             break;
                     }
                     filename[3] = phone_number[3] + "XXXXXXX.png";
-                    addLayoutToCanvas(filename[3], canvas, p, 0, 0);
+                    addLayoutToCanvas(filename[3], canvas, 0, 0, false);
                     filename[5] = phone_number[3] + "" + phone_number[5] + "0" + phone_number[4];
-                    filename[7] = "uzors/" + phone_number[3] + "" + phone_number[5] + "0X" + phone_number[7] + "9XX.png";
+                    filename[7] = "uzors/" + phone_number[3] + "" + phone_number[5] + "0X" + phone_number[7] + "0XX.png";
                     if(isGlasses){
                         filename[9] = "glasses/" + phone_number[3] + "XXXXX" + phone_number[9] + phone_number[8] + ".png";
-                        addLayoutToCanvas(filename[5] + "XXXX.png", canvas, p, 0, 0);
-                        addLayoutToCanvas(filename[7], canvas, p, colors_array[phone_number[6]], colors_array[9]);
-                        addLayoutToCanvas(filename[9], canvas, p, 0, 0);
+                        addLayoutToCanvas(filename[5] + "XXXX.png", canvas, 0, 0, false);
+                        addLayoutToCanvas(filename[7], canvas, colors_array[phone_number[6]], colors_array[9], true);
+                        addLayoutToCanvas(filename[9], canvas, 0, 0, false);
                     }else{
                         filename[9] = phone_number[3] + "" + phone_number[9] + "0" + phone_number[8];
                         List<String> list = new ArrayList<String>();
@@ -467,9 +477,9 @@ public class Visualizer extends Activity{
                         list.add(filename[9]);
                         Collections.sort(list, new MyIntComparable());
                         for(String integer : list){
-                            addLayoutToCanvas(integer + "XXXX.png", canvas, p, 0, 0);
+                            addLayoutToCanvas(integer + "XXXX.png", canvas, 0, 0, false);
                             if(filename[7].contains(String.valueOf(Integer.parseInt(integer) / 10))){
-                                addLayoutToCanvas(filename[7], canvas, p, colors_array[phone_number[6]], colors_array[9]);
+                                addLayoutToCanvas(filename[7], canvas, colors_array[phone_number[6]], colors_array[9], true);
                             }
                         }
                     }
@@ -486,16 +496,6 @@ public class Visualizer extends Activity{
             mProgressDialog.dismiss();
             if(aBoolean){
                 if(phone_number.length != 0){
-                    et1.setFocusableInTouchMode((charge_number[0] != null) ? true : false);
-                    et2.setFocusableInTouchMode((charge_number[1] != null) ? true : false);
-                    et3.setFocusableInTouchMode((charge_number[2] != null) ? true : false);
-                    et4.setFocusableInTouchMode((charge_number[3] != null) ? true : false);
-                    et5.setFocusableInTouchMode((charge_number[4] != null) ? true : false);
-                    et6.setFocusableInTouchMode((charge_number[5] != null) ? true : false);
-                    et7.setFocusableInTouchMode((charge_number[6] != null) ? true : false);
-                    et8.setFocusableInTouchMode((charge_number[7] != null) ? true : false);
-                    et9.setFocusableInTouchMode((charge_number[8] != null) ? true : false);
-                    et10.setFocusableInTouchMode((charge_number[9] != null) ? true : false);
                     et1.setText((charge_number[0] != null) ? String.valueOf(phone_number[0]) : "");
                     et2.setText((charge_number[1] != null) ? String.valueOf(phone_number[1]) : "");
                     et3.setText((charge_number[2] != null) ? String.valueOf(phone_number[2]) : "");
@@ -507,6 +507,9 @@ public class Visualizer extends Activity{
                     et9.setText((charge_number[8] != null) ? String.valueOf(phone_number[8]) : "");
                     et10.setText((charge_number[9] != null) ? String.valueOf(phone_number[9]) : "");
 
+
+                    image.setScaleX((float) 0.95);
+                    image.setScaleY((float) 0.95);
                     image.setImageBitmap(bmapOverlay);
                     viewFlipper.showPrevious();
                 }
@@ -524,8 +527,7 @@ public class Visualizer extends Activity{
     }
 
     private Bitmap resizeBitmap(Bitmap bbMap, int w, int h, int searchColor, int replaceColor){
-        Bitmap rbMap = Bitmap.createScaledBitmap(bbMap, w, h, false);
-
+        Bitmap rbMap = Bitmap.createScaledBitmap(bbMap, w, h, true);
         bbMap.recycle();
         if(replaceColor != 0){
             rbMap.copy(Bitmap.Config.ARGB_8888, true);
@@ -547,12 +549,18 @@ public class Visualizer extends Activity{
         return rbMap;
     }
 
-    private void addLayoutToCanvas(String filename, Canvas canvas, Point p, int color, int bColor){
+    private void addLayoutToCanvas(String filename, Canvas canvas, int color, int changeColor, boolean isFill){
         try {
             InputStream is = getAssets().open("raw/" + filename);
-            bMap = BitmapFactory.decodeStream(is);
+            Bitmap bMap = BitmapFactory.decodeStream(is);
             is.close();
-            canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, bColor, color), new Matrix(), null);
+            if(isFill){
+                Paint paint = new Paint(color);
+                ColorFilter filter = new LightingColorFilter(color, 1);
+                paint.setColorFilter(filter);
+                canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), paint);
+            } else
+                canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, changeColor, color), new Matrix(), null);
         } catch (IOException e) {
             e.printStackTrace();
         }

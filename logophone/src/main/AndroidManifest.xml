@@ -9,6 +9,7 @@
         android:minSdkVersion="9"
         android:targetSdkVersion="16" />
 
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -29,6 +30,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.logophone.Visualizer"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"
             android:hardwareAccelerated="true"
             android:parentActivityName="com.logophone.MainActivity">
@@ -54,11 +56,6 @@
             android:name="com.logophone.TestingGame"
             android:screenOrientation="portrait"
             android:hardwareAccelerated="true"
-            android:parentActivityName="com.logophone.MainActivity">
-        </activity>
-        <activity
-            android:name="com.logophone.ContactsTest"
-            android:screenOrientation="portrait"
             android:parentActivityName="com.logophone.MainActivity">
         </activity>
 

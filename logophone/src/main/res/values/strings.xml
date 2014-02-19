@@ -29,4 +29,5 @@
     <string name="create_img">Create image</string>
     <string name="create_phone">Create by number</string>
     <string name="back">Back</string>
+    <string name="HelloCreator">Get one of your contacts number or type it below and you will see true face of it =)</string>
 </resources>
