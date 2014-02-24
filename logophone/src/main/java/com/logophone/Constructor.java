@@ -27,6 +27,8 @@ import android.text.TextWatcher;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -54,7 +56,6 @@ public class Constructor extends Activity {
     private ProgressDialog mProgressDialog, SaveProgressDialog, SendProgressDialog;
     private Integer phone_number[] = new Integer[]{};
     private ViewFlipper vFlip, vFlipMain;
-    private float lastX, lastY;
     private int background_round, showtype, currentShowType;
     private long currentID;
     private Context mContext = this;
@@ -90,6 +91,10 @@ public class Constructor extends Activity {
         } else
             disp.getSize(p);
         p.y = p.x*1528/1080;
+//        p.x *= 0.95;
+//        p.y *= 0.95;
+
+        final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.alpha);
 
         et1 = (EditText)findViewById(R.id.editText1);
         et1.addTextChangedListener(new TextWatcher() {
@@ -305,6 +310,7 @@ public class Constructor extends Activity {
         ibDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.startAnimation(animAlpha);
                 et1.setText(null);
                 et1.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
                 et1.setFocusableInTouchMode(true);
@@ -362,6 +368,7 @@ public class Constructor extends Activity {
         ibSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.startAnimation(animAlpha);
                 if(currentID != 0 && phone_number.length == 10 && bmapOverlay != null)
                     new SaveImage().execute();
                 else if(currentID == 0 && phone_number.length == 10 && bmapOverlay != null)
@@ -374,6 +381,7 @@ public class Constructor extends Activity {
         ibShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.startAnimation(animAlpha);
                 if(phone_number.length == 10 && bmapOverlay != null)
                     new SendImage().execute();
                 else
@@ -385,6 +393,7 @@ public class Constructor extends Activity {
         ibContacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.startAnimation(animAlpha);
                 Intent iPick = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
                 startActivityForResult(iPick, PICK_CONTACT);
             }
@@ -393,6 +402,7 @@ public class Constructor extends Activity {
         ibGenerate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.startAnimation(animAlpha);
                 String tel = et1.getText() + "" + et2.getText() + "" + et3.getText() + "" + et4.getText() + "" + et5.getText() + "" +
                         et6.getText() + "" + et7.getText() + "" + et8.getText() + "" + et9.getText() + "" + et10.getText();
                 phone_number = convert(tel);
@@ -409,6 +419,7 @@ public class Constructor extends Activity {
         ibLeftB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.startAnimation(animAlpha);
                 if(phone_number.length == 10){
                     vFlip.setOutAnimation(mContext, R.anim.out_to_right);
                     vFlip.setInAnimation(mContext, R.anim.in_from_left);
@@ -421,6 +432,7 @@ public class Constructor extends Activity {
         ibRightB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.startAnimation(animAlpha);
                 if(phone_number.length == 10){
                     vFlip.setOutAnimation(mContext, R.anim.out_to_left);
                     vFlip.setInAnimation(mContext, R.anim.in_from_right);
@@ -434,6 +446,7 @@ public class Constructor extends Activity {
         ibLeftM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.startAnimation(animAlpha);
                 if(phone_number.length == 10){
                     vFlipMain.setOutAnimation(mContext, R.anim.out_to_right);
                     vFlipMain.setInAnimation(mContext, R.anim.in_from_left);
@@ -447,6 +460,7 @@ public class Constructor extends Activity {
         ibRightM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.startAnimation(animAlpha);
                 if(phone_number.length == 10){
                     vFlipMain.setOutAnimation(mContext, R.anim.out_to_left);
                     vFlipMain.setInAnimation(mContext, R.anim.in_from_right);
@@ -598,7 +612,6 @@ public class Constructor extends Activity {
                 fOut.flush();
                 fOut.close();
                 intentShare.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(ftmp));
-//                startActivity(Intent.createChooser(intentShare, "Отправить логотип:"));
                 result = true;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -642,23 +655,10 @@ public class Constructor extends Activity {
         @Override
         protected Boolean doInBackground(Integer... integers) {
             boolean result = false;
-            String filename = String.valueOf(System.currentTimeMillis()) + ".jpg";
-            File sd = Environment.getExternalStorageDirectory();
-            File dest = new File(sd, filename);
             Bitmap bmpToSave = Bitmap.createBitmap(p.x, p.y, Bitmap.Config.ARGB_8888);
             Canvas saveCanvas = new Canvas(bmpToSave);
             saveCanvas.drawBitmap(bmapBackground, new Matrix(), null);
             saveCanvas.drawBitmap(bmapOverlay, new Matrix(), null);
-//
-//            try{
-//                FileOutputStream out = new FileOutputStream(dest);
-//                bmpToSave.compress(Bitmap.CompressFormat.PNG, 90, out);
-//                out.flush();
-//                out.close();
-//                result = true;
-//            } catch (IOException e){
-//                e.printStackTrace();
-//            }
             try {
                 ByteArrayOutputStream bOut = new ByteArrayOutputStream();
                 bmpToSave.compress(Bitmap.CompressFormat.PNG, 90, bOut);
@@ -700,6 +700,8 @@ public class Constructor extends Activity {
                     addLayoutToCanvas(filename[2], bCanvas, colors_array[phone_number[2]], Color.WHITE, true);
                     break;
                 case 2:
+                    filename[0] = "flag/40.png";
+                    addLayoutToCanvas(filename[0], bCanvas, 0, 0, false);
                     filename[2] = "figure/" + phone_number[2] + "01.png";
                     addLayoutToCanvas(filename[2], bCanvas, colors_array[phone_number[1]], Color.WHITE, true);
                     filename[1] = "figure/" + phone_number[2] + "00.png";
@@ -718,10 +720,8 @@ public class Constructor extends Activity {
                 ibLeftB.setVisibility(View.VISIBLE);
                 ibRightB.setVisibility(View.VISIBLE);
                 if(!imgBackground.isShown()) {
-//                    imgBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     imgBackground.setImageBitmap(bmapBackground);
                 } else if(!imgBackground2.isShown()) {
-//                    imgBackground2.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     imgBackground2.setImageBitmap(bmapBackground);
                 }
                 vFlip.showNext();
@@ -778,12 +778,12 @@ public class Constructor extends Activity {
                     }
                     tHelloCreator.setVisibility(View.GONE);
                     if(!image.isShown()){
-                        image.setScaleY((float) 0.95);
-                        image.setScaleX((float) 0.95);
+//                        image.setScaleY((float) 0.95);
+//                        image.setScaleX((float) 0.95);
                         image.setImageBitmap(bmapOverlay);
                     } else if(!image2.isShown()){
-                        image2.setScaleY((float) 0.95);
-                        image2.setScaleX((float) 0.95);
+//                        image2.setScaleY((float) 0.95);
+//                        image2.setScaleX((float) 0.95);
                         image2.setImageBitmap(bmapOverlay);
                     }
                     vFlipMain.showNext();
@@ -844,19 +844,20 @@ public class Constructor extends Activity {
                     System.out.println(indexOfClothes + "\n" + indexOfUzor);
                     for(int i = 0; i < aSorted.length; i++){
                         if(i == indexOfClothes){
-                            System.out.println(String.valueOf(aSorted[i]).length() > 4 ? String.valueOf(aSorted[i]).substring(1) : String.valueOf(aSorted[i]) + "XXXX.png");
-                            addLayoutToCanvas((String.valueOf(aSorted[i]).length() > 4 ? String.valueOf(aSorted[i]).substring(1) : String.valueOf(aSorted[i])) + "XXXX.png", canvas, 0, 0, false);
-                            System.out.println("uzors/" + (String.valueOf(aSorted[i]).length() > 4 ? String.valueOf(aSorted[i]).substring(1, 4) : String.valueOf(aSorted[i]).substring(0, 3))
+                            filename[5] = (String.valueOf(aSorted[i]).length() > 4 ? String.valueOf(aSorted[i]).substring(1) : String.valueOf(aSorted[i])) + "XXXX.png";
+                            System.out.println(filename[5]);
+                            addLayoutToCanvas(filename[5], canvas, 0, 0, false);
+                            filename[7] = "uzors/" + (String.valueOf(aSorted[i]).length() > 4 ? String.valueOf(aSorted[i]).substring(1, 4) : String.valueOf(aSorted[i]).substring(0, 3))
                                     + "X" + (String.valueOf(aSorted[indexOfUzor]).length() > 4 ? String.valueOf(aSorted[indexOfUzor]).substring(2, 3) : String.valueOf(aSorted[indexOfUzor]).substring(1, 2))
-                                    + "0XX.png");
-                            addLayoutToCanvas("uzors/" + (String.valueOf(aSorted[i]).length() > 4 ? String.valueOf(aSorted[i]).substring(1, 4) : String.valueOf(aSorted[i]).substring(0, 3))
-                                    + "X" + (String.valueOf(aSorted[indexOfUzor]).length() > 4 ? String.valueOf(aSorted[indexOfUzor]).substring(2, 3) : String.valueOf(aSorted[indexOfUzor]).substring(1, 2))
-                                    + "0XX.png", canvas, colors_array[aSorted[indexOfUzor] % 10], colors_array[9], true);
-                        } else if(i == indexOfUzor || aSorted[i] == aSorted[indexOfUzor]){
+                                    + "0XX.png";
+                            System.out.println(filename[7]);
+                            addLayoutToCanvas(filename[7], canvas, colors_array[aSorted[indexOfUzor] % 10], colors_array[9], true);
+                        } else if(i == indexOfUzor && aSorted[i] == aSorted[indexOfUzor]){
                             //do nothing
                         } else {
-                            System.out.println(String.valueOf(aSorted[i]).length() > 4 ? String.valueOf(aSorted[i]).substring(1) : String.valueOf(aSorted[i]) + "XXXX.png");
-                            addLayoutToCanvas((String.valueOf(aSorted[i]).length() > 4 ? String.valueOf(aSorted[i]).substring(1) : String.valueOf(aSorted[i])) + "XXXX.png", canvas, 0, 0, false);
+                            filename[9] = (String.valueOf(aSorted[i]).length() > 4 ? String.valueOf(aSorted[i]).substring(1) : String.valueOf(aSorted[i])) + "XXXX.png";
+                            System.out.println(filename[9]);
+                            addLayoutToCanvas(filename[9], canvas, 0, 0, false);
                         }
                     }
 

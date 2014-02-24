@@ -69,6 +69,17 @@ public class Creator {
         return result;
     }
 
+    public int indexOfIntArray(int[] array, int key) {
+        int returnvalue = -1;
+        for (int i = 0; i < array.length; i++) {
+            if (key == array[i]) {
+                returnvalue = i;
+                break;
+            }
+        }
+        return returnvalue;
+    }
+
     public int[] GetZipperType(){
         if(phone_number[3] == 0) phone_number[3] = 10;
         Integer check_array[] = {phone_number[5], phone_number[7], phone_number[9]};
@@ -85,6 +96,9 @@ public class Creator {
                     clothes[i] = ((clothes[i] - phone_number[4 + i*2] - phone_number[3]*1000)/100) == 6
                             || ((clothes[i] - phone_number[4 + i*2] - phone_number[3]*1000)/100) == 7 ? clothes[i] + 10 : clothes[i];
                 }
+            } else if(Arrays.asList(check_array).contains(6) && Arrays.asList(check_array).contains(7)
+                    && (Arrays.asList(check_array).contains(4) || Arrays.asList(check_array).contains(2))){
+                // do nothing
             } else if(Arrays.asList(check_array).contains(6) && Arrays.asList(check_array).contains(7)){
                 for(int i=0; i < clothes.length; i++){
                     System.out.println("2: " + (clothes[i] - phone_number[4 + i*2] - phone_number[3]*1000)/100);                                                                      //<<======
@@ -113,20 +127,26 @@ public class Creator {
         Integer check_array[] = {phone_number[5], phone_number[7], phone_number[9]};
         int clothes[] = new int[3];
         System.arraycopy(input, 0, clothes, 0, input.length);
-
-        Arrays.sort(clothes);
+//        if(check_array[1] != 0 && check_array[2] != 0)
+            Arrays.sort(clothes);
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!! " + Arrays.toString(clothes));                                                                      //<<======
         if(Arrays.asList(check_array).contains(0)){
             System.out.println("There is 0 in array!");                                                                      //<<======
             if((Arrays.asList(check_array).contains(7)
                     && Arrays.asList(check_array).contains(8))
                     || (Arrays.asList(check_array).contains(7)
                     && Arrays.asList(check_array).contains(9))){
+                System.out.println("Do nothing with sort");
                 //do nothing
+            } else if(check_array[1] == 0 && check_array[2] == 0) {
+                moveLastup(clothes, 1);
+                moveLastup(clothes, 2);
             } else if((Arrays.asList(check_array).contains(7)
                     || Arrays.asList(check_array).contains(8)
                     || Arrays.asList(check_array).contains(9))) {
                 moveLastup(clothes, 1);
             } else {
+                System.out.println("Sorting: move to upper(2");
                 moveLastup(clothes, 2);
             }
         }

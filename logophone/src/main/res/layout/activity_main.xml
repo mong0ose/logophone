@@ -9,68 +9,117 @@
     tools:context=".MainActivity"
     android:background="#000000">
 
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/spravka"
-            android:id="@+id/btnInfo"
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:src="@drawable/logohome"
+        android:scaleType="fitStart"
+        android:cropToPadding="false"
+        android:adjustViewBounds="true"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="false"
-        android:background="#ff004e"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp" />
+        android:layout_below="@+id/imageView">
 
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/table"
-            android:id="@+id/btnTable" android:layout_below="@+id/btnInfo"
-        android:background="#00ff05"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp" />
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:text="@string/construct"
+                android:id="@+id/btnConstruct"
+            android:layout_below="@+id/btnTest"
+            android:background="#f5ff00"
+            android:paddingLeft="35dp"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:textSize="20dp"
+            android:paddingRight="35dp" />
 
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/newbie"
-            android:id="@+id/btnLearn" android:layout_below="@+id/btnTable"
-        android:background="#080bff"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp" />
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:text="@string/spravka"
+                android:id="@+id/btnInfo"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="false"
+            android:background="#ff0016"
+            android:paddingLeft="35dp"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:textSize="20dp"
+            android:paddingRight="35dp" />
 
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/training"
-            android:id="@+id/btnTraining" android:layout_below="@+id/btnLearn"
-        android:background="#ff2bf2"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp" />
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/test"
-            android:id="@+id/btnTest" android:layout_below="@+id/btnTraining"
-        android:background="#63ffb6"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp" />
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/construct"
-            android:id="@+id/btnConstruct" android:layout_below="@+id/btnTest"
-        android:background="#f7ff48"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp" />
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/exit"
-            android:id="@+id/btnExit"
-        android:background="#1d65ff"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp"
-        android:layout_below="@+id/btnConstruct"
-        android:layout_alignParentLeft="true" />
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:text="@string/training"
+                android:id="@+id/btnTraining"
+            android:layout_below="@+id/btnLearn"
+            android:background="#ff2bf2"
+            android:paddingLeft="35dp"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:textSize="20dp"
+            android:paddingRight="35dp" />
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:text="@string/table"
+                android:id="@+id/btnTable"
+            android:layout_below="@+id/btnInfo"
+            android:background="#00ff05"
+            android:paddingLeft="35dp"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:textSize="20dp"
+            android:paddingRight="35dp" />
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:text="@string/newbie"
+                android:id="@+id/btnLearn"
+            android:layout_below="@+id/btnTable"
+            android:background="#00b1ff"
+            android:paddingLeft="35dp"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:textSize="20dp"
+            android:paddingRight="35dp" />
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:text="@string/test"
+                android:id="@+id/btnTest"
+            android:layout_below="@+id/btnTraining"
+            android:background="#63ffb6"
+            android:paddingLeft="35dp"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:textSize="20dp"
+            android:paddingRight="35dp" />
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:text="@string/exit"
+                android:id="@+id/btnExit"
+            android:background="#2052ff"
+            android:paddingLeft="35dp"
+            android:layout_below="@+id/btnConstruct"
+            android:layout_alignParentLeft="true"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:textSize="20dp"
+            android:paddingRight="35dp" />
+    </LinearLayout>
+
 </RelativeLayout>

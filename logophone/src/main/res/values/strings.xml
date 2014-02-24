@@ -5,13 +5,13 @@
     </string>
     <string name="action_settings" >Settings
     </string>
-    <string name="spravka">Справка</string>
-    <string name="table">Таблица</string>
-    <string name="newbie">Знакомство</string>
-    <string name="training">Тренировка</string>
-    <string name="test">Тест</string>
-    <string name="construct">Конструктор</string>
-    <string name="exit">Выход</string>
+    <string name="spravka">Information</string>
+    <string name="table">Table</string>
+    <string name="newbie">Introduction</string>
+    <string name="training">Training</string>
+    <string name="test">Test</string>
+    <string name="construct">Create my Logo</string>
+    <string name="exit">Exit</string>
     <string name="imgB1">ib1</string>
     <string name="imgB2">ib2</string>
     <string name="imgB3">ib3</string>

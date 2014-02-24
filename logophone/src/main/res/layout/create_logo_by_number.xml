@@ -19,26 +19,28 @@
         android:layout_height="match_parent"
         android:id="@+id/ConstructorViewFlipperBackground"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentTop="false">
+        android:layout_below="@+id/constructorlinearLayout">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/imgCreateBackground"
-            />
+            android:adjustViewBounds="true"
+            android:scaleType="matrix" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/imgCreateBackground2" />
+            android:id="@+id/imgCreateBackground2"
+            android:adjustViewBounds="true"
+            android:scaleType="matrix" />
     </ViewFlipper>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout"
+        android:id="@+id/constructorlinearLayout"
         android:gravity="center"
         android:background="#109ee3">
 
@@ -196,70 +198,74 @@
     </LinearLayout>
 
     <ViewFlipper
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:id="@+id/ConstructorViewFlipperMain"
-        android:layout_above="@+id/llayoutBtns"
-        android:layout_below="@+id/linearLayout" >
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/imgCreateLogo" />
+        android:layout_below="@+id/constructorlinearLayout"
+        android:layout_above="@+id/llayoutBtns">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imgCreateLogo2" />
+            android:id="@+id/imgCreateLogo"
+            android:layout_gravity="center"
+            android:adjustViewBounds="false" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgCreateLogo2"
+            android:layout_gravity="center"
+            android:adjustViewBounds="false" />
     </ViewFlipper>
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imgBtnLeftBack"
-        android:background="?android:attr/selectableItemBackground"
         android:src="@drawable/left_round64"
-        android:layout_alignLeft="@+id/linearLayout"
-        android:layout_below="@+id/linearLayout"
+        android:layout_alignLeft="@+id/constructorlinearLayout"
+        android:layout_below="@+id/constructorlinearLayout"
         android:padding="10dp"
         android:layout_margin="15dp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:background="@android:color/transparent" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imgBtnRightBack"
-        android:background="?android:attr/selectableItemBackground"
         android:src="@drawable/right_round64"
-        android:layout_alignRight="@+id/linearLayout"
-        android:layout_below="@+id/linearLayout"
+        android:layout_alignRight="@+id/constructorlinearLayout"
+        android:layout_below="@+id/constructorlinearLayout"
         android:padding="10dp"
         android:layout_margin="15dp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:background="@android:color/transparent" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imgBtnLeftMain"
-        android:background="?android:attr/selectableItemBackground"
         android:src="@drawable/left_round64"
         android:layout_above="@+id/llayoutBtns"
         android:layout_alignLeft="@+id/llayoutBtns"
         android:padding="10dp"
         android:layout_margin="15dp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:background="@android:color/transparent" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imgBtnRightMain"
-        android:background="?android:attr/selectableItemBackground"
         android:src="@drawable/right_round64"
         android:layout_above="@+id/llayoutBtns"
         android:layout_alignRight="@+id/llayoutBtns"
         android:padding="10dp"
         android:layout_margin="15dp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:background="@android:color/transparent" />
 
     <LinearLayout
         android:id="@+id/llayoutBtns"
@@ -274,35 +280,35 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/imgBtnContacts"
-            android:background="?android:attr/selectableItemBackground"
             android:layout_weight="1"
             android:src="@drawable/contacts64"
+            android:background="@android:color/transparent"
             android:layout_margin="5dp" />
 
         <ImageButton
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/imgBtnShare"
-            android:background="?android:attr/selectableItemBackground"
             android:layout_weight="1"
             android:src="@drawable/send_file64"
+            android:background="@android:color/transparent"
             android:layout_margin="5dp" />
 
         <ImageButton
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/imgBtnSave"
-            android:background="?android:attr/selectableItemBackground"
             android:layout_weight="1"
             android:src="@drawable/save64"
+            android:background="@android:color/transparent"
             android:layout_margin="5dp" />
 
         <ImageButton
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/imgBtnRecycle"
-            android:background="?android:attr/selectableItemBackground"
             android:src="@drawable/delete64"
+            android:background="@android:color/transparent"
             android:layout_weight="1"
             android:layout_margin="5dp" />
 
@@ -310,9 +316,9 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/imgBtnCreate"
-            android:background="?android:attr/selectableItemBackground"
             android:layout_weight="1"
             android:src="@drawable/bg_color64"
+            android:background="@android:color/transparent"
             android:layout_margin="5dp" />
     </LinearLayout>
 

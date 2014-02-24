@@ -5,12 +5,20 @@
     <ViewFlipper
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/trainViewFlipper">
+        android:id="@+id/trainViewFlipper"
+        android:layout_below="@+id/trainLinearLayout">
 
         <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/trainImage" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/trainImage"
+            android:layout_gravity="center" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/trainImage2"
+            android:layout_gravity="center" />
     </ViewFlipper>
 
     <LinearLayout
@@ -18,11 +26,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/trainLinearLayout"
-        android:gravity="center">
+        android:gravity="center"
+        android:background="#109ee3">
 
         <EditText
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="35dp"
             android:inputType="number"
             android:ems="10"
             android:id="@+id/trainEditText1"
@@ -30,11 +39,16 @@
             android:maxLength="1"
             android:textAlignment="center"
             android:gravity="center"
-            android:focusable="false" />
+            android:focusable="false"
+            android:background="@drawable/rect_edittext"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="2dp" />
 
         <EditText
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="35dp"
             android:inputType="number"
             android:ems="10"
             android:id="@+id/trainEditText2"
@@ -42,11 +56,13 @@
             android:maxLength="1"
             android:textAlignment="center"
             android:gravity="center"
-            android:focusable="false" />
+            android:focusable="false"
+            android:background="@drawable/rect_edittext"
+            android:layout_margin="2dp" />
 
         <EditText
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="35dp"
             android:inputType="number"
             android:ems="10"
             android:id="@+id/trainEditText3"
@@ -54,11 +70,13 @@
             android:maxLength="1"
             android:textAlignment="center"
             android:gravity="center"
-            android:focusable="false" />
+            android:focusable="false"
+            android:background="@drawable/rect_edittext"
+            android:layout_margin="2dp" />
 
         <EditText
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="35dp"
             android:inputType="number"
             android:ems="10"
             android:id="@+id/trainEditText4"
@@ -67,11 +85,15 @@
             android:textAlignment="center"
             android:layout_marginLeft="10dp"
             android:gravity="center"
-            android:focusable="false" />
+            android:focusable="false"
+            android:background="@drawable/rect_edittext"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="2dp" />
 
         <EditText
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="35dp"
             android:inputType="number"
             android:ems="10"
             android:id="@+id/trainEditText5"
@@ -79,11 +101,13 @@
             android:maxLength="1"
             android:textAlignment="center"
             android:gravity="center"
-            android:focusable="false" />
+            android:focusable="false"
+            android:background="@drawable/rect_edittext"
+            android:layout_margin="2dp" />
 
         <EditText
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="35dp"
             android:inputType="number"
             android:ems="10"
             android:id="@+id/trainEditText6"
@@ -91,11 +115,13 @@
             android:maxLength="1"
             android:textAlignment="center"
             android:gravity="center"
-            android:focusable="false" />
+            android:focusable="false"
+            android:background="@drawable/rect_edittext"
+            android:layout_margin="2dp" />
 
         <EditText
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="35dp"
             android:inputType="number"
             android:ems="10"
             android:id="@+id/trainEditText7"
@@ -104,11 +130,15 @@
             android:textAlignment="center"
             android:gravity="center"
             android:layout_marginLeft="10dp"
-            android:focusable="false" />
+            android:focusable="false"
+            android:background="@drawable/rect_edittext"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="2dp" />
 
         <EditText
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="35dp"
             android:inputType="number"
             android:ems="10"
             android:id="@+id/trainEditText8"
@@ -116,11 +146,13 @@
             android:maxLength="1"
             android:textAlignment="center"
             android:gravity="center"
-            android:focusable="false" />
+            android:focusable="false"
+            android:background="@drawable/rect_edittext"
+            android:layout_margin="2dp" />
 
         <EditText
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="35dp"
             android:inputType="number"
             android:ems="10"
             android:id="@+id/trainEditText9"
@@ -128,11 +160,13 @@
             android:maxLength="1"
             android:textAlignment="center"
             android:gravity="center"
-            android:focusable="false" />
+            android:focusable="false"
+            android:background="@drawable/rect_edittext"
+            android:layout_margin="2dp" />
 
         <EditText
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="35dp"
             android:inputType="number"
             android:ems="10"
             android:id="@+id/trainEditText10"
@@ -140,94 +174,122 @@
             android:maxLength="1"
             android:textAlignment="center"
             android:gravity="center"
-            android:focusable="false" />
+            android:focusable="false"
+            android:background="@drawable/rect_edittext"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="2dp" />
     </LinearLayout>
 
     <RadioGroup
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:id="@+id/trainRadioSize"
         android:layout_below="@+id/trainLinearLayout"
-        android:layout_alignLeft="@+id/trainViewFlipper">
+        android:layout_alignLeft="@+id/trainViewFlipper"
+        android:visibility="gone">
 
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:text="1"
             android:id="@+id/radioButtonTrain"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp" />
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:gravity="center" />
 
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:text="2"
             android:id="@+id/radioButtonTrain2"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:gravity="center" />
 
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:text="3"
             android:id="@+id/radioButtonTrain3"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:gravity="center" />
 
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:text="4"
             android:id="@+id/radioButtonTrain4"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:gravity="center" />
 
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:text="5"
             android:id="@+id/radioButtonTrain5"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:gravity="center" />
 
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:text="6"
             android:id="@+id/radioButtonTrain6"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:gravity="center" />
 
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:text="7"
             android:id="@+id/radioButtonTrain7"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:gravity="center" />
 
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:text="8"
             android:id="@+id/radioButtonTrain8"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:gravity="center" />
 
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:text="9"
             android:id="@+id/radioButtonTrain9"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:gravity="center" />
 
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:text="10"
             android:id="@+id/radioButtonTrain10"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:gravity="center" />
     </RadioGroup>
 
-    <Button
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Check"
-        android:id="@+id/btnCheckTrain"
-        android:layout_alignBottom="@+id/trainViewFlipper"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentStart="false" />
+        android:id="@+id/imgBtnCheckNumber"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:src="@drawable/checked_checkbox64"
+        android:background="@android:color/transparent" />
 </RelativeLayout>

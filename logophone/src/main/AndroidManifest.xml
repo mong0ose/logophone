@@ -23,19 +23,23 @@
         <activity
             android:name="com.logophone.MainActivity"
             android:screenOrientation="portrait"
+            android:hardwareAccelerated="true"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.logophone.Visualizer"
+        <activity
+            android:name="com.logophone.Visualizer"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"
             android:hardwareAccelerated="true"
             android:parentActivityName="com.logophone.MainActivity">
         </activity>
-        <activity android:name="com.logophone.TrainingPart"
+        <activity
+            android:name="com.logophone.TrainingPart"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"
             android:hardwareAccelerated="true"
             android:parentActivityName="com.logophone.MainActivity">
@@ -48,6 +52,7 @@
         </activity>
         <activity
             android:name="com.logophone.Constructor"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"
             android:hardwareAccelerated="true"
             android:parentActivityName="com.logophone.MainActivity">
@@ -56,6 +61,18 @@
             android:name="com.logophone.TestingGame"
             android:screenOrientation="portrait"
             android:hardwareAccelerated="true"
+            android:parentActivityName="com.logophone.MainActivity">
+        </activity>
+        <activity
+            android:name="com.logophone.TypeChooser"
+            android:screenOrientation="portrait"
+            android:hardwareAccelerated="false"
+            android:parentActivityName="com.logophone.MainActivity">
+        </activity>
+        <activity
+            android:name="com.logophone.TrainingTypeChooser"
+            android:screenOrientation="portrait"
+            android:hardwareAccelerated="false"
             android:parentActivityName="com.logophone.MainActivity">
         </activity>
 
