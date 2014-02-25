@@ -1,10 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="decode_elements_array">
+        <item><b>Tricolor flag</b>\n
+            The first digit is the color of the upper band\n
+            <b>Background color and monochrome figure</b>\n
+            The first digit represents the background color\n
+            <b>Two-colored figure</b>\n
+            The first digit is the color of the center pieces\n
+            <b>Character and Clothing</b>\n
+            The first digit is the character</item>
+        <item><b>Two-colored figure</b>\n
+            The first digit is the color of a shape The second digit is the shape of the figure\n
+            <b>Glasses</b>\n
+            The first digit is the color of glasses The second digit indicates the shape of glasses</item>
+        <item><b>Tricolor flag</b>\n
+            The first digit is the color of the upper band\n
+            The second digit - the color of the middle band\n
+            The third digit - the color of the lower band\n
+            <b>Background color and monochrome figure</b>\n
+            The first digit represents the background color\n
+            The second digit is the color of a shape\n
+            The third digit is the shape of the figure\n
+            <b>Two-colored figure</b>\n
+            The first digit is the color of the center pieces\n
+            The second digit number is the color fringe figures\n
+            third digit is the shape of the figure\n
+            <b>Character and Clothing</b>\n
+            The first digit is the character\n
+            The second digit is the color of the clothes\n
+            The third digit indicates the kind of clothes</item>
+        <item>The first digit indicates the color of the background\n
+            The second digit is the character\n
+            The third digit indicates the color of clothing\n
+            The fourth digit indicates the kind of clothes</item>
+        <item>The first digit is the character\n
+            The second digit is the color of the clothes\n
+            The third digit indicates the kind of clothing\n
+            The fourth digit indicates the color of the pattern\n
+            The fifth digit is the type of pattern</item>
+        <item>The first digit indicates the color of the background\n
+            The second digit is the character\n
+            The third digit - is the color of clothing\n
+            The fourth digit indicates the kind of clothing\n
+            The fifth digit indicates the color of the pattern\n
+            The sixth digit is the type of pattern</item>
+        <item>The first digit is the character\n
+            The second digit is the color of clothing with a pattern\n
+            The third digit indicates the kind of clothing with a pattern\n
+            The fourth digit indicates the color of the pattern\n
+            The fifth digit is the type of pattern\n
+            The sixth digit is the color of clothes without a pattern or color of the glasses\n
+            The seventh digit is the type of character clothing or shape of the glasses</item>
+        <item>The first digit is the background color\n
+            The second digit is a character\n
+            The third digit is the color of clothing with a pattern\n
+            The fourth digit is the type of clothing with a pattern\n
+            The fifth digit is the color of the pattern\n
+            The sixth digit refers to the type of pattern\n
+            The seventh digit is the color of the clothes without a pattern or color of the glasses\n
+            The eighth digit is the type of clothing the character or form of glasses</item>
+        <item>The first digit - the color of the background figures\n
+            The second digit - the form of the background figures\n
+            The third digit is the character\n
+            The fourth digit indicates the color of clothing with a pattern\n
+            The fifth digit is the kind of clothing with a pattern\n
+            The sixth digit indicates the color of the pattern\n
+            The seventh digit refers to the type of pattern\n
+            The eighth digit is the color of the clothes without a pattern or color of the glasses\n
+            The ninth digit is the type of clothing the character or form of glasses</item>
+        <item>The first three digits describe the background (see the help section on the three elements)\n
+            The fourth digit indicates the character\n
+            The fifth digit is the color of clothing with a pattern\n
+            The sixth digit is the kind of clothing with a pattern\n
+            The seventh digit indicates the color of the pattern\n
+            The eighth digit is the kind of pattern\n
+            The ninth digit is the color of the clothes without a pattern or color of the glasses\n
+            The tenth digit is the kind of clothes without a pattern or shape of the glasses</item>
+        <item>Please enter the answer to the first image, then on the second, and so on.</item>
+    </string-array>
 
-    <string name="app_name" >logophone
-    </string>
-    <string name="action_settings" >Settings
-    </string>
+    <string name="app_name" >logophone</string>
+    <string name="action_settings" >Settings</string>
+    <string name="action_info">Information</string>
     <string name="spravka">Information</string>
     <string name="table">Table</string>
     <string name="newbie">Introduction</string>

@@ -1,9 +1,11 @@
 package com.logophone;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -18,12 +20,18 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ViewFlipper;
@@ -37,6 +45,7 @@ import java.util.Random;
  * Created by mongOose on 22.12.13.
  */
 public class Visualizer extends Activity{
+    private static final int D_INFO = 1;
     private Bitmap bMap;
     private ViewFlipper viewFlipper;
     private RadioGroup group;
@@ -60,6 +69,51 @@ public class Visualizer extends Activity{
             Color.rgb(186, 114, 41),            // BROWN
             Color.rgb(1, 1, 1)                  // BLACK
     };
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_info:
+                DialogManager(D_INFO);
+                return true;
+        }
+        return false;
+    }
+
+    private Dialog DialogManager(int dType){
+        final Dialog dialog = new Dialog(mContext);
+        switch (dType){
+            case D_INFO:
+                dialog.setContentView(R.layout.information_all);
+                dialog.setTitle("Information:");
+                dialog.setCanceledOnTouchOutside(true);
+
+                Button bOk = (Button)dialog.findViewById(R.id.btnOk);
+                bOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+                ListView lvAll = (ListView) dialog.findViewById(R.id.listOfInfoRows);
+                Resources res = getResources();
+                String[] rows = res.getStringArray(R.array.decode_elements_array);
+                lvAll.setAdapter(new InfoListAdapter(mContext, rows[TypeSize-1], TypeSize));
+
+                dialog.show();
+                break;
+            default:
+                break;
+        }
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,10 +152,13 @@ public class Visualizer extends Activity{
         et10 = (EditText)findViewById(R.id.visEditText10);
         et10.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.MULTIPLY);
 
+        final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.alpha);
+
         ImageButton ibNext = (ImageButton)findViewById(R.id.imgBtnNextImg);
         ibNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.setAnimation(animAlpha);
                 new ImageBuilder().execute();
             }
         });

@@ -6,8 +6,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity"
-    android:background="#000000">
+    tools:context=".MainActivity">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -33,12 +32,12 @@
                 android:text="@string/construct"
                 android:id="@+id/btnConstruct"
             android:layout_below="@+id/btnTest"
-            android:background="#f5ff00"
             android:paddingLeft="35dp"
             android:layout_weight="1"
             android:layout_margin="3dp"
             android:textSize="20dp"
-            android:paddingRight="35dp" />
+            android:paddingRight="35dp"
+            android:background="@android:drawable/btn_default" />
 
         <Button
                 android:layout_width="wrap_content"
@@ -48,12 +47,12 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="false"
-            android:background="#ff0016"
             android:paddingLeft="35dp"
             android:layout_weight="1"
             android:layout_margin="3dp"
             android:textSize="20dp"
-            android:paddingRight="35dp" />
+            android:paddingRight="35dp"
+            android:background="@android:drawable/btn_default" />
 
         <Button
                 android:layout_width="wrap_content"
@@ -61,12 +60,12 @@
                 android:text="@string/training"
                 android:id="@+id/btnTraining"
             android:layout_below="@+id/btnLearn"
-            android:background="#ff2bf2"
             android:paddingLeft="35dp"
             android:layout_weight="1"
             android:layout_margin="3dp"
             android:textSize="20dp"
-            android:paddingRight="35dp" />
+            android:paddingRight="35dp"
+            android:background="@android:drawable/btn_default" />
 
         <Button
                 android:layout_width="wrap_content"
@@ -74,12 +73,12 @@
                 android:text="@string/table"
                 android:id="@+id/btnTable"
             android:layout_below="@+id/btnInfo"
-            android:background="#00ff05"
             android:paddingLeft="35dp"
             android:layout_weight="1"
             android:layout_margin="3dp"
             android:textSize="20dp"
-            android:paddingRight="35dp" />
+            android:paddingRight="35dp"
+            android:background="@android:drawable/btn_default" />
 
         <Button
                 android:layout_width="wrap_content"
@@ -87,12 +86,12 @@
                 android:text="@string/newbie"
                 android:id="@+id/btnLearn"
             android:layout_below="@+id/btnTable"
-            android:background="#00b1ff"
             android:paddingLeft="35dp"
             android:layout_weight="1"
             android:layout_margin="3dp"
             android:textSize="20dp"
-            android:paddingRight="35dp" />
+            android:paddingRight="35dp"
+            android:background="@android:drawable/btn_default" />
 
         <Button
                 android:layout_width="wrap_content"
@@ -100,26 +99,26 @@
                 android:text="@string/test"
                 android:id="@+id/btnTest"
             android:layout_below="@+id/btnTraining"
-            android:background="#63ffb6"
             android:paddingLeft="35dp"
             android:layout_weight="1"
             android:layout_margin="3dp"
             android:textSize="20dp"
-            android:paddingRight="35dp" />
+            android:paddingRight="35dp"
+            android:background="@android:drawable/btn_default" />
 
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:text="@string/exit"
                 android:id="@+id/btnExit"
-            android:background="#2052ff"
             android:paddingLeft="35dp"
             android:layout_below="@+id/btnConstruct"
             android:layout_alignParentLeft="true"
             android:layout_weight="1"
             android:layout_margin="3dp"
             android:textSize="20dp"
-            android:paddingRight="35dp" />
+            android:paddingRight="35dp"
+            android:background="@android:drawable/btn_default" />
     </LinearLayout>
 
 </RelativeLayout>

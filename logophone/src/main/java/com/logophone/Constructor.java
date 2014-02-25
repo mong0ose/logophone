@@ -1,10 +1,12 @@
 package com.logophone;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,13 +27,17 @@ import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Display;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -52,6 +58,7 @@ public class Constructor extends Activity {
     private ImageButton ibLeftB, ibRightB, ibLeftM, ibRightM;
     private TextView tHelloCreator;
     private EditText et1, et2, et3, et4, et5, et6, et7, et8, et9, et10;
+    private static final int D_INFO = 1;
     private static final int PICK_CONTACT = 3245;
     private ProgressDialog mProgressDialog, SaveProgressDialog, SendProgressDialog;
     private Integer phone_number[] = new Integer[]{};
@@ -75,7 +82,50 @@ public class Constructor extends Activity {
 
     private Bitmap bmapOverlay, bmapBackground;
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_info:
+                DialogManager(D_INFO);
+                return true;
+        }
+        return false;
+    }
+
+    private Dialog DialogManager(int dType){
+        final Dialog dialog = new Dialog(mContext);
+        switch (dType){
+            case D_INFO:
+                dialog.setContentView(R.layout.information_all);
+                dialog.setTitle("Information:");
+                dialog.setCanceledOnTouchOutside(true);
+
+                Button bOk = (Button)dialog.findViewById(R.id.btnOk);
+                bOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+                ListView lvAll = (ListView) dialog.findViewById(R.id.listOfInfoRows);
+                Resources res = getResources();
+                String[] rows = res.getStringArray(R.array.decode_elements_array);
+                lvAll.setAdapter(new InfoListAdapter(mContext, rows[9], 10));
+
+                dialog.show();
+                break;
+            default:
+                break;
+        }
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

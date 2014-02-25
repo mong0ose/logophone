@@ -75,6 +75,12 @@
             android:hardwareAccelerated="false"
             android:parentActivityName="com.logophone.MainActivity">
         </activity>
+        <activity
+            android:name="com.logophone.Information"
+            android:screenOrientation="portrait"
+            android:hardwareAccelerated="false"
+            android:parentActivityName="com.logophone.MainActivity">
+        </activity>
 
     </application>
 

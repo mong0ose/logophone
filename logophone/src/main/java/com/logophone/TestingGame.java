@@ -294,16 +294,6 @@ public class TestingGame extends Activity {
             }
         });
 
-//        for(int i = 0; i < editTextsTesting.length; i++){
-//            editTextsTesting[i].setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//                @Override
-//                public void onFocusChange(View view, boolean b) {
-//                    InputMethodManager imm =  (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//                    imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
-//                }
-//            });
-//        }
-
         txtCounter = (TextView)findViewById(R.id.txtPicCounter);
 
         ImageButton ibNext = (ImageButton)findViewById(R.id.imgBtnCheckTest);
@@ -416,8 +406,8 @@ public class TestingGame extends Activity {
             Canvas canvas = new Canvas(bmapOverlay);
             Random rand = new Random();
             for(int i = 0; i < 10; i++){
-//                phone_number[i] = rand.nextInt(9-0) + 0;
-                phone_number[i] = 0;
+                phone_number[i] = rand.nextInt(9-0) + 0;
+//                phone_number[i] = 0;
             }
             Creator check = new Creator(phone_number);
 
