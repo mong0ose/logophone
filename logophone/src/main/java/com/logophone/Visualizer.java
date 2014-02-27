@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -34,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.ViewFlipper;
 
 import java.io.IOException;
@@ -46,6 +48,7 @@ import java.util.Random;
  */
 public class Visualizer extends Activity{
     private static final int D_INFO = 1;
+    private static final int D_CHOOSER = 2;
     private Bitmap bMap;
     private ViewFlipper viewFlipper;
     private RadioGroup group;
@@ -109,6 +112,37 @@ public class Visualizer extends Activity{
 
                 dialog.show();
                 break;
+            case D_CHOOSER:
+                dialog.setContentView(R.layout.type_chooser);
+                dialog.setTitle("Choose number chain:");
+                dialog.setCancelable(false);
+                String[] typeToChoose = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+                final Spinner dSpinner = (Spinner) dialog.findViewById(R.id.spinnerChooserType);
+
+                Button bdExit = (Button) dialog.findViewById(R.id.btnChooserBack);
+                bdExit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+                Button bdSelect = (Button) dialog.findViewById(R.id.btnChooserSelect);
+                bdSelect.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        TypeSize = Integer.parseInt(String.valueOf(dSpinner.getSelectedItem().toString()));
+
+                        new ImageBuilder().execute();
+                        dialog.dismiss();
+                    }
+                });
+                ArrayAdapter<String> dSpinnerArrayAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, typeToChoose);
+                dSpinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                dSpinner.setAdapter(dSpinnerArrayAdapter);
+
+                dialog.show();
+                break;
             default:
                 break;
         }
@@ -119,8 +153,9 @@ public class Visualizer extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.logo_visualizer);
-        Intent mIntent = getIntent();
-        TypeSize = mIntent.getIntExtra("intValType", 1);
+//        Intent mIntent = getIntent();
+//        TypeSize = mIntent.getIntExtra("intValType", 1);
+        DialogManager(D_CHOOSER);
         Display disp = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR2){
             p.x = disp.getWidth();
@@ -154,6 +189,15 @@ public class Visualizer extends Activity{
 
         final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.alpha);
 
+        ImageButton ibRedo = (ImageButton)findViewById(R.id.imgBtnVisRedo);
+        ibRedo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.setAnimation(animAlpha);
+                DialogManager(D_CHOOSER);
+            }
+        });
+
         ImageButton ibNext = (ImageButton)findViewById(R.id.imgBtnNextImg);
         ibNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,8 +224,6 @@ public class Visualizer extends Activity{
         });
         image = (ImageView)findViewById(R.id.visImage);
         image2 = (ImageView)findViewById(R.id.visImage2);
-
-        new ImageBuilder().execute();
     }
 
     public boolean onTouchEvent(MotionEvent touchevent)

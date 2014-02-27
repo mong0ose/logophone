@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -35,6 +36,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
@@ -48,6 +50,7 @@ import java.util.Random;
  */
 public class TrainingPart extends Activity {
     private static final int D_INFO = 1;
+    private static final int D_CHOOSER = 2;
     private Integer charge_number[] = new Integer[10];
     private ViewFlipper viewFlipper;
     private RadioGroup group;
@@ -109,6 +112,37 @@ public class TrainingPart extends Activity {
 
                 dialog.show();
                 break;
+            case D_CHOOSER:
+                dialog.setContentView(R.layout.type_chooser);
+                dialog.setTitle("Choose number chain:");
+                dialog.setCancelable(false);
+                String[] typeToChoose = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+                final Spinner dSpinner = (Spinner) dialog.findViewById(R.id.spinnerChooserType);
+
+                Button bdExit = (Button) dialog.findViewById(R.id.btnChooserBack);
+                bdExit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+                Button bdSelect = (Button) dialog.findViewById(R.id.btnChooserSelect);
+                bdSelect.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        TypeSize = Integer.parseInt(String.valueOf(dSpinner.getSelectedItem().toString()));
+
+                        new ImageBuilder().execute();
+                        dialog.dismiss();
+                    }
+                });
+                ArrayAdapter<String> dSpinnerArrayAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, typeToChoose);
+                dSpinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                dSpinner.setAdapter(dSpinnerArrayAdapter);
+
+                dialog.show();
+                break;
             default:
                 break;
         }
@@ -119,8 +153,9 @@ public class TrainingPart extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.logo_training);
-        Intent mIntent = getIntent();
-        TypeSize = mIntent.getIntExtra("intValType", 1);
+//        Intent mIntent = getIntent();
+//        TypeSize = mIntent.getIntExtra("intValType", 1);
+        DialogManager(D_CHOOSER);
         Display disp = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR2){
             p.x = disp.getWidth();
@@ -336,14 +371,29 @@ public class TrainingPart extends Activity {
 
         final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.alpha);
 
+        ImageButton ibRedo = (ImageButton)findViewById(R.id.imgBtnTrainRedo);
+        ibRedo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.setAnimation(animAlpha);
+                DialogManager(D_CHOOSER);
+            }
+        });
+
         ImageButton ibNext = (ImageButton)findViewById(R.id.imgBtnCheckNumber);
         ibNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.setAnimation(animAlpha);
                 Integer tel[] = new Integer[10];
-                for (int i = 0; i < editTextsTraining.length; i++)
-                    tel[i] = editTextsTraining[i].getText().length() != 0 ? Integer.parseInt(String.valueOf(editTextsTraining[i].getText().toString())) : null;
+                try {
+                    for (int i = 0; i < editTextsTraining.length; i++)
+                        tel[i] = editTextsTraining[i].getText().length() != 0 ?
+                                Integer.parseInt(String.valueOf(editTextsTraining[i].getText()).replaceAll("[^0-9]+", "")) : null;
+
+                } catch(NumberFormatException nfe) {
+                    System.out.println("Could not parse " + nfe);
+                }
                 if(Arrays.equals(tel, charge_number)){
                     Toast.makeText(mContext, "CORRECT!", Toast.LENGTH_SHORT).show();
                 } else{
@@ -372,8 +422,6 @@ public class TrainingPart extends Activity {
         });
         image = (ImageView)findViewById(R.id.trainImage);
         image2 = (ImageView)findViewById(R.id.trainImage2);
-
-        new ImageBuilder().execute();
     }
 
     private class ImageBuilder extends AsyncTask<Integer, Integer, Boolean>{

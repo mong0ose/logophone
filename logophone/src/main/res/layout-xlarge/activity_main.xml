@@ -9,22 +9,22 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:src="@drawable/logomain"
-        android:scaleType="fitEnd"
+        android:src="@drawable/logohome"
+        android:scaleType="fitCenter"
         android:cropToPadding="false"
-        android:adjustViewBounds="true"
+        android:adjustViewBounds="false"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp" />
 
     <ImageView
-        android:layout_width="275sp"
+        android:layout_width="575dp"
         android:layout_height="wrap_content"
         android:id="@+id/imageView2"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:src="@drawable/logo1"
+        android:src="@drawable/logo2"
         android:adjustViewBounds="true" />
 
     <LinearLayout
@@ -40,11 +40,11 @@
                 android:text="@string/construct"
                 android:id="@+id/btnConstruct"
             android:layout_below="@+id/btnTest"
-            android:paddingLeft="35dp"
+            android:paddingLeft="75dp"
             android:layout_weight="1"
             android:layout_margin="3dp"
-            android:textSize="20dp"
-            android:paddingRight="35dp"
+            android:textSize="45sp"
+            android:paddingRight="75dp"
             android:background="@android:drawable/btn_default" />
 
         <Button
@@ -55,11 +55,11 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="false"
-            android:paddingLeft="35dp"
+            android:paddingLeft="75dp"
             android:layout_weight="1"
             android:layout_margin="3dp"
-            android:textSize="20dp"
-            android:paddingRight="35dp"
+            android:textSize="45sp"
+            android:paddingRight="75dp"
             android:background="@android:drawable/btn_default" />
 
         <Button
@@ -68,11 +68,11 @@
                 android:text="@string/training"
                 android:id="@+id/btnTraining"
             android:layout_below="@+id/btnLearn"
-            android:paddingLeft="35dp"
+            android:paddingLeft="75dp"
             android:layout_weight="1"
             android:layout_margin="3dp"
-            android:textSize="20dp"
-            android:paddingRight="35dp"
+            android:textSize="45sp"
+            android:paddingRight="75dp"
             android:background="@android:drawable/btn_default" />
 
         <Button
@@ -81,11 +81,11 @@
                 android:text="@string/table"
                 android:id="@+id/btnTable"
             android:layout_below="@+id/btnInfo"
-            android:paddingLeft="35dp"
+            android:paddingLeft="75dp"
             android:layout_weight="1"
             android:layout_margin="3dp"
-            android:textSize="20dp"
-            android:paddingRight="35dp"
+            android:textSize="45sp"
+            android:paddingRight="75dp"
             android:background="@android:drawable/btn_default" />
 
         <Button
@@ -94,11 +94,11 @@
                 android:text="@string/newbie"
                 android:id="@+id/btnLearn"
             android:layout_below="@+id/btnTable"
-            android:paddingLeft="35dp"
+            android:paddingLeft="75dp"
             android:layout_weight="1"
             android:layout_margin="3dp"
-            android:textSize="20dp"
-            android:paddingRight="35dp"
+            android:textSize="45sp"
+            android:paddingRight="75dp"
             android:background="@android:drawable/btn_default" />
 
         <Button
@@ -107,24 +107,24 @@
                 android:text="@string/test"
                 android:id="@+id/btnTest"
             android:layout_below="@+id/btnTraining"
-            android:paddingLeft="35dp"
+            android:paddingLeft="75dp"
             android:layout_weight="1"
             android:layout_margin="3dp"
-            android:textSize="20dp"
-            android:paddingRight="35dp"
+            android:textSize="45sp"
+            android:paddingRight="75dp"
             android:background="@android:drawable/btn_default" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:text="Gallery"
-            android:paddingLeft="35dp"
+            android:paddingLeft="75dp"
             android:id="@+id/btnGallery"
             android:layout_alignParentLeft="true"
             android:layout_weight="1"
             android:layout_margin="3dp"
-            android:textSize="20dp"
-            android:paddingRight="35dp"
+            android:textSize="45sp"
+            android:paddingRight="75dp"
             android:background="@android:drawable/btn_default" />
 
         <Button
@@ -132,13 +132,13 @@
                 android:layout_height="fill_parent"
                 android:text="@string/exit"
                 android:id="@+id/btnExit"
-            android:paddingLeft="35dp"
+            android:paddingLeft="75dp"
             android:layout_below="@+id/btnConstruct"
             android:layout_alignParentLeft="true"
             android:layout_weight="1"
             android:layout_margin="3dp"
-            android:textSize="20dp"
-            android:paddingRight="35dp"
+            android:textSize="45sp"
+            android:paddingRight="75dp"
             android:background="@android:drawable/btn_default" />
     </LinearLayout>
 

@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:gravity="center"
+        android:id="@+id/linearLayout"
+        android:layout_alignParentTop="true">
 
         <TextView
-            android:layout_width="75sp"
+            android:layout_width="55sp"
             android:layout_height="wrap_content"
             android:text="#"
             android:id="@+id/txtWeight"
@@ -38,18 +39,22 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:background="#DADADA" />
+        android:background="#DADADA"
+        android:layout_below="@+id/linearLayout" />
 
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listOfInfoRows" />
+        android:id="@+id/listOfInfoRows"
+        android:layout_below="@+id/linearLayout" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Ok!"
         android:id="@+id/btnOk"
-        android:gravity="center" />
+        android:gravity="center"
+        android:layout_below="@+id/listOfInfoRows"
+        android:visibility="gone" />
 
-</LinearLayout>
+</RelativeLayout>

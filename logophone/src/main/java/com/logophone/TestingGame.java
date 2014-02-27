@@ -296,6 +296,15 @@ public class TestingGame extends Activity {
 
         txtCounter = (TextView)findViewById(R.id.txtPicCounter);
 
+        ImageButton ibRedo = (ImageButton)findViewById(R.id.imgBtnTestRedo);
+        ibRedo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.setAnimation(animAlpha);
+                DialogManager(D_TIME_CHOOSER);
+            }
+        });
+
         ImageButton ibNext = (ImageButton)findViewById(R.id.imgBtnCheckTest);
         ibNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -303,9 +312,14 @@ public class TestingGame extends Activity {
                 view.startAnimation(animAlpha);
                 Integer tel[] = new Integer[10];
                 int showThis = 1;
-                for (int i = 0; i < editTextsTesting.length; i++)
-                    tel[i] = editTextsTesting[i].getText().length() != 0 ? Integer.parseInt(String.valueOf(editTextsTesting[i].getText().toString())) : null;
+                try {
+                    for (int i = 0; i < editTextsTesting.length; i++)
+                        tel[i] = editTextsTesting[i].getText().length() != 0 ?
+                                Integer.parseInt(String.valueOf(editTextsTesting[i].getText()).replaceAll("[^0-9]+", "")) : null;
 
+                } catch(NumberFormatException nfe) {
+                    System.out.println("Could not parse " + nfe);
+                }
                 if(Arrays.equals(tel, charge_number)){
                     if(GbTypeSize >= 10){
                         TypeSizeIteration = GbTypeSize / 10;

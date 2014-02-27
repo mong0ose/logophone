@@ -18,6 +18,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -29,6 +30,7 @@ import android.text.TextWatcher;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -57,8 +59,10 @@ public class Constructor extends Activity {
     private ImageView image, image2, imgBackground, imgBackground2;
     private ImageButton ibLeftB, ibRightB, ibLeftM, ibRightM;
     private TextView tHelloCreator;
-    private EditText et1, et2, et3, et4, et5, et6, et7, et8, et9, et10;
+    private EditText et1, et2, et3, et4, et5, et6, et7, et8, et9, et10, etNumber;
     private static final int D_INFO = 1;
+    private static final int D_GET_NUMBER = 2;
+
     private static final int PICK_CONTACT = 3245;
     private ProgressDialog mProgressDialog, SaveProgressDialog, SendProgressDialog;
     private Integer phone_number[] = new Integer[]{};
@@ -101,6 +105,8 @@ public class Constructor extends Activity {
 
     private Dialog DialogManager(int dType){
         final Dialog dialog = new Dialog(mContext);
+        final Drawable xD = this.getResources().getDrawable(R.drawable.cancel32);
+        final Drawable xDC = this.getResources().getDrawable(R.drawable.contacts32);
         switch (dType){
             case D_INFO:
                 dialog.setContentView(R.layout.information_all);
@@ -121,6 +127,76 @@ public class Constructor extends Activity {
 
                 dialog.show();
                 break;
+            case D_GET_NUMBER:
+                dialog.setContentView(R.layout.dialog_get_number);
+                dialog.setTitle("Set Number to roll:");
+                dialog.setCancelable(false);
+
+                etNumber = (EditText)dialog.findViewById(R.id.editDialogGetNumber);
+                etNumber.setCompoundDrawablesWithIntrinsicBounds(null, null, xDC, null);
+                etNumber.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                        if(charSequence.length() > 0)
+                            etNumber.setCompoundDrawablesWithIntrinsicBounds(null, null, xD, null);
+                        else etNumber.setCompoundDrawablesWithIntrinsicBounds(null, null, xDC, null);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+
+                    }
+                });
+                etNumber.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_UP) {
+                            boolean tappedX = event.getX() > (view.getWidth()
+                                    - view.getPaddingRight() - xD.getIntrinsicWidth());
+                            if (tappedX) {
+                                if(etNumber.getText().toString().length() > 0){
+                                    etNumber.setText("");
+                                } else {
+                                    Intent iPick = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                                    startActivityForResult(iPick, PICK_CONTACT);
+                                }
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+                });
+                Button bBack = (Button)dialog.findViewById(R.id.btnDialogGetNumberExit);
+                bBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+                Button bGo = (Button)dialog.findViewById(R.id.btnDialogGetNumberGo);
+                bGo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String tel = String.valueOf(etNumber.getText());
+                        phone_number = convert(tel.replaceAll("[^0-9]+", ""));
+                        Random rand = new Random();
+                        int type = rand.nextInt(3-0) + 0;
+                        currentShowType = 0;
+                        currentID = 0;
+                        new CreateImageFromContact().execute();
+                        new CreateImageBackground().execute(type);
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+                break;
             default:
                 break;
         }
@@ -131,6 +207,7 @@ public class Constructor extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_logo_by_number);
+        DialogManager(D_GET_NUMBER);
         ImageButton ibGenerate, ibContacts, ibShare, ibSave, ibDelete;
 
         currentID = 0;
@@ -444,8 +521,9 @@ public class Constructor extends Activity {
             @Override
             public void onClick(View view) {
                 view.startAnimation(animAlpha);
-                Intent iPick = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-                startActivityForResult(iPick, PICK_CONTACT);
+                DialogManager(D_GET_NUMBER);
+//                Intent iPick = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+//                startActivityForResult(iPick, PICK_CONTACT);
             }
         });
         ibGenerate = (ImageButton)findViewById(R.id.imgBtnCreate);
@@ -533,13 +611,14 @@ public class Constructor extends Activity {
                     if (c.moveToFirst()) {
                         String phone = (String) c.getString(c.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
                         currentID = (long) c.getInt(c.getColumnIndexOrThrow(ContactsContract.Data.RAW_CONTACT_ID));
+                        etNumber.setText(phone);
 //                        Toast.makeText(mContext, "Person ID: " + currentID, Toast.LENGTH_SHORT).show();
-                        phone_number = convert(phone.replaceAll("\\D+", ""));
-                        Random rand = new Random();
-                        int type = rand.nextInt(3-0) + 0;
-                        currentShowType = 0;
-                        new CreateImageFromContact().execute();
-                        new CreateImageBackground().execute(type);
+//                        phone_number = convert(phone.replaceAll("\\D+", ""));
+//                        Random rand = new Random();
+//                        int type = rand.nextInt(3-0) + 0;
+//                        currentShowType = 0;
+//                        new CreateImageFromContact().execute();
+//                        new CreateImageBackground().execute(type);
                     }
                 }
                 break;
@@ -840,6 +919,7 @@ public class Constructor extends Activity {
                 }
             } else {
                 Toast.makeText(mContext, "Bad phone number!", Toast.LENGTH_LONG).show();
+                DialogManager(D_GET_NUMBER);
             }
         }
 

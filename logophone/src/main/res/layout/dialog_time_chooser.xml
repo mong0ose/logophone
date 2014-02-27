@@ -18,18 +18,19 @@
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:text="Exit"
+            android:id="@+id/btnDialogExit"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:text="Select"
             android:id="@+id/btnDialogSelect"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/spinseconds"
             android:layout_weight="1" />
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Exit"
-            android:id="@+id/btnDialogExit"
-            android:layout_weight="1" />
     </LinearLayout>
 
 </RelativeLayout>

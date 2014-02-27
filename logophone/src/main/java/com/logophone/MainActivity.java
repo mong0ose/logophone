@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
@@ -15,8 +18,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ListView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity{
     private static final int D_INFO = 1;
+    private static final int RQ_CODE = 31172;
     private Context mContext = this;
     private int[] colors_array = {
             Color.rgb(245, 245, 245),           // WHITE
@@ -36,14 +40,29 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button bTable, bTest, bTraining, bVisualizer, bConstructor, bInfo, bExit;
+        Button bTable, bTest, bTraining, bVisualizer, bConstructor, bInfo, bExit, bGallery;
+        bGallery = (Button)findViewById(R.id.btnGallery);
+        bGallery.getBackground().setColorFilter(colors_array[1], PorterDuff.Mode.MULTIPLY);
+        bGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("content://"));
+//
+//                startActivityForResult(intent, RQ_CODE);
+
+                Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI.buildUpon().build();
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
         bVisualizer = (Button)findViewById(R.id.btnLearn);
         bVisualizer.getBackground().setColorFilter(colors_array[8], PorterDuff.Mode.MULTIPLY);
         bVisualizer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent(getBaseContext(), Visualizer.class));
-                startActivity(new Intent(mContext, TypeChooser.class));
+                startActivity(new Intent(mContext, Visualizer.class));
+//                startActivity(new Intent(mContext, TypeChooser.class));
             }
         });
         bTraining = (Button) findViewById(R.id.btnTraining);
@@ -51,8 +70,8 @@ public class MainActivity extends Activity {
         bTraining.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent(getBaseContext(), TrainingPart.class));
-                startActivity(new Intent(mContext, TrainingTypeChooser.class));
+                startActivity(new Intent(mContext, TrainingPart.class));
+//                startActivity(new Intent(mContext, TrainingTypeChooser.class));
             }
         });
         bTest = (Button)findViewById(R.id.btnTest);
@@ -105,6 +124,13 @@ public class MainActivity extends Activity {
                 dialog.setContentView(R.layout.information_all);
                 dialog.setTitle("Information:");
                 dialog.setCanceledOnTouchOutside(true);
+                Button bOk = (Button)dialog.findViewById(R.id.btnOk);
+                bOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
                 ListView lvAll = (ListView) dialog.findViewById(R.id.listOfInfoRows);
                 Resources res = getResources();
                 String[] rows = res.getStringArray(R.array.decode_elements_array);
@@ -118,12 +144,17 @@ public class MainActivity extends Activity {
         return null;
     }
 
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+    //
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.main, menu);
+//        return true;
+//    }
     
 }

@@ -1,31 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="wrap_content" android:layout_height="wrap_content">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Select range you want to see in Introduction:"
         android:id="@+id/txtSelectSpinerItem"
-        android:layout_above="@+id/spinnerChooserType"
         android:layout_margin="5dp" />
 
     <Spinner
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spinnerChooserType"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:padding="5dp" />
+        android:padding="5dp"
+        android:layout_below="@+id/txtSelectSpinerItem" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:padding="5dp">
+        android:layout_below="@+id/spinnerChooserType">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/back"
+            android:id="@+id/btnChooserBack"
+            android:layout_weight="1" />
 
         <Button
             android:layout_width="fill_parent"
@@ -34,11 +37,5 @@
             android:id="@+id/btnChooserSelect"
             android:layout_weight="1" />
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/back"
-            android:id="@+id/btnChooserBack"
-            android:layout_weight="1" />
     </LinearLayout>
 </RelativeLayout>
