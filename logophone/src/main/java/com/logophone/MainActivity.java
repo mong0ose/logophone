@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
@@ -11,17 +12,18 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.view.Menu;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
-public class MainActivity extends Activity{
+import java.io.File;
+
+public class MainActivity extends Activity {
     private static final int D_INFO = 1;
-    private static final int RQ_CODE = 31172;
+//    private static final int RQ_CODE = 31172;
     private Context mContext = this;
+//    private String folder;
     private int[] colors_array = {
             Color.rgb(245, 245, 245),           // WHITE
             Color.rgb(255, 1, 1),               // RED
@@ -39,6 +41,11 @@ public class MainActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final File folder = new File(Environment.getExternalStorageDirectory() + "/LogophoneContacts");
+        boolean success = false;
+        if (!folder.exists()) {
+            success = folder.mkdir();
+        }
 
         Button bTable, bTest, bTraining, bVisualizer, bConstructor, bInfo, bExit, bGallery;
         bGallery = (Button)findViewById(R.id.btnGallery);
@@ -46,13 +53,28 @@ public class MainActivity extends Activity{
         bGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("content://"));
+                if(folder.exists() && folder.list().length > 0)
+                    startActivity(new Intent(mContext, GridSavedContactsViewActivity.class));
+                else
+                    Toast.makeText(mContext, "Gallery is empty!", Toast.LENGTH_SHORT).show();
+//                Uri tUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI.buildUpon().build();
 //
-//                startActivityForResult(intent, RQ_CODE);
-
-                Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI.buildUpon().build();
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
+//                System.out.println("!!!!!!!!!!!!!!!" + tUri.toString() + "!!!!!!!!!!!!!!! FROM PATH");
+//                System.out.println("!!!!!!!!!!!!!!!" + getRealPathFromURI(tUri) + "!!!!!!!!!!!!!!!");
+//                Cursor mCursor = getContentResolver().query(tUri, null,
+//                        MediaStore.Images.Media.DATA + " like ? ",
+//                        new String[] {"%testdir%"},
+//                        null);
+//                if(mCursor.moveToFirst()){
+//                    folder = mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID));
+//                }
+//                mCursor.close();
+//                Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI.buildUpon().appendEncodedPath(folder).build();
+//                System.out.println("!!!!!!!!!!!!!!!" + uri.toString() + "!!!!!!!!!!!!!!! FROM CURSOR");
+//                System.out.println("!!!!!!!!!!!!!!!" + getRealPathFromURI(uri) + "!!!!!!!!!!!!!!!");
+//                Toast.makeText(mContext, getRealPathFromURI(uri), Toast.LENGTH_SHORT).show();
+//                Intent nIntent = new Intent(Intent.ACTION_VIEW, uri);
+//                startActivity(nIntent);
             }
         });
 
@@ -62,7 +84,6 @@ public class MainActivity extends Activity{
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(mContext, Visualizer.class));
-//                startActivity(new Intent(mContext, TypeChooser.class));
             }
         });
         bTraining = (Button) findViewById(R.id.btnTraining);
@@ -71,7 +92,6 @@ public class MainActivity extends Activity{
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(mContext, TrainingPart.class));
-//                startActivity(new Intent(mContext, TrainingTypeChooser.class));
             }
         });
         bTest = (Button)findViewById(R.id.btnTest);
@@ -144,17 +164,20 @@ public class MainActivity extends Activity{
         return null;
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//    }
+    private String getRealPathFromURI(Uri contentURI) {
+        Cursor cursor = getContentResolver()
+                .query(contentURI, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
+    }
 
-    //
+
+//
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        // Inflate the menu; this adds items to the action bar if it is present.
 //        getMenuInflater().inflate(R.menu.main, menu);
 //        return true;
 //    }
-    
 }

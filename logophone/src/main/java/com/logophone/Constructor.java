@@ -161,6 +161,7 @@ public class Constructor extends Activity {
                             if (tappedX) {
                                 if(etNumber.getText().toString().length() > 0){
                                     etNumber.setText("");
+                                    currentID = 0;
                                 } else {
                                     Intent iPick = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
                                     startActivityForResult(iPick, PICK_CONTACT);
@@ -496,12 +497,15 @@ public class Constructor extends Activity {
             @Override
             public void onClick(View view) {
                 view.startAnimation(animAlpha);
-                if(currentID != 0 && phone_number.length == 10 && bmapOverlay != null)
+                if(phone_number.length == 10 && bmapOverlay != null)
                     new SaveImage().execute();
-                else if(currentID == 0 && phone_number.length == 10 && bmapOverlay != null)
-                    Toast.makeText(mContext, "Error, Logo created from typed number.", Toast.LENGTH_SHORT).show();
                 else
-                    Toast.makeText(mContext, "No Logo created!.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Can't Save Logo!", Toast.LENGTH_SHORT).show();
+//                if(currentID != 0 && phone_number.length == 10 && bmapOverlay != null)
+//                    new SaveImage().execute();
+//                else if(currentID == 0 && phone_number.length == 10 && bmapOverlay != null)
+//                    Toast.makeText(mContext, "Error, Logo created from typed number.", Toast.LENGTH_SHORT).show();
+
             }
         });
         ibShare = (ImageButton)findViewById(R.id.imgBtnShare);
@@ -512,7 +516,7 @@ public class Constructor extends Activity {
                 if(phone_number.length == 10 && bmapOverlay != null)
                     new SendImage().execute();
                 else
-                    Toast.makeText(mContext, "No Logo created!.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Can't Share Logo!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -620,6 +624,7 @@ public class Constructor extends Activity {
 //                        new CreateImageFromContact().execute();
 //                        new CreateImageBackground().execute(type);
                     }
+                    c.close();
                 }
                 break;
         }
@@ -753,7 +758,7 @@ public class Constructor extends Activity {
             super.onPostExecute(aBoolean);
             SendProgressDialog.dismiss();
             if(aBoolean){
-                startActivity(Intent.createChooser(intentShare, "Отправить логотип:"));
+                startActivity(Intent.createChooser(intentShare, "Send logo:"));
             } else {
                 Toast.makeText(mContext, "Cannot add image to contact!", Toast.LENGTH_SHORT).show();
             }
@@ -775,9 +780,11 @@ public class Constructor extends Activity {
         protected void onPostExecute(Boolean aBoolean) {
             super.onPostExecute(aBoolean);
             SaveProgressDialog.dismiss();
-            if(aBoolean)
-                Toast.makeText(mContext, "Image was added to contact!", Toast.LENGTH_SHORT).show();
-            else
+            if(aBoolean){
+                if(currentID != 0)
+                    Toast.makeText(mContext, "Image was added to contact!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Image was saved to\n/sdcard/LogophoneContacts!", Toast.LENGTH_SHORT).show();
+            } else
                 Toast.makeText(mContext, "Cannot add image to contact!", Toast.LENGTH_SHORT).show();
         }
 
@@ -790,9 +797,15 @@ public class Constructor extends Activity {
             saveCanvas.drawBitmap(bmapOverlay, new Matrix(), null);
             try {
                 ByteArrayOutputStream bOut = new ByteArrayOutputStream();
-                bmpToSave.compress(Bitmap.CompressFormat.PNG, 90, bOut);
+                bmpToSave.compress(Bitmap.CompressFormat.JPEG, 80, bOut);
+                File fsave = new File(Environment.getExternalStorageDirectory() + "/LogophoneContacts/" + Arrays.toString(phone_number).replaceAll("[^0-9]+", "") + ".jpg");
+                fsave.createNewFile();
+                FileOutputStream foStream = new FileOutputStream(fsave);
+                foStream.write(bOut.toByteArray());
+                foStream.close();
 
-                setContactPhoto(bOut.toByteArray(), currentID);
+                if(currentID != 0)
+                    setContactPhoto(bOut.toByteArray(), currentID);
 
                 bOut.flush();
                 bOut.close();
