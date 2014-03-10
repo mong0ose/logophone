@@ -19,13 +19,14 @@
         android:layout_marginTop="10dp" />
 
     <ImageView
-        android:layout_width="275sp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/imageView2"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:src="@drawable/logo1"
-        android:adjustViewBounds="true" />
+        android:src="@drawable/logo0"
+        android:adjustViewBounds="true"
+        android:scaleType="matrix" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -42,7 +43,6 @@
             android:layout_below="@+id/btnTest"
             android:paddingLeft="35dp"
             android:layout_weight="1"
-            android:layout_margin="3dp"
             android:textSize="20dp"
             android:paddingRight="35dp"
             android:background="@android:drawable/btn_default" />
@@ -57,7 +57,6 @@
             android:layout_alignParentStart="false"
             android:paddingLeft="35dp"
             android:layout_weight="1"
-            android:layout_margin="3dp"
             android:textSize="20dp"
             android:paddingRight="35dp"
             android:background="@android:drawable/btn_default" />
@@ -70,7 +69,6 @@
             android:layout_below="@+id/btnLearn"
             android:paddingLeft="35dp"
             android:layout_weight="1"
-            android:layout_margin="3dp"
             android:textSize="20dp"
             android:paddingRight="35dp"
             android:background="@android:drawable/btn_default" />
@@ -83,7 +81,6 @@
             android:layout_below="@+id/btnInfo"
             android:paddingLeft="35dp"
             android:layout_weight="1"
-            android:layout_margin="3dp"
             android:textSize="20dp"
             android:paddingRight="35dp"
             android:background="@android:drawable/btn_default" />
@@ -96,7 +93,6 @@
             android:layout_below="@+id/btnTable"
             android:paddingLeft="35dp"
             android:layout_weight="1"
-            android:layout_margin="3dp"
             android:textSize="20dp"
             android:paddingRight="35dp"
             android:background="@android:drawable/btn_default" />
@@ -109,7 +105,6 @@
             android:layout_below="@+id/btnTraining"
             android:paddingLeft="35dp"
             android:layout_weight="1"
-            android:layout_margin="3dp"
             android:textSize="20dp"
             android:paddingRight="35dp"
             android:background="@android:drawable/btn_default" />
@@ -122,7 +117,6 @@
             android:id="@+id/btnGallery"
             android:layout_alignParentLeft="true"
             android:layout_weight="1"
-            android:layout_margin="3dp"
             android:textSize="20dp"
             android:paddingRight="35dp"
             android:background="@android:drawable/btn_default" />
@@ -136,7 +130,6 @@
             android:layout_below="@+id/btnConstruct"
             android:layout_alignParentLeft="true"
             android:layout_weight="1"
-            android:layout_margin="3dp"
             android:textSize="20dp"
             android:paddingRight="35dp"
             android:background="@android:drawable/btn_default" />

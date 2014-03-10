@@ -717,7 +717,7 @@ public class TestingGame extends Activity {
     }
 
     private Dialog DialogManager(int DialogID){
-        final Dialog dialog = new Dialog(mContext);
+        final Dialog dialog = new Dialog(mContext, R.style.myBackgroundStyle);
         switch (DialogID){
             case D_TIME_CHOOSER:
                 dialog.setContentView(R.layout.dialog_time_chooser);

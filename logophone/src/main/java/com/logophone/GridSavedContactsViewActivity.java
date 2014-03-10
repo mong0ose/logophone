@@ -2,6 +2,7 @@ package com.logophone;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -86,12 +88,21 @@ public class GridSavedContactsViewActivity extends Activity {
                 .build();
         ImageLoader.getInstance().init(config);
 
-
-
         GridView gridView = (GridView) findViewById(R.id.gridViewContacts);
         gridView.setAdapter(new ImageAdapter());
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                startImagePagerActivity(position);
+            }
+        });
+    }
 
-
+    private void startImagePagerActivity(int position) {
+        Intent intent = new Intent(this, PagerSavedContactsViewActivity.class);
+        intent.putExtra("com.logophone.pagerimages", imageUrls);
+        intent.putExtra("com.logophone.pagerpos", position);
+        startActivity(intent);
     }
 
     public class ImageAdapter extends BaseAdapter {

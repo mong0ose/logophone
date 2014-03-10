@@ -192,106 +192,6 @@
             android:phoneNumber="true" />
     </LinearLayout>
 
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:id="@+id/trainRadioSize"
-        android:layout_below="@+id/trainLinearLayout"
-        android:layout_alignLeft="@+id/trainViewFlipper"
-        android:visibility="gone">
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="1"
-            android:id="@+id/radioButtonTrain"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="2"
-            android:id="@+id/radioButtonTrain2"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="3"
-            android:id="@+id/radioButtonTrain3"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="4"
-            android:id="@+id/radioButtonTrain4"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="5"
-            android:id="@+id/radioButtonTrain5"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="6"
-            android:id="@+id/radioButtonTrain6"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="7"
-            android:id="@+id/radioButtonTrain7"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="8"
-            android:id="@+id/radioButtonTrain8"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="9"
-            android:id="@+id/radioButtonTrain9"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="10"
-            android:id="@+id/radioButtonTrain10"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-    </RadioGroup>
-
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -313,4 +213,15 @@
         android:background="@android:color/transparent"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/imgBtnCheckNumber" />
+
+    <ImageButton
+        android:id="@+id/imgBtnTrainInfo"
+        android:layout_below="@+id/trainLinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/info64"
+        android:background="@android:color/transparent"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:layout_alignParentRight="true" />
 </RelativeLayout>

@@ -222,4 +222,5 @@
         android:src="@drawable/recurring_appointment64"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/imgBtnCheckTest" />
+
 </RelativeLayout>

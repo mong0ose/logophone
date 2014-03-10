@@ -66,18 +66,6 @@
             android:parentActivityName="com.logophone.MainActivity">
         </activity>
         <activity
-            android:name="com.logophone.TypeChooser"
-            android:screenOrientation="portrait"
-            android:hardwareAccelerated="false"
-            android:parentActivityName="com.logophone.MainActivity">
-        </activity>
-        <activity
-            android:name="com.logophone.TrainingTypeChooser"
-            android:screenOrientation="portrait"
-            android:hardwareAccelerated="false"
-            android:parentActivityName="com.logophone.MainActivity">
-        </activity>
-        <activity
             android:name="com.logophone.Information"
             android:screenOrientation="portrait"
             android:hardwareAccelerated="false"
@@ -88,6 +76,12 @@
             android:screenOrientation="portrait"
             android:hardwareAccelerated="true"
             android:parentActivityName="com.logophone.MainActivity">
+        </activity>
+        <activity
+            android:name="com.logophone.PagerSavedContactsViewActivity"
+            android:screenOrientation="portrait"
+            android:hardwareAccelerated="true"
+            android:parentActivityName="com.logophone.GridSavedContactsViewActivity">
         </activity>
 
     </application>

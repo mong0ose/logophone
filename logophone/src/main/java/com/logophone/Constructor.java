@@ -35,6 +35,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -86,25 +87,25 @@ public class Constructor extends Activity {
 
     private Bitmap bmapOverlay, bmapBackground;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.action_info:
-                DialogManager(D_INFO);
-                return true;
-        }
-        return false;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()){
+//            case R.id.action_info:
+//                DialogManager(D_INFO);
+//                return true;
+//        }
+//        return false;
+//    }
 
     private Dialog DialogManager(int dType){
-        final Dialog dialog = new Dialog(mContext);
+        final Dialog dialog = new Dialog(mContext, R.style.myBackgroundStyle);
         final Drawable xD = this.getResources().getDrawable(R.drawable.cancel32);
         final Drawable xDC = this.getResources().getDrawable(R.drawable.contacts32);
         switch (dType){
@@ -189,9 +190,12 @@ public class Constructor extends Activity {
                         Random rand = new Random();
                         int type = rand.nextInt(3-0) + 0;
                         currentShowType = 0;
-                        currentID = 0;
+//                        currentID = 0;
                         new CreateImageFromContact().execute();
                         new CreateImageBackground().execute(type);
+                        InputMethodManager imm = (InputMethodManager)getSystemService(
+                                Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(etNumber.getWindowToken(), 0);
                         dialog.dismiss();
                     }
                 });
@@ -209,7 +213,7 @@ public class Constructor extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_logo_by_number);
         DialogManager(D_GET_NUMBER);
-        ImageButton ibGenerate, ibContacts, ibShare, ibSave, ibDelete;
+        ImageButton ibGenerate, ibContacts, ibShare, ibSave, ibDelete, ibInfo;
 
         currentID = 0;
         Display disp = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
@@ -434,6 +438,15 @@ public class Constructor extends Activity {
         imgBackground = (ImageView)findViewById(R.id.imgCreateBackground);
         imgBackground2 = (ImageView)findViewById(R.id.imgCreateBackground2);
 
+        ibInfo = (ImageButton) findViewById(R.id.imgBtnInfo);
+        ibInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.startAnimation(animAlpha);
+                DialogManager(D_INFO);
+            }
+        });
+
         ibDelete = (ImageButton)findViewById(R.id.imgBtnRecycle);
         ibDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -651,6 +664,7 @@ public class Constructor extends Activity {
 
     private Bitmap resizeBitmap(Bitmap bbMap, int w, int h, int searchColor, int replaceColor){
         Bitmap rbMap = Bitmap.createScaledBitmap(bbMap, w, h, true);
+//        Bitmap rbMap = Bitmap.createBitmap(bbMap);
         bbMap.recycle();
         if(replaceColor != 0){
             rbMap.copy(Bitmap.Config.ARGB_8888, true);
@@ -797,7 +811,7 @@ public class Constructor extends Activity {
             saveCanvas.drawBitmap(bmapOverlay, new Matrix(), null);
             try {
                 ByteArrayOutputStream bOut = new ByteArrayOutputStream();
-                bmpToSave.compress(Bitmap.CompressFormat.JPEG, 80, bOut);
+                bmpToSave.compress(Bitmap.CompressFormat.JPEG, 100, bOut);
                 File fsave = new File(Environment.getExternalStorageDirectory() + "/LogophoneContacts/" + Arrays.toString(phone_number).replaceAll("[^0-9]+", "") + ".jpg");
                 fsave.createNewFile();
                 FileOutputStream foStream = new FileOutputStream(fsave);

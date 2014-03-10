@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -138,10 +139,11 @@ public class MainActivity extends Activity {
     }
 
     private Dialog DialogManager(int dType){
-        final Dialog dialog = new Dialog(mContext);
+        final Dialog dialog = new Dialog(mContext, R.style.myBackgroundStyle);
         switch (dType){
             case D_INFO:
                 dialog.setContentView(R.layout.information_all);
+//                dialog.getWindow().setBackgroundDrawable(null);
                 dialog.setTitle("Information:");
                 dialog.setCanceledOnTouchOutside(true);
                 Button bOk = (Button)dialog.findViewById(R.id.btnOk);

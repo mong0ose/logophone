@@ -49,10 +49,7 @@ import java.util.Random;
 public class Visualizer extends Activity{
     private static final int D_INFO = 1;
     private static final int D_CHOOSER = 2;
-    private Bitmap bMap;
     private ViewFlipper viewFlipper;
-    private RadioGroup group;
-    private RadioButton rButton;
     private Context mContext = this;
     private ImageView image, image2;
     private int TypeSize, showtype;
@@ -73,25 +70,25 @@ public class Visualizer extends Activity{
             Color.rgb(1, 1, 1)                  // BLACK
     };
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.action_info:
-                DialogManager(D_INFO);
-                return true;
-        }
-        return false;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()){
+//            case R.id.action_info:
+//                DialogManager(D_INFO);
+//                return true;
+//        }
+//        return false;
+//    }
 
     private Dialog DialogManager(int dType){
-        final Dialog dialog = new Dialog(mContext);
+        final Dialog dialog = new Dialog(mContext, R.style.myBackgroundStyle);
         switch (dType){
             case D_INFO:
                 dialog.setContentView(R.layout.information_all);
@@ -153,8 +150,6 @@ public class Visualizer extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.logo_visualizer);
-//        Intent mIntent = getIntent();
-//        TypeSize = mIntent.getIntExtra("intValType", 1);
         DialogManager(D_CHOOSER);
         Display disp = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR2){
@@ -206,22 +201,19 @@ public class Visualizer extends Activity{
                 new ImageBuilder().execute();
             }
         });
-        
-        rButton = (RadioButton) findViewById(R.id.radioButton);
-        rButton.setChecked(true);
+
+        ImageButton info = (ImageButton) findViewById(R.id.imgBtnVisInfo);
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.startAnimation(animAlpha);
+                DialogManager(D_INFO);
+            }
+        });
+
         viewFlipper = (ViewFlipper) findViewById(R.id.visViewFlipper);
         viewFlipper.setInAnimation(this, R.anim.in_from_right);
         viewFlipper.setOutAnimation(this, R.anim.out_to_left);
-        group = (RadioGroup) findViewById(R.id.radioSize);
-        group.check(0);
-        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                rButton = (RadioButton) findViewById(i);
-                TypeSize = Integer.parseInt((String) rButton.getText());
-                new ImageBuilder().execute();
-            }
-        });
         image = (ImageView)findViewById(R.id.visImage);
         image2 = (ImageView)findViewById(R.id.visImage2);
     }

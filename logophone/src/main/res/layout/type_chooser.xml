@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/spinnerChooserType"
         android:padding="5dp"
-        android:layout_below="@+id/txtSelectSpinerItem" />
+        android:layout_below="@+id/txtSelectSpinerItem"
+        android:layout_margin="2dp" />
 
     <LinearLayout
         android:orientation="horizontal"

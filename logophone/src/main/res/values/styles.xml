@@ -17,4 +17,9 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name="myBackgroundStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:background">#aa09090d</item>
+        <item name="android:textColor">#ffffffff</item>
+    </style>
+
 </resources>

@@ -39,8 +39,8 @@
         android:background="#109ee3">
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="44dp"
+            android:layout_height="65dp"
             android:ems="10"
             android:id="@+id/testEditText1"
             android:editable="false"
@@ -54,11 +54,12 @@
             android:layout_marginRight="2dp"
             android:layout_marginBottom="2dp"
             android:inputType="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textSize="35sp" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="44dp"
+            android:layout_height="65dp"
             android:ems="10"
             android:id="@+id/testEditText2"
             android:editable="false"
@@ -69,11 +70,12 @@
             android:background="@drawable/rect_edittext"
             android:layout_margin="2dp"
             android:inputType="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textSize="35sp" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="44dp"
+            android:layout_height="65dp"
             android:ems="10"
             android:id="@+id/testEditText3"
             android:editable="false"
@@ -84,11 +86,12 @@
             android:background="@drawable/rect_edittext"
             android:layout_margin="2dp"
             android:inputType="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textSize="35sp" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="44dp"
+            android:layout_height="65dp"
             android:ems="10"
             android:id="@+id/testEditText4"
             android:editable="false"
@@ -102,11 +105,12 @@
             android:layout_marginRight="2dp"
             android:layout_marginBottom="2dp"
             android:inputType="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textSize="35sp" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="44dp"
+            android:layout_height="65dp"
             android:ems="10"
             android:id="@+id/testEditText5"
             android:editable="false"
@@ -117,11 +121,12 @@
             android:background="@drawable/rect_edittext"
             android:layout_margin="2dp"
             android:inputType="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textSize="35sp" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="44dp"
+            android:layout_height="65dp"
             android:ems="10"
             android:id="@+id/testEditText6"
             android:editable="false"
@@ -132,11 +137,12 @@
             android:background="@drawable/rect_edittext"
             android:layout_margin="2dp"
             android:inputType="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textSize="35sp" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="44dp"
+            android:layout_height="65dp"
             android:ems="10"
             android:id="@+id/testEditText7"
             android:editable="false"
@@ -150,11 +156,12 @@
             android:layout_marginRight="2dp"
             android:layout_marginBottom="2dp"
             android:inputType="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textSize="35sp" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="44dp"
+            android:layout_height="65dp"
             android:ems="10"
             android:id="@+id/testEditText8"
             android:editable="false"
@@ -165,11 +172,12 @@
             android:background="@drawable/rect_edittext"
             android:layout_margin="2dp"
             android:inputType="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textSize="35sp" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="44dp"
+            android:layout_height="65dp"
             android:ems="10"
             android:id="@+id/testEditText9"
             android:editable="false"
@@ -180,11 +188,12 @@
             android:background="@drawable/rect_edittext"
             android:layout_margin="2dp"
             android:inputType="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textSize="35sp" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="44dp"
+            android:layout_height="65dp"
             android:ems="10"
             android:id="@+id/testEditText10"
             android:editable="false"
@@ -198,7 +207,8 @@
             android:layout_marginTop="2dp"
             android:layout_marginLeft="2dp"
             android:inputType="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textSize="35sp" />
     </LinearLayout>
 
     <ImageButton
@@ -222,4 +232,5 @@
         android:src="@drawable/recurring_appointment64"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/imgBtnCheckTest" />
+
 </RelativeLayout>

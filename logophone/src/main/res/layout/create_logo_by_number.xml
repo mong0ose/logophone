@@ -290,7 +290,7 @@
             android:layout_height="fill_parent"
             android:id="@+id/imgBtnShare"
             android:layout_weight="1"
-            android:src="@drawable/send_file64"
+            android:src="@drawable/share"
             android:background="@android:color/transparent"
             android:layout_margin="5dp" />
 
@@ -322,6 +322,15 @@
             android:background="@android:color/transparent"
             android:layout_margin="5dp"
             android:visibility="gone" />
+
+        <ImageButton
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:id="@+id/imgBtnInfo"
+            android:src="@drawable/info64" />
     </LinearLayout>
 
 </RelativeLayout>

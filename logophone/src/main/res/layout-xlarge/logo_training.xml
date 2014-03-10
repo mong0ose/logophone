@@ -30,8 +30,8 @@
         android:background="#109ee3">
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="44dp"
+            android:layout_height="65dp"
             android:ems="10"
             android:id="@+id/trainEditText1"
             android:editable="false"
@@ -45,11 +45,12 @@
             android:layout_marginRight="2dp"
             android:layout_marginBottom="2dp"
             android:inputType="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textSize="35sp" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="44dp"
+            android:layout_height="65dp"
             android:ems="10"
             android:id="@+id/trainEditText2"
             android:editable="false"
@@ -60,11 +61,12 @@
             android:background="@drawable/rect_edittext"
             android:layout_margin="2dp"
             android:inputType="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textSize="35sp" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="44dp"
+            android:layout_height="65dp"
             android:ems="10"
             android:id="@+id/trainEditText3"
             android:editable="false"
@@ -75,11 +77,12 @@
             android:background="@drawable/rect_edittext"
             android:layout_margin="2dp"
             android:inputType="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textSize="35sp" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="44dp"
+            android:layout_height="65dp"
             android:ems="10"
             android:id="@+id/trainEditText4"
             android:editable="false"
@@ -93,11 +96,12 @@
             android:layout_marginRight="2dp"
             android:layout_marginBottom="2dp"
             android:inputType="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textSize="35sp" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="44dp"
+            android:layout_height="65dp"
             android:ems="10"
             android:id="@+id/trainEditText5"
             android:editable="false"
@@ -108,11 +112,12 @@
             android:background="@drawable/rect_edittext"
             android:layout_margin="2dp"
             android:inputType="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textSize="35sp" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="44dp"
+            android:layout_height="65dp"
             android:ems="10"
             android:id="@+id/trainEditText6"
             android:editable="false"
@@ -123,11 +128,12 @@
             android:background="@drawable/rect_edittext"
             android:layout_margin="2dp"
             android:inputType="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textSize="35sp" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="44dp"
+            android:layout_height="65dp"
             android:ems="10"
             android:id="@+id/trainEditText7"
             android:editable="false"
@@ -141,11 +147,12 @@
             android:layout_marginRight="2dp"
             android:layout_marginBottom="2dp"
             android:inputType="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textSize="35sp" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="44dp"
+            android:layout_height="65dp"
             android:ems="10"
             android:id="@+id/trainEditText8"
             android:editable="false"
@@ -156,11 +163,12 @@
             android:background="@drawable/rect_edittext"
             android:layout_margin="2dp"
             android:inputType="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textSize="35sp" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="44dp"
+            android:layout_height="65dp"
             android:ems="10"
             android:id="@+id/trainEditText9"
             android:editable="false"
@@ -171,11 +179,12 @@
             android:background="@drawable/rect_edittext"
             android:layout_margin="2dp"
             android:inputType="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textSize="35sp" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="44dp"
+            android:layout_height="65dp"
             android:ems="10"
             android:id="@+id/trainEditText10"
             android:editable="false"
@@ -189,108 +198,9 @@
             android:layout_marginTop="2dp"
             android:layout_marginLeft="2dp"
             android:inputType="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textSize="35sp" />
     </LinearLayout>
-
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:id="@+id/trainRadioSize"
-        android:layout_below="@+id/trainLinearLayout"
-        android:layout_alignLeft="@+id/trainViewFlipper"
-        android:visibility="gone">
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="1"
-            android:id="@+id/radioButtonTrain"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="2"
-            android:id="@+id/radioButtonTrain2"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="3"
-            android:id="@+id/radioButtonTrain3"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="4"
-            android:id="@+id/radioButtonTrain4"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="5"
-            android:id="@+id/radioButtonTrain5"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="6"
-            android:id="@+id/radioButtonTrain6"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="7"
-            android:id="@+id/radioButtonTrain7"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="8"
-            android:id="@+id/radioButtonTrain8"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="9"
-            android:id="@+id/radioButtonTrain9"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="10"
-            android:id="@+id/radioButtonTrain10"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-    </RadioGroup>
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -313,4 +223,16 @@
         android:background="@android:color/transparent"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/imgBtnCheckNumber" />
+
+    <ImageButton
+        android:id="@+id/imgBtnTrainInfo"
+        android:layout_below="@+id/trainLinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/info64"
+        android:background="@android:color/transparent"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:layout_alignParentRight="true" />
+
 </RelativeLayout>

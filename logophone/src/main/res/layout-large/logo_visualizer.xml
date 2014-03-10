@@ -47,6 +47,17 @@
         android:background="@android:color/transparent"
         android:layout_toLeftOf="@+id/imgBtnNextImg" />
 
+    <ImageButton
+        android:id="@+id/imgBtnVisInfo"
+        android:layout_below="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/info64"
+        android:background="@android:color/transparent"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:layout_alignParentRight="true" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -237,104 +248,5 @@
             android:inputType="phone"
             android:phoneNumber="true" />
     </LinearLayout>
-
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:id="@+id/radioSize"
-        android:layout_below="@+id/linearLayout"
-        android:visibility="gone">
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="1"
-            android:id="@+id/radioButton"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="15dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="2"
-            android:id="@+id/radioButton2"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="3"
-            android:id="@+id/radioButton3"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="4"
-            android:id="@+id/radioButton4"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="5"
-            android:id="@+id/radioButton5"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="6"
-            android:id="@+id/radioButton6"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="7"
-            android:id="@+id/radioButton7"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="8"
-            android:id="@+id/radioButton8"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="9"
-            android:id="@+id/radioButton9"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="10"
-            android:id="@+id/radioButton10"
-            android:layout_weight="1"
-            android:layout_marginBottom="15dp"
-            android:gravity="center" />
-    </RadioGroup>
 
 </RelativeLayout>

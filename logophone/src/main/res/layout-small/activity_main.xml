@@ -44,8 +44,7 @@
             android:layout_weight="1"
             android:paddingRight="35dp"
             android:background="@android:drawable/btn_default"
-            android:textSize="15sp"
-            android:layout_margin="1dp" />
+            android:textSize="15sp" />
 
         <Button
                 android:layout_width="wrap_content"
@@ -59,8 +58,7 @@
             android:layout_weight="1"
             android:paddingRight="35dp"
             android:background="@android:drawable/btn_default"
-            android:textSize="15sp"
-            android:layout_margin="1dp" />
+            android:textSize="15sp" />
 
         <Button
                 android:layout_width="wrap_content"
@@ -72,8 +70,7 @@
             android:layout_weight="1"
             android:paddingRight="35dp"
             android:background="@android:drawable/btn_default"
-            android:textSize="15sp"
-            android:layout_margin="1dp" />
+            android:textSize="15sp" />
 
         <Button
                 android:layout_width="wrap_content"
@@ -85,8 +82,7 @@
             android:layout_weight="1"
             android:paddingRight="35dp"
             android:background="@android:drawable/btn_default"
-            android:textSize="15sp"
-            android:layout_margin="1dp" />
+            android:textSize="15sp" />
 
         <Button
                 android:layout_width="wrap_content"
@@ -98,8 +94,7 @@
             android:layout_weight="1"
             android:paddingRight="35dp"
             android:background="@android:drawable/btn_default"
-            android:textSize="15sp"
-            android:layout_margin="1dp" />
+            android:textSize="15sp" />
 
         <Button
                 android:layout_width="wrap_content"
@@ -111,8 +106,7 @@
             android:layout_weight="1"
             android:paddingRight="35dp"
             android:background="@android:drawable/btn_default"
-            android:textSize="15sp"
-            android:layout_margin="1dp" />
+            android:textSize="15sp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -124,8 +118,7 @@
             android:layout_weight="1"
             android:paddingRight="35dp"
             android:background="@android:drawable/btn_default"
-            android:textSize="15sp"
-            android:layout_margin="1dp" />
+            android:textSize="15sp" />
 
         <Button
                 android:layout_width="wrap_content"
@@ -138,8 +131,7 @@
             android:layout_weight="1"
             android:paddingRight="35dp"
             android:background="@android:drawable/btn_default"
-            android:textSize="15sp"
-            android:layout_margin="1dp" />
+            android:textSize="15sp" />
     </LinearLayout>
 
 </RelativeLayout>
