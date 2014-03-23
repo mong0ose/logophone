@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/txtNumElemRow"
         android:gravity="center"
-        android:textSize="15sp"
+        android:textSize="20sp"
         android:textColor="#ffffffff"
         android:textStyle="bold" />
 
@@ -25,6 +25,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/txtNumElemDisclaimer"
         android:textColor="#ffffffff"
-        android:textSize="15sp"
+        android:textSize="20sp"
         android:layout_weight="1" />
 </LinearLayout>

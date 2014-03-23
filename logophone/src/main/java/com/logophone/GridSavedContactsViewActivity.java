@@ -59,7 +59,8 @@ public class GridSavedContactsViewActivity extends Activity {
         } else
             disp.getSize(p);
 
-        p.y = (p.x/4)*1528/1080;
+        p.x = p.x/3;
+        p.y = p.x*1528/1080;
 //        p.x *= 0.35;
 //        p.y *= 0.35;
 
@@ -75,7 +76,7 @@ public class GridSavedContactsViewActivity extends Activity {
 
 
         opts = new DisplayImageOptions.Builder()
-                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+                .imageScaleType(ImageScaleType.EXACTLY)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .showImageOnFail(android.R.drawable.ic_delete)
                 .cacheInMemory(true)
@@ -140,7 +141,10 @@ public class GridSavedContactsViewActivity extends Activity {
             } else {
                 holder = (ViewHolder) view.getTag();
             }
-            holder.textView.setText(files[position].replaceAll("[^0-9]+", ""));
+            String splitedStr[] = files[position].split("_");
+//            holder.textView.setText(files[position].replaceAll("[^0-9]+", ""));
+            holder.textView.setText(splitedStr[0] + "\n" + splitedStr[1] + "\n" + splitedStr[2].replaceAll(".jpg", ""));
+
             ImageLoader.getInstance().displayImage(imageUrls[position], holder.imageView, opts, new SimpleImageLoadingListener() {
                         @Override
                         public void onLoadingStarted(String imageUri, View view) {

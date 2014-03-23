@@ -46,6 +46,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listOfInfoRows"
+        android:divider="#DADADA"
+        android:dividerHeight="2px"
         android:layout_below="@+id/linearLayout" />
 
     <Button

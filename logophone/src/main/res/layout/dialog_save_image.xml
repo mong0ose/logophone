@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etFirstNameSave"
+        android:hint="First name(max 10 chars)"
+        android:inputType="textCapSentences|textPersonName"
+        android:maxLength="10" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etLastNameSave"
+        android:layout_below="@+id/etFirstNameSave"
+        android:hint="Last name(max 10 chars)"
+        android:inputType="textCapSentences|textPersonName"
+        android:maxLength="10" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBoxAddContactImage"
+        android:layout_below="@+id/etLastNameSave"
+        android:text="Check here to add image to contact."
+        android:enabled="false" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#DADADA"
+        android:layout_below="@+id/checkBoxAddContactImage" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/checkBoxAddContactImage"
+        android:layout_marginTop="5dp">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:id="@+id/btnSaveDialogBack"
+            android:layout_weight="1"
+            android:textSize="20sp" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Save!"
+            android:id="@+id/btnSaveDialogSave"
+            android:layout_weight="1"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+</RelativeLayout>

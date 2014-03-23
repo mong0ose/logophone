@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#109ee3">
 
     <TextView
         android:layout_width="fill_parent"
@@ -312,26 +314,6 @@
             android:src="@drawable/save64"
             android:background="@android:color/transparent"
             android:layout_margin="5dp" />
-
-        <ImageButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/imgBtnRecycle"
-            android:src="@drawable/delete64"
-            android:background="@android:color/transparent"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
-            android:visibility="gone" />
-
-        <ImageButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/imgBtnCreate"
-            android:layout_weight="1"
-            android:src="@drawable/bg_color64"
-            android:background="@android:color/transparent"
-            android:layout_margin="5dp"
-            android:visibility="gone" />
 
         <ImageButton
             android:layout_width="fill_parent"

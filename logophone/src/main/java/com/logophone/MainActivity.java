@@ -29,10 +29,10 @@ public class MainActivity extends Activity {
             Color.rgb(245, 245, 245),           // WHITE
             Color.rgb(255, 1, 1),               // RED
             Color.rgb(255, 153, 51),            // ORANGE
-            Color.rgb(255, 255, 1),             // YELLOW
-            Color.rgb(5, 233, 5),               // GREEN
+            Color.rgb(225, 225, 35),            // YELLOW
+            Color.rgb(5, 175, 5),               // GREEN
             Color.rgb(140, 190, 252),           // SKY-BLUE
-            Color.rgb(1, 1, 255),               // BLUE
+            Color.rgb(55, 55, 225),             // BLUE
             Color.rgb(182, 29, 142),            // PURPLE
             Color.rgb(186, 114, 41),            // BROWN
             Color.rgb(1, 1, 1)                  // BLACK
@@ -165,14 +165,14 @@ public class MainActivity extends Activity {
         }
         return null;
     }
-
-    private String getRealPathFromURI(Uri contentURI) {
-        Cursor cursor = getContentResolver()
-                .query(contentURI, null, null, null, null);
-        cursor.moveToFirst();
-        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-        return cursor.getString(idx);
-    }
+//
+//    private String getRealPathFromURI(Uri contentURI) {
+//        Cursor cursor = getContentResolver()
+//                .query(contentURI, null, null, null, null);
+//        cursor.moveToFirst();
+//        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+//        return cursor.getString(idx);
+//    }
 
 
 //

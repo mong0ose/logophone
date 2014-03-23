@@ -1,6 +1,7 @@
 package com.logophone;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,10 +64,11 @@ public class InfoListAdapter extends BaseAdapter {
         tDecode = (TextView) vi.findViewById(R.id.txtNumElemDisclaimer);
 
         if(data.length == 1)
+//            tNum.setText(String.valueOf(singleItemDigit));
             tNum.setText(String.valueOf(singleItemDigit));
         else
             tNum.setText(position < 10 ? String.valueOf(position + 1) : "More then 10");
-        tDecode.setText(data[position]);
+        tDecode.setText(Html.fromHtml(data[position]));
         return vi;
     }
 }

@@ -97,7 +97,10 @@ public class PagerSavedContactsViewActivity extends Activity {
             ImageView imageView = (ImageView) imageLayout.findViewById(R.id.image);
             final ProgressBar spinner = (ProgressBar) imageLayout.findViewById(R.id.loading);
             TextView textView = (TextView) imageLayout.findViewById(R.id.text);
-            textView.setText(images[position].replaceAll("[^0-9]+", ""));
+//            textView.setText(images[position].replaceAll("[^0-9]+", ""));
+            String splitedStr[] = images[position].split("_");
+            int strLenght = splitedStr[0].length();
+            textView.setText(splitedStr[1] + " " + splitedStr[2].replaceAll(".jpg", "") + " (" + splitedStr[0].substring(strLenght-10, strLenght) + ")");
             ImageLoader.getInstance().displayImage(images[position], imageView, options, new SimpleImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String imageUri, View view) {

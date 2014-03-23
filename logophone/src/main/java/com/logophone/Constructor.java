@@ -18,6 +18,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -27,6 +28,7 @@ import android.os.Environment;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,6 +39,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -60,9 +63,11 @@ public class Constructor extends Activity {
     private ImageView image, image2, imgBackground, imgBackground2;
     private ImageButton ibLeftB, ibRightB, ibLeftM, ibRightM;
     private TextView tHelloCreator;
-    private EditText et1, et2, et3, et4, et5, et6, et7, et8, et9, et10, etNumber;
+    private CheckBox chBxAddToContact;
+    private EditText et1, et2, et3, et4, et5, et6, et7, et8, et9, et10, etNumber, etFName, etLName;
     private static final int D_INFO = 1;
     private static final int D_GET_NUMBER = 2;
+    private static final int D_SAVE_IMAGE = 3;
 
     private static final int PICK_CONTACT = 3245;
     private ProgressDialog mProgressDialog, SaveProgressDialog, SendProgressDialog;
@@ -70,6 +75,7 @@ public class Constructor extends Activity {
     private ViewFlipper vFlip, vFlipMain;
     private int background_round, showtype, currentShowType;
     private long currentID;
+    private String currentName;
     private Context mContext = this;
     private Point p = new Point();
     private int[] colors_array = {
@@ -128,10 +134,120 @@ public class Constructor extends Activity {
 
                 dialog.show();
                 break;
+            case D_SAVE_IMAGE:
+                dialog.setContentView(R.layout.dialog_save_image);
+                dialog.setTitle("Number: " + Arrays.toString(phone_number).replaceAll("[^0-9]+", ""));
+
+                etFName = (EditText) dialog.findViewById(R.id.etFirstNameSave);
+                etLName = (EditText) dialog.findViewById(R.id.etLastNameSave);
+                etFName.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                        if(charSequence.length() > 0)
+                            etFName.setCompoundDrawablesWithIntrinsicBounds(null, null, xD, null);
+                        else etNumber.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+
+                    }
+                });
+                etFName.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_UP) {
+                            boolean tappedX = event.getX() > (view.getWidth()
+                                    - view.getPaddingRight() - xD.getIntrinsicWidth());
+                            if (tappedX) {
+                                if(etFName.getText().toString().length() > 0){
+                                    etFName.setText("");
+                                }
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+                });
+                etLName.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                        if(charSequence.length() > 0)
+                            etLName.setCompoundDrawablesWithIntrinsicBounds(null, null, xD, null);
+                        else etNumber.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+
+                    }
+                });
+                etLName.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_UP) {
+                            boolean tappedX = event.getX() > (view.getWidth()
+                                    - view.getPaddingRight() - xD.getIntrinsicWidth());
+                            if (tappedX) {
+                                if(etLName.getText().toString().length() > 0){
+                                    etLName.setText("");
+                                }
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+                });
+                if(currentID != 0){
+                    String names[] = currentName.split(" ");
+                    etFName.setText(names.length > 0 ? names[0] : "");
+                    etLName.setText(names.length > 1 ? names[1] : "");
+                }
+                Button bSave = (Button) dialog.findViewById(R.id.btnSaveDialogSave);
+                bSave.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        new SaveImage().execute("_" + etFName.getText().toString(), "_" + etLName.getText().toString(), chBxAddToContact.isChecked() ? "1" : "0");
+                        InputMethodManager imm = (InputMethodManager)getSystemService(
+                                Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(etLName.getWindowToken(), 0);
+                        dialog.dismiss();
+                    }
+                });
+                Button bSaveBack = (Button) dialog.findViewById(R.id.btnSaveDialogBack);
+                bSaveBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        InputMethodManager imm = (InputMethodManager)getSystemService(
+                                Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(etLName.getWindowToken(), 0);
+                        dialog.dismiss();
+                    }
+                });
+                chBxAddToContact = (CheckBox) dialog.findViewById(R.id.checkBoxAddContactImage);
+                if(currentID != 0)
+                    chBxAddToContact.setEnabled(true);
+                else
+                    chBxAddToContact.setEnabled(false);
+
+                dialog.show();
+                break;
             case D_GET_NUMBER:
                 dialog.setContentView(R.layout.dialog_get_number);
                 dialog.setTitle("Set Number to roll:");
                 dialog.setCancelable(false);
+                currentID = 0;
+                currentName = null;
 
                 etNumber = (EditText)dialog.findViewById(R.id.editDialogGetNumber);
                 etNumber.setCompoundDrawablesWithIntrinsicBounds(null, null, xDC, null);
@@ -163,6 +279,7 @@ public class Constructor extends Activity {
                                 if(etNumber.getText().toString().length() > 0){
                                     etNumber.setText("");
                                     currentID = 0;
+                                    currentName = null;
                                 } else {
                                     Intent iPick = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
                                     startActivityForResult(iPick, PICK_CONTACT);
@@ -188,14 +305,19 @@ public class Constructor extends Activity {
                         String tel = String.valueOf(etNumber.getText());
                         phone_number = convert(tel.replaceAll("[^0-9]+", ""));
                         Random rand = new Random();
-                        int type = rand.nextInt(3-0) + 0;
+//                        int type = rand.nextInt(3-0) + 0;
                         currentShowType = 0;
 //                        currentID = 0;
                         new CreateImageFromContact().execute();
-                        new CreateImageBackground().execute(type);
+                        new CreateImageBackground().execute(0);
                         InputMethodManager imm = (InputMethodManager)getSystemService(
                                 Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(etNumber.getWindowToken(), 0);
+                        mProgressDialog = new ProgressDialog(mContext);
+                        mProgressDialog.setCancelable(false);
+                        mProgressDialog.setMessage("Creating logo...");
+                        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        mProgressDialog.show();
                         dialog.dismiss();
                     }
                 });
@@ -218,13 +340,13 @@ public class Constructor extends Activity {
         currentID = 0;
         Display disp = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR2){
-            p.x = disp.getWidth();
-            p.y = disp.getHeight();
+            p.y = disp.getWidth();
+            p.x = disp.getHeight();
         } else
             disp.getSize(p);
         p.y = p.x*1528/1080;
-//        p.x *= 0.95;
-//        p.y *= 0.95;
+//        p.x *= 0.75;
+//        p.y *= 0.75;
 
         final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.alpha);
 
@@ -447,63 +569,64 @@ public class Constructor extends Activity {
             }
         });
 
-        ibDelete = (ImageButton)findViewById(R.id.imgBtnRecycle);
-        ibDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view.startAnimation(animAlpha);
-                et1.setText(null);
-                et1.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
-                et1.setFocusableInTouchMode(true);
-                et2.setText(null);
-                et2.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
-                et2.setFocusableInTouchMode(true);
-                et3.setText(null);
-                et3.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
-                et3.setFocusableInTouchMode(true);
-                et4.setText(null);
-                et4.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
-                et4.setFocusableInTouchMode(true);
-                et5.setText(null);
-                et5.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
-                et5.setFocusableInTouchMode(true);
-                et6.setText(null);
-                et6.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
-                et6.setFocusableInTouchMode(true);
-                et7.setText(null);
-                et7.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
-                et7.setFocusableInTouchMode(true);
-                et8.setText(null);
-                et8.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
-                et8.setFocusableInTouchMode(true);
-                et9.setText(null);
-                et9.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
-                et9.setFocusableInTouchMode(true);
-                et10.setText(null);
-                et10.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
-                et10.setFocusableInTouchMode(true);
-                et1.requestFocus();
-
-                ibLeftM.setVisibility(View.GONE);
-                ibRightM.setVisibility(View.GONE);
-                ibLeftB.setVisibility(View.GONE);
-                ibRightB.setVisibility(View.GONE);
-                tHelloCreator.setVisibility(View.VISIBLE);
-
-                currentID = 0;
-                phone_number = new Integer[]{};
-                if(bmapBackground != null) {
-                    bmapBackground.recycle();
-                    imgBackground.setImageResource(android.R.color.transparent);
-                    imgBackground2.setImageResource(android.R.color.transparent);
-                }
-                if(bmapOverlay != null) {
-                    bmapOverlay.recycle();
-                    image.setImageResource(android.R.color.transparent);
-                    image2.setImageResource(android.R.color.transparent);
-                }
-            }
-        });
+//        ibDelete = (ImageButton)findViewById(R.id.imgBtnRecycle);
+//        ibDelete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                view.startAnimation(animAlpha);
+//                et1.setText(null);
+//                et1.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
+//                et1.setFocusableInTouchMode(true);
+//                et2.setText(null);
+//                et2.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
+//                et2.setFocusableInTouchMode(true);
+//                et3.setText(null);
+//                et3.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
+//                et3.setFocusableInTouchMode(true);
+//                et4.setText(null);
+//                et4.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
+//                et4.setFocusableInTouchMode(true);
+//                et5.setText(null);
+//                et5.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
+//                et5.setFocusableInTouchMode(true);
+//                et6.setText(null);
+//                et6.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
+//                et6.setFocusableInTouchMode(true);
+//                et7.setText(null);
+//                et7.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
+//                et7.setFocusableInTouchMode(true);
+//                et8.setText(null);
+//                et8.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
+//                et8.setFocusableInTouchMode(true);
+//                et9.setText(null);
+//                et9.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
+//                et9.setFocusableInTouchMode(true);
+//                et10.setText(null);
+//                et10.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
+//                et10.setFocusableInTouchMode(true);
+//                et1.requestFocus();
+//
+//                ibLeftM.setVisibility(View.GONE);
+//                ibRightM.setVisibility(View.GONE);
+//                ibLeftB.setVisibility(View.GONE);
+//                ibRightB.setVisibility(View.GONE);
+//                tHelloCreator.setVisibility(View.VISIBLE);
+//
+//                currentName = null;
+//                currentID = 0;
+//                phone_number = new Integer[]{};
+//                if(bmapBackground != null) {
+//                    bmapBackground.recycle();
+//                    imgBackground.setImageResource(android.R.color.transparent);
+//                    imgBackground2.setImageResource(android.R.color.transparent);
+//                }
+//                if(bmapOverlay != null) {
+//                    bmapOverlay.recycle();
+//                    image.setImageResource(android.R.color.transparent);
+//                    image2.setImageResource(android.R.color.transparent);
+//                }
+//            }
+//        });
 
         ibSave = (ImageButton)findViewById(R.id.imgBtnSave);
         ibSave.setOnClickListener(new View.OnClickListener() {
@@ -511,14 +634,9 @@ public class Constructor extends Activity {
             public void onClick(View view) {
                 view.startAnimation(animAlpha);
                 if(phone_number.length == 10 && bmapOverlay != null)
-                    new SaveImage().execute();
+                    DialogManager(D_SAVE_IMAGE);
                 else
                     Toast.makeText(mContext, "Can't Save Logo!", Toast.LENGTH_SHORT).show();
-//                if(currentID != 0 && phone_number.length == 10 && bmapOverlay != null)
-//                    new SaveImage().execute();
-//                else if(currentID == 0 && phone_number.length == 10 && bmapOverlay != null)
-//                    Toast.makeText(mContext, "Error, Logo created from typed number.", Toast.LENGTH_SHORT).show();
-
             }
         });
         ibShare = (ImageButton)findViewById(R.id.imgBtnShare);
@@ -539,24 +657,6 @@ public class Constructor extends Activity {
             public void onClick(View view) {
                 view.startAnimation(animAlpha);
                 DialogManager(D_GET_NUMBER);
-//                Intent iPick = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-//                startActivityForResult(iPick, PICK_CONTACT);
-            }
-        });
-        ibGenerate = (ImageButton)findViewById(R.id.imgBtnCreate);
-        ibGenerate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view.startAnimation(animAlpha);
-                String tel = et1.getText() + "" + et2.getText() + "" + et3.getText() + "" + et4.getText() + "" + et5.getText() + "" +
-                        et6.getText() + "" + et7.getText() + "" + et8.getText() + "" + et9.getText() + "" + et10.getText();
-                phone_number = convert(tel);
-                Random rand = new Random();
-                int type = rand.nextInt(3-0) + 0;
-                currentShowType = 0;
-                currentID = 0;
-                new CreateImageFromContact().execute();
-                new CreateImageBackground().execute(type);
             }
         });
 
@@ -627,8 +727,11 @@ public class Constructor extends Activity {
                     Cursor c = getContentResolver().query(contactData, null, ContactsContract.CommonDataKinds.Phone.NUMBER, null, null);
                     if (c.moveToFirst()) {
                         String phone = (String) c.getString(c.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                        currentName = (String) c.getString(c.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                         currentID = (long) c.getInt(c.getColumnIndexOrThrow(ContactsContract.Data.RAW_CONTACT_ID));
-                        etNumber.setText(phone);
+                        String num = phone.replaceAll("[^0-9]+", "");
+                        etNumber.setText(num.substring(num.length() - 10));
+//                        etNumber.setText("" + convert(phone.replaceAll("[^0-9]+", "")));
 //                        Toast.makeText(mContext, "Person ID: " + currentID, Toast.LENGTH_SHORT).show();
 //                        phone_number = convert(phone.replaceAll("\\D+", ""));
 //                        Random rand = new Random();
@@ -653,51 +756,118 @@ public class Constructor extends Activity {
         Integer number[] = new Integer[replace.length];
         for (int i = 0; i < replace.length; i++)
             number[i] = Integer.parseInt(String.valueOf(replace[i]));
-
-        mProgressDialog = new ProgressDialog(mContext);
-        mProgressDialog.setCancelable(false);
-        mProgressDialog.setMessage("Creating logo...");
-        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        mProgressDialog.show();
         return number;
     }
+//
+//    private Bitmap resizeBitmap(Bitmap bbMap, int w, int h){
+//        Bitmap rbMap = Bitmap.createScaledBitmap(bbMap, w, h, true);
+////        Bitmap rbMap = Bitmap.createBitmap(bbMap);
+//        bbMap.recycle();
+////        if(replaceColor != 0){
+////            rbMap.copy(Bitmap.Config.ARGB_8888, true);
+////            int lenght = rbMap.getWidth()*rbMap.getHeight();
+////            int[] pixels = new int[lenght];
+////            rbMap.getPixels(pixels, 0, rbMap.getWidth(), 0, 0, rbMap.getWidth(), rbMap.getHeight());
+////            for(int i=0; i < lenght; ++i){
+////                int y = i/rbMap.getWidth();
+////                int x = i - (y*rbMap.getWidth());
+////                int pixel = rbMap.getPixel(x, y);
+////                if(pixel == searchColor){
+////                    rbMap.setPixel(x, y, replaceColor);
+////                } else if(pixel == replaceColor){
+////                    rbMap.setPixel(x, y, searchColor);
+////                }
+////
+////            }
+////        }
+//        return rbMap;
+//    }
 
-    private Bitmap resizeBitmap(Bitmap bbMap, int w, int h, int searchColor, int replaceColor){
-        Bitmap rbMap = Bitmap.createScaledBitmap(bbMap, w, h, true);
-//        Bitmap rbMap = Bitmap.createBitmap(bbMap);
-        bbMap.recycle();
-        if(replaceColor != 0){
-            rbMap.copy(Bitmap.Config.ARGB_8888, true);
-            int lenght = rbMap.getWidth()*rbMap.getHeight();
-            int[] pixels = new int[lenght];
-            rbMap.getPixels(pixels, 0, rbMap.getWidth(), 0, 0, rbMap.getWidth(), rbMap.getHeight());
-            for(int i=0; i < lenght; ++i){
-                int y = i/rbMap.getWidth();
-                int x = i - (y*rbMap.getWidth());
-                int pixel = rbMap.getPixel(x, y);
-                if(pixel == searchColor){
-                    rbMap.setPixel(x, y, replaceColor);
-                } else if(pixel == replaceColor){
-                    rbMap.setPixel(x, y, searchColor);
+    public static Bitmap lessResolution (InputStream filePath, int width, int height){
+        int reqHeight=width;
+        int reqWidth=height;
+
+        byte[] byteArr = new byte[0];
+        byte[] buffer = new byte[1024];
+        int len;
+        int count = 0;
+        try {
+            while ((len = filePath.read(buffer)) > -1) {
+                if (len != 0) {
+                    if (count + len > byteArr.length) {
+                        byte[] newbuf = new byte[(count + len) * 2];
+                        System.arraycopy(byteArr, 0, newbuf, 0, count);
+                        byteArr = newbuf;
+                    }
+
+                    System.arraycopy(buffer, 0, byteArr, count, len);
+                    count += len;
                 }
-
             }
+            BitmapFactory.Options options = new BitmapFactory.Options();
+
+            // First decode with inJustDecodeBounds=true to check dimensions
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeByteArray(byteArr, 0, count, options);
+
+            // Calculate inSampleSize
+            options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+            // Decode bitmap with inSampleSize set
+            options.inJustDecodeBounds = false;
+
+            return BitmapFactory.decodeByteArray(byteArr, 0, count, options);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
         }
-        return rbMap;
+    }
+
+    private static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+//        System.out.println("s.w/s.h: " + reqWidth + "/" + reqHeight);
+//        System.out.println("p.w/p.h: " + options.outWidth + "/" + options.outHeight);
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            // Calculate ratios of height and width to requested height and width
+            final int heightRatio = Math.round((float) height / (float) reqHeight);
+            final int widthRatio = Math.round((float) width / (float) reqWidth);
+
+            // Choose the smallest ratio as inSampleSize value, this will guarantee
+            // a final image with both dimensions larger than or equal to the
+            // requested height and width.
+//            System.out.println("Ratio values: " + widthRatio + "/" + heightRatio);
+            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+        }
+//        System.out.println("Scale value: " + inSampleSize);
+        return inSampleSize;
     }
 
     private void addLayoutToCanvas(String filename, Canvas canvas, int color, int changeColor, boolean isFill){
         try {
             InputStream is = getAssets().open("raw/" + filename);
-            Bitmap bMap = BitmapFactory.decodeStream(is);
-            is.close();
+//            Bitmap bMap = BitmapFactory.decodeStream(is);
+            Bitmap rbMap = lessResolution(is, p.x, p.y);
+//            Bitmap rbMap = Bitmap.createScaledBitmap(bMap, p.x, p.y, true);
+
+//            bMap.recycle();
+            Paint paint = new Paint();
+//            paint.setAntiAlias(true);
+            paint.setFilterBitmap(true);
             if(isFill){
-                Paint paint = new Paint(color);
+                paint.setColor(color);
+//                paint.setDither(true);
                 ColorFilter filter = new LightingColorFilter(color, 1);
                 paint.setColorFilter(filter);
-                canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, 0, 0), new Matrix(), paint);
-            } else
-                canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y, changeColor, color), new Matrix(), null);
+            }
+            canvas.drawBitmap(rbMap, null, new Rect(0, 0, p.x, p.y), paint);
+//            canvas.drawBitmap(rbMap, new Matrix(), paint);
+            rbMap.recycle();
+            is.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -779,7 +949,8 @@ public class Constructor extends Activity {
         }
     }
 
-    private class SaveImage extends AsyncTask<Integer, Integer, Boolean>{
+    private class SaveImage extends AsyncTask<String, Integer, Boolean>{
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -795,15 +966,14 @@ public class Constructor extends Activity {
             super.onPostExecute(aBoolean);
             SaveProgressDialog.dismiss();
             if(aBoolean){
-                if(currentID != 0)
-                    Toast.makeText(mContext, "Image was added to contact!", Toast.LENGTH_SHORT).show();
-                Toast.makeText(mContext, "Image was saved to\n/sdcard/LogophoneContacts!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Image was saved to /sdcard/LogophoneContacts!", Toast.LENGTH_SHORT).show();
             } else
-                Toast.makeText(mContext, "Cannot add image to contact!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Cannot save image!", Toast.LENGTH_SHORT).show();
         }
 
         @Override
-        protected Boolean doInBackground(Integer... integers) {
+        protected Boolean doInBackground(String... str) {
+
             boolean result = false;
             Bitmap bmpToSave = Bitmap.createBitmap(p.x, p.y, Bitmap.Config.ARGB_8888);
             Canvas saveCanvas = new Canvas(bmpToSave);
@@ -812,22 +982,22 @@ public class Constructor extends Activity {
             try {
                 ByteArrayOutputStream bOut = new ByteArrayOutputStream();
                 bmpToSave.compress(Bitmap.CompressFormat.JPEG, 100, bOut);
-                File fsave = new File(Environment.getExternalStorageDirectory() + "/LogophoneContacts/" + Arrays.toString(phone_number).replaceAll("[^0-9]+", "") + ".jpg");
+                File fsave = new File(Environment.getExternalStorageDirectory() + "/LogophoneContacts/" + Arrays.toString(phone_number).replaceAll("[^0-9]+", "") + str[0] + str[1] + ".jpg");
                 fsave.createNewFile();
                 FileOutputStream foStream = new FileOutputStream(fsave);
                 foStream.write(bOut.toByteArray());
                 foStream.close();
 
-                if(currentID != 0)
+                if(str[2].equals("1"))
                     setContactPhoto(bOut.toByteArray(), currentID);
 
                 bOut.flush();
                 bOut.close();
                 result = true;
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.w("com.logophone.save", "Save exception! Debug to more info!");
+//                e.printStackTrace();
             }
-
             return result;
         }
     }
@@ -1009,7 +1179,7 @@ public class Constructor extends Activity {
                                     + "0XX.png";
                             System.out.println(filename[7]);
                             addLayoutToCanvas(filename[7], canvas, colors_array[aSorted[indexOfUzor] % 10], colors_array[9], true);
-                        } else if(i == indexOfUzor && aSorted[i] == aSorted[indexOfUzor]){
+                        } else if(i == indexOfUzor || (aSorted[i] == aSorted[indexOfUzor] && i == indexOfUzor)){
                             //do nothing
                         } else {
                             filename[9] = (String.valueOf(aSorted[i]).length() > 4 ? String.valueOf(aSorted[i]).substring(1) : String.valueOf(aSorted[i])) + "XXXX.png";

@@ -45,7 +45,8 @@
             android:layout_weight="1"
             android:textSize="20dp"
             android:paddingRight="35dp"
-            android:background="@android:drawable/btn_default" />
+            android:background="@android:drawable/btn_default"
+            android:textColor="@android:color/white" />
 
         <Button
                 android:layout_width="wrap_content"
@@ -59,7 +60,8 @@
             android:layout_weight="1"
             android:textSize="20dp"
             android:paddingRight="35dp"
-            android:background="@android:drawable/btn_default" />
+            android:background="@android:drawable/btn_default"
+            android:textColor="@android:color/white" />
 
         <Button
                 android:layout_width="wrap_content"
@@ -71,7 +73,8 @@
             android:layout_weight="1"
             android:textSize="20dp"
             android:paddingRight="35dp"
-            android:background="@android:drawable/btn_default" />
+            android:background="@android:drawable/btn_default"
+            android:textColor="@android:color/white" />
 
         <Button
                 android:layout_width="wrap_content"
@@ -83,7 +86,8 @@
             android:layout_weight="1"
             android:textSize="20dp"
             android:paddingRight="35dp"
-            android:background="@android:drawable/btn_default" />
+            android:background="@android:drawable/btn_default"
+            android:textColor="@android:color/white" />
 
         <Button
                 android:layout_width="wrap_content"
@@ -95,7 +99,8 @@
             android:layout_weight="1"
             android:textSize="20dp"
             android:paddingRight="35dp"
-            android:background="@android:drawable/btn_default" />
+            android:background="@android:drawable/btn_default"
+            android:textColor="@android:color/white" />
 
         <Button
                 android:layout_width="wrap_content"
@@ -107,7 +112,8 @@
             android:layout_weight="1"
             android:textSize="20dp"
             android:paddingRight="35dp"
-            android:background="@android:drawable/btn_default" />
+            android:background="@android:drawable/btn_default"
+            android:textColor="@android:color/white" />
 
         <Button
             android:layout_width="wrap_content"
@@ -119,7 +125,8 @@
             android:layout_weight="1"
             android:textSize="20dp"
             android:paddingRight="35dp"
-            android:background="@android:drawable/btn_default" />
+            android:background="@android:drawable/btn_default"
+            android:textColor="@android:color/white" />
 
         <Button
                 android:layout_width="wrap_content"
@@ -132,7 +139,8 @@
             android:layout_weight="1"
             android:textSize="20dp"
             android:paddingRight="35dp"
-            android:background="@android:drawable/btn_default" />
+            android:background="@android:drawable/btn_default"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:background="#109ee3"
+    android:layout_height="match_parent">
+
+    <ViewFlipper
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/trainViewFlipperBack"
+        android:layout_below="@+id/trainLinearLayout">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/trainImageBack"
+            android:adjustViewBounds="true"
+            android:scaleType="matrix" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/trainViewBack2"
+            android:adjustViewBounds="true"
+            android:scaleType="matrix" />
+    </ViewFlipper>
+
     <ViewFlipper
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

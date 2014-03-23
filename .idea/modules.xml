@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/libraries/libraries.iml" filepath="$PROJECT_DIR$/libraries/libraries.iml" />
       <module fileurl="file://$PROJECT_DIR$/logophone.iml" filepath="$PROJECT_DIR$/logophone.iml" />
       <module fileurl="file://$PROJECT_DIR$/logophone-logophone.iml" filepath="$PROJECT_DIR$/logophone-logophone.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/tableFixHeaders/tableFixHeaders.iml" filepath="$PROJECT_DIR$/libraries/tableFixHeaders/tableFixHeaders.iml" />
     </modules>
   </component>
 </project>
