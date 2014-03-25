@@ -145,6 +145,10 @@ public class Creator {
                     || Arrays.asList(check_array).contains(8)
                     || Arrays.asList(check_array).contains(9))) {
                 moveLastup(clothes, 1);
+
+            } else if(check_array[0] == 0 && check_array[1] == 0){
+                moveLastup(clothes, 2);
+                moveLastup(clothes, 1);
             } else {
                 System.out.println("Sorting: move to upper(2");
                 moveLastup(clothes, 2);

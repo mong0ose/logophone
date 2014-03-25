@@ -62,7 +62,8 @@
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="30dp"
             android:inputType="phone"
-            android:textSize="35sp" />
+            android:textSize="35sp"
+            android:editable="false" />
 
         <EditText
             android:layout_width="44dp"
@@ -77,7 +78,8 @@
             android:background="@drawable/rect_edittext"
             android:layout_margin="2dp"
             android:inputType="phone"
-            android:textSize="35sp" />
+            android:textSize="35sp"
+            android:editable="false" />
 
         <EditText
             android:layout_width="44dp"
@@ -92,7 +94,8 @@
             android:background="@drawable/rect_edittext"
             android:layout_margin="2dp"
             android:inputType="phone"
-            android:textSize="35sp" />
+            android:textSize="35sp"
+            android:editable="false" />
 
         <EditText
             android:layout_width="44dp"
@@ -110,7 +113,8 @@
             android:layout_marginRight="2dp"
             android:layout_marginBottom="2dp"
             android:inputType="phone"
-            android:textSize="35sp" />
+            android:textSize="35sp"
+            android:editable="false" />
 
         <EditText
             android:layout_width="44dp"
@@ -125,7 +129,8 @@
             android:background="@drawable/rect_edittext"
             android:layout_margin="2dp"
             android:inputType="phone"
-            android:textSize="35sp" />
+            android:textSize="35sp"
+            android:editable="false" />
 
         <EditText
             android:layout_width="44dp"
@@ -140,7 +145,8 @@
             android:background="@drawable/rect_edittext"
             android:layout_margin="2dp"
             android:inputType="phone"
-            android:textSize="35sp" />
+            android:textSize="35sp"
+            android:editable="false" />
 
         <EditText
             android:layout_width="44dp"
@@ -158,7 +164,8 @@
             android:layout_marginRight="2dp"
             android:layout_marginBottom="2dp"
             android:inputType="phone"
-            android:textSize="35sp" />
+            android:textSize="35sp"
+            android:editable="false" />
 
         <EditText
             android:layout_width="44dp"
@@ -173,7 +180,8 @@
             android:background="@drawable/rect_edittext"
             android:layout_margin="2dp"
             android:inputType="phone"
-            android:textSize="35sp" />
+            android:textSize="35sp"
+            android:editable="false" />
 
         <EditText
             android:layout_width="44dp"
@@ -188,7 +196,8 @@
             android:background="@drawable/rect_edittext"
             android:layout_margin="2dp"
             android:inputType="phone"
-            android:textSize="35sp" />
+            android:textSize="35sp"
+            android:editable="false" />
 
         <EditText
             android:layout_width="44dp"
@@ -206,7 +215,8 @@
             android:layout_marginBottom="2dp"
             android:layout_marginRight="30dp"
             android:inputType="phone"
-            android:textSize="35sp" />
+            android:textSize="35sp"
+            android:editable="false" />
     </LinearLayout>
 
     <ViewFlipper
@@ -235,7 +245,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imgBtnLeftBack"
-        android:src="@drawable/left_round64"
+        android:src="@drawable/left_round28"
         android:layout_alignLeft="@+id/constructorlinearLayout"
         android:layout_below="@+id/constructorlinearLayout"
         android:padding="10dp"
@@ -247,7 +257,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imgBtnRightBack"
-        android:src="@drawable/right_round64"
+        android:src="@drawable/right_round128"
         android:layout_alignRight="@+id/constructorlinearLayout"
         android:layout_below="@+id/constructorlinearLayout"
         android:padding="10dp"
@@ -259,7 +269,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imgBtnLeftMain"
-        android:src="@drawable/left_round64"
+        android:src="@drawable/left_round28"
         android:layout_above="@+id/llayoutBtns"
         android:layout_alignLeft="@+id/llayoutBtns"
         android:padding="10dp"
@@ -271,7 +281,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imgBtnRightMain"
-        android:src="@drawable/right_round64"
+        android:src="@drawable/right_round128"
         android:layout_above="@+id/llayoutBtns"
         android:layout_alignRight="@+id/llayoutBtns"
         android:padding="10dp"

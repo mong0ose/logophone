@@ -58,6 +58,7 @@ public class TestingGame extends Activity {
     private Context mContext = this;
     private ImageView image, image2, imgBack, imgBack2;
     private Bitmap bmapOverlay, bmapBackground;
+    private int screenWidth;
     private Point p = new Point();
     private EditText[] editTextsTesting;
     private int[] colors_array = {
@@ -73,6 +74,67 @@ public class TestingGame extends Activity {
             Color.rgb(1, 1, 1)                  // BLACK
     };
 
+    private Dialog DialogManager(int DialogID){
+        final Dialog dialog = new Dialog(mContext);//, R.style.myBackgroundStyle);
+        switch (DialogID){
+            case D_TIME_CHOOSER:
+                dialog.setContentView(R.layout.dialog_time_chooser);
+                dialog.setTitle("Set Timer:");
+                dialog.setCancelable(false);
+                final Spinner dSpinner = (Spinner) dialog.findViewById(R.id.spinseconds);
+                Button bdExit = (Button) dialog.findViewById(R.id.btnDialogExit);
+                bdExit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+                Button bdSelect = (Button) dialog.findViewById(R.id.btnDialogSelect);
+                bdSelect.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Timer = Double.parseDouble(String.valueOf(dSpinner.getSelectedItem().toString()));
+                        new ImageBuilder().execute(GbTypeSize);
+                        dialog.dismiss();
+                    }
+                });
+                ArrayAdapter<String> dSpinnerArrayAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, time);
+                dSpinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                dSpinner.setAdapter(dSpinnerArrayAdapter);
+
+                dialog.show();
+                break;
+            case D_BAD_ANSWER:
+                dialog.setContentView(R.layout.dialog_bad_answer);
+                dialog.setTitle("Incorrect answer!");
+                dialog.setCancelable(false);
+
+                Button bBadExit = (Button)dialog.findViewById(R.id.btnBadExit);
+                bBadExit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+                Button bBadRedo = (Button)dialog.findViewById(R.id.btnBadContinue);
+                bBadRedo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        new ImageBuilder().execute(GbTypeSize);
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+                break;
+            default:
+                break;
+        }
+        return null;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +147,7 @@ public class TestingGame extends Activity {
             p.y = disp.getHeight();
         } else
             disp.getSize(p);
+        screenWidth = p.x;
         p.y = p.x*1528/1080;
 //        p.x *= 0.975;
 //        p.y *= 0.975;
@@ -361,6 +424,15 @@ public class TestingGame extends Activity {
     }
 
     private class imgTestBackBuilder extends AsyncTask<Integer, Integer, Boolean>{
+        private Point p = new Point();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            p.y = viewFlipperBack.getHeight();
+            p.x = p.y*1080/1528;
+        }
+
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             super.onPostExecute(aBoolean);
@@ -390,18 +462,21 @@ public class TestingGame extends Activity {
         @Override
         protected Boolean doInBackground(Integer... integers) {
             boolean result = false;
-            bmapBackground = Bitmap.createBitmap(p.x, p.y, Bitmap.Config.ARGB_8888);
+            bmapBackground = Bitmap.createBitmap(screenWidth, p.y, Bitmap.Config.RGB_565);
             Canvas canvas = new Canvas(bmapBackground);
+            Point p2 = new Point();
+            p2.x = screenWidth;
+            p2.y = p.y;
             filename[0] = "flag/40.png";
             switch (integers[0]){
                 case 1:
-                    addLayoutToCanvas(filename[0], canvas, colors_array[phone_number[0]], Color.WHITE, true);
+                    addLayoutToCanvas(filename[0], canvas, colors_array[phone_number[0]], p2, true);
                     result = true;
                     break;
                 case 2:
                     filename[2] = "figure/" + phone_number[2] + "01.png";
-                    addLayoutToCanvas(filename[0], canvas, 0, 0, false);
-                    addLayoutToCanvas(filename[2], canvas, colors_array[phone_number[1]], Color.WHITE, true);
+                    addLayoutToCanvas(filename[0], canvas, 0, p2, false);
+                    addLayoutToCanvas(filename[2], canvas, colors_array[phone_number[1]], p, true);
                     result = true;
                     break;
                 case 3:
@@ -411,22 +486,22 @@ public class TestingGame extends Activity {
                         case 0:
                             filename[2] = "figure/" + phone_number[2] + "01.png";
                             filename[1] = "figure/" + phone_number[2] + "00.png";
-                            addLayoutToCanvas(filename[0], canvas, 0, 0, false);
-                            addLayoutToCanvas(filename[2], canvas, colors_array[phone_number[1]], Color.WHITE, true);
-                            addLayoutToCanvas(filename[1], canvas, colors_array[phone_number[0]], Color.WHITE, true);
+                            addLayoutToCanvas(filename[0], canvas, 0, p2, false);
+                            addLayoutToCanvas(filename[2], canvas, colors_array[phone_number[1]], p, true);
+                            addLayoutToCanvas(filename[1], canvas, colors_array[phone_number[0]], p, true);
                             break;
                         case 1:
                             filename[2] = "figure/" + phone_number[2] + "01.png";
-                            addLayoutToCanvas(filename[0], canvas, colors_array[phone_number[0]], Color.WHITE, true);
-                            addLayoutToCanvas(filename[2], canvas, colors_array[phone_number[1]], Color.WHITE, true);
+                            addLayoutToCanvas(filename[0], canvas, colors_array[phone_number[0]], p2, true);
+                            addLayoutToCanvas(filename[2], canvas, colors_array[phone_number[1]], p, true);
                             break;
                         case 2:
                             filename[0] = "flag/10.png";
                             filename[1] = "flag/20.png";
                             filename[2] = "flag/30.png";
-                            addLayoutToCanvas(filename[0], canvas, colors_array[phone_number[0]], Color.WHITE, true);
-                            addLayoutToCanvas(filename[1], canvas, colors_array[phone_number[1]], Color.WHITE, true);
-                            addLayoutToCanvas(filename[2], canvas, colors_array[phone_number[2]], Color.WHITE, true);
+                            addLayoutToCanvas(filename[0], canvas, colors_array[phone_number[0]], p2, true);
+                            addLayoutToCanvas(filename[1], canvas, colors_array[phone_number[1]], p2, true);
+                            addLayoutToCanvas(filename[2], canvas, colors_array[phone_number[2]], p2, true);
                             break;
                         default:
                             break;
@@ -474,14 +549,14 @@ public class TestingGame extends Activity {
                                     + "0XX.png";
                             System.out.println(filename[5]);
                             System.out.println(filename[7]);
-                            addLayoutToCanvas(filename[5], canvas, 0, 0, false);
-                            addLayoutToCanvas(filename[7], canvas, colors_array[aSorted[indexOfUzor] % 10], colors_array[9], true);
+                            addLayoutToCanvas(filename[5], canvas, 0, p, false);
+                            addLayoutToCanvas(filename[7], canvas, colors_array[aSorted[indexOfUzor] % 10], p, true);
                         } else if(i == indexOfUzor || (aSorted[i] == aSorted[indexOfUzor] && i == indexOfUzor)){
                             //do nothing
                         } else if(TypeSize > 6) {
                             filename[9] = (String.valueOf(aSorted[i]).length() > 4 ? String.valueOf(aSorted[i]).substring(1) : String.valueOf(aSorted[i])) + "XXXX.png";
                             System.out.println(filename[9]);
-                            addLayoutToCanvas(filename[9], canvas, 0, 0, false);
+                            addLayoutToCanvas(filename[9], canvas, 0, p, false);
                         }
                     }
 
@@ -492,12 +567,12 @@ public class TestingGame extends Activity {
                             + "X" + (String.valueOf(aZipperType[1]).length() > 4 ? String.valueOf(aZipperType[1]).substring(2, 3) : String.valueOf(aZipperType[1]).substring(1, 2)) + "0XX.png";
                     System.out.println(filename[5]);
                     System.out.println(filename[7]);
-                    addLayoutToCanvas(filename[5], canvas, 0, 0, false);
-                    addLayoutToCanvas(filename[7], canvas, colors_array[aZipperType[1] % 10], colors_array[9], true);
+                    addLayoutToCanvas(filename[5], canvas, 0, p, false);
+                    addLayoutToCanvas(filename[7], canvas, colors_array[aZipperType[1] % 10], p, true);
                     if(TypeSize > 6) {
                         filename[9] = "glasses/" + (phone_number[3] == 10 ? 0 : phone_number[3]) + "XXXXX" + phone_number[9] + phone_number[8] + ".png";
                         System.out.println(filename[9]);
-                        addLayoutToCanvas(filename[9], canvas, 0, 0, false);
+                        addLayoutToCanvas(filename[9], canvas, 0, p, false);
                     }
                     break;
                 default:
@@ -508,7 +583,7 @@ public class TestingGame extends Activity {
         @Override
         protected Boolean doInBackground(Integer... integers) {
             TypeSize = integers[0];
-            bmapOverlay = Bitmap.createBitmap(p.x, p.y, Bitmap.Config.ARGB_8888);
+            bmapOverlay = Bitmap.createBitmap(p.x, p.y, Bitmap.Config.ARGB_4444);
             Canvas canvas = new Canvas(bmapOverlay);
             Random rand = new Random();
             for(int i = 0; i < 10; i++){
@@ -539,7 +614,7 @@ public class TestingGame extends Activity {
                     if(type >= 5){
                         onProgressUpdate(0);
                         charge_number[3] = phone_number[3];
-                        addLayoutToCanvas(filename[3], canvas, 0, 0, false);
+                        addLayoutToCanvas(filename[3], canvas, 0, p, false);
                         //          char
                     } else {
                         charge_number[0] = phone_number[0];
@@ -561,8 +636,8 @@ public class TestingGame extends Activity {
                             charge_number[4] = phone_number[4];
                             charge_number[5] = phone_number[5];
                             filename[5] = phone_number[3] + "" + phone_number[5] + "0" + phone_number[4];
-                            addLayoutToCanvas(filename[3], canvas, 0, 0, false);
-                            addLayoutToCanvas(filename[5] + "XXXX.png", canvas, 0, 0, false);
+                            addLayoutToCanvas(filename[3], canvas, 0, p, false);
+                            addLayoutToCanvas(filename[5] + "XXXX.png", canvas, 0, p, false);
                             //          char
                             break;
                         case 1:
@@ -582,8 +657,8 @@ public class TestingGame extends Activity {
                     charge_number[5] = phone_number[5];
                     filename[5] = phone_number[3] + "" + phone_number[5] + "0" + phone_number[4];
                     onProgressUpdate(1);
-                    addLayoutToCanvas(filename[3], canvas, 0, 0, false);
-                    addLayoutToCanvas(filename[5] + "XXXX.png", canvas, 0, 0, false);
+                    addLayoutToCanvas(filename[3], canvas, 0, p, false);
+                    addLayoutToCanvas(filename[5] + "XXXX.png", canvas, 0, p, false);
                     break;
                 case 5:
                     onProgressUpdate(0);
@@ -592,7 +667,7 @@ public class TestingGame extends Activity {
 
                     filename[5] = phone_number[3] + "" + phone_number[5] + "0" + phone_number[4];
                     filename[7] = "uzors/" + phone_number[3] + "" + phone_number[5] + "0X" + phone_number[7] + "0XX.png";
-                    addLayoutToCanvas(filename[3], canvas, 0, 0, false);
+                    addLayoutToCanvas(filename[3], canvas, 0, p, false);
                     setTrueNumeric(aSorted, aZipperType, canvas, indexOfClothes, indexOfUzor);
                     break;
                 case 6:
@@ -603,7 +678,7 @@ public class TestingGame extends Activity {
                     filename[5] = phone_number[3] + "" + phone_number[5] + "0" + phone_number[4];
                     filename[7] = "uzors/" + phone_number[3] + "" + phone_number[5] + "0X" + phone_number[7] + "0XX.png";
                     onProgressUpdate(1);
-                    addLayoutToCanvas(filename[3], canvas, 0, 0, false);
+                    addLayoutToCanvas(filename[3], canvas, 0, p, false);
                     setTrueNumeric(aSorted, aZipperType, canvas, indexOfClothes, indexOfUzor);
                     break;
                 case 7:
@@ -611,7 +686,7 @@ public class TestingGame extends Activity {
                     for(int i = 3; i < phone_number.length; i++)
                         charge_number[i] = phone_number[i];
 
-                    addLayoutToCanvas(filename[3], canvas, 0, 0, false);
+                    addLayoutToCanvas(filename[3], canvas, 0, p, false);
                     setTrueNumeric(aSorted, aZipperType, canvas, indexOfClothes, indexOfUzor);
                     break;
                 case 8:
@@ -619,21 +694,21 @@ public class TestingGame extends Activity {
                     for(int i = 3; i < phone_number.length; i++)
                         charge_number[i] = phone_number[i];
                     onProgressUpdate(1);
-                    addLayoutToCanvas(filename[3], canvas, 0, 0, false);
+                    addLayoutToCanvas(filename[3], canvas, 0, p, false);
                     setTrueNumeric(aSorted, aZipperType, canvas, indexOfClothes, indexOfUzor);
                     break;
                 case 9:
                     for(int i = 1; i < phone_number.length; i++)
                         charge_number[i] = phone_number[i];
                     onProgressUpdate(2);
-                    addLayoutToCanvas(filename[3], canvas, 0, 0, false);
+                    addLayoutToCanvas(filename[3], canvas, 0, p, false);
                     setTrueNumeric(aSorted, aZipperType, canvas, indexOfClothes, indexOfUzor);
                     break;
                 case 10:
                     for(int i = 0; i < phone_number.length; i++)
                         charge_number[i] = phone_number[i];
                     onProgressUpdate(3);
-                    addLayoutToCanvas(filename[3], canvas, 0, 0, false);
+                    addLayoutToCanvas(filename[3], canvas, 0, p, false);
                     setTrueNumeric(aSorted, aZipperType, canvas, indexOfClothes, indexOfUzor);
                     break;
                 default:
@@ -731,7 +806,7 @@ public class TestingGame extends Activity {
         return inSampleSize;
     }
 
-    private void addLayoutToCanvas(String filename, Canvas canvas, int color, int changeColor, boolean isFill){
+    private void addLayoutToCanvas(String filename, Canvas canvas, int color, Point p, boolean isFill){
         try {
             InputStream is = getAssets().open("raw/" + filename);
 //            Bitmap bMap = BitmapFactory.decodeStream(is);
@@ -748,11 +823,8 @@ public class TestingGame extends Activity {
                 ColorFilter filter = new LightingColorFilter(color, 1);
 
                 paint.setColorFilter(filter);
-                canvas.drawBitmap(rbMap, null, new Rect(0, 0, p.x, p.y), paint);
-//                canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y), new Matrix(), paint);
-            } else{
-                canvas.drawBitmap(rbMap, null, new Rect(0, 0, p.x, p.y), paint);
             }
+            canvas.drawBitmap(rbMap, null, new Rect(0, 0, p.x, p.y), paint);
 //                canvas.drawBitmap(resizeBitmap(bMap, p.x, p.y), new Matrix(), null);
             rbMap.recycle();
         } catch (IOException e) {
@@ -783,6 +855,12 @@ public class TestingGame extends Activity {
                 } else if(image2.isShown()){
                     image2.setImageResource(android.R.color.transparent);
                 }
+
+                if(imgBack.isShown()){
+                    imgBack.setImageResource(android.R.color.transparent);
+                } else if(imgBack2.isShown()){
+                    imgBack2.setImageResource(android.R.color.transparent);
+                }
                 if(counter != 0){
                     txtCounter.setText(String.valueOf(counter));
                     txtCounter.setVisibility(View.VISIBLE);
@@ -803,67 +881,6 @@ public class TestingGame extends Activity {
             }
             return result;
         }
-    }
-
-    private Dialog DialogManager(int DialogID){
-        final Dialog dialog = new Dialog(mContext, R.style.myBackgroundStyle);
-        switch (DialogID){
-            case D_TIME_CHOOSER:
-                dialog.setContentView(R.layout.dialog_time_chooser);
-                dialog.setTitle("Set Timer:");
-                dialog.setCancelable(false);
-                final Spinner dSpinner = (Spinner) dialog.findViewById(R.id.spinseconds);
-                Button bdExit = (Button) dialog.findViewById(R.id.btnDialogExit);
-                bdExit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                        finish();
-                    }
-                });
-                Button bdSelect = (Button) dialog.findViewById(R.id.btnDialogSelect);
-                bdSelect.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Timer = Double.parseDouble(String.valueOf(dSpinner.getSelectedItem().toString()));
-                        new ImageBuilder().execute(GbTypeSize);
-                        dialog.dismiss();
-                    }
-                });
-                ArrayAdapter<String> dSpinnerArrayAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, time);
-                dSpinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                dSpinner.setAdapter(dSpinnerArrayAdapter);
-
-                dialog.show();
-                break;
-            case D_BAD_ANSWER:
-                dialog.setContentView(R.layout.dialog_bad_answer);
-                dialog.setTitle("Incorrect answer!");
-                dialog.setCancelable(false);
-
-                Button bBadExit = (Button)dialog.findViewById(R.id.btnBadExit);
-                bBadExit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                        finish();
-                    }
-                });
-                Button bBadRedo = (Button)dialog.findViewById(R.id.btnBadContinue);
-                bBadRedo.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        new ImageBuilder().execute(GbTypeSize);
-                        dialog.dismiss();
-                    }
-                });
-
-                dialog.show();
-                break;
-            default:
-                break;
-        }
-        return null;
     }
 }
 

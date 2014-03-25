@@ -68,7 +68,6 @@ public class Constructor extends Activity {
     private static final int D_INFO = 1;
     private static final int D_GET_NUMBER = 2;
     private static final int D_SAVE_IMAGE = 3;
-
     private static final int PICK_CONTACT = 3245;
     private ProgressDialog mProgressDialog, SaveProgressDialog, SendProgressDialog;
     private Integer phone_number[] = new Integer[]{};
@@ -76,6 +75,7 @@ public class Constructor extends Activity {
     private int background_round, showtype, currentShowType;
     private long currentID;
     private String currentName;
+    private int screenWidth;
     private Context mContext = this;
     private Point p = new Point();
     private int[] colors_array = {
@@ -111,7 +111,7 @@ public class Constructor extends Activity {
 //    }
 
     private Dialog DialogManager(int dType){
-        final Dialog dialog = new Dialog(mContext, R.style.myBackgroundStyle);
+        final Dialog dialog = new Dialog(mContext);//, R.style.myBackgroundStyle);
         final Drawable xD = this.getResources().getDrawable(R.drawable.cancel32);
         final Drawable xDC = this.getResources().getDrawable(R.drawable.contacts32);
         switch (dType){
@@ -335,8 +335,7 @@ public class Constructor extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_logo_by_number);
         DialogManager(D_GET_NUMBER);
-        ImageButton ibGenerate, ibContacts, ibShare, ibSave, ibDelete, ibInfo;
-
+        ImageButton ibContacts, ibShare, ibSave, ibInfo;
         currentID = 0;
         Display disp = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR2){
@@ -344,6 +343,7 @@ public class Constructor extends Activity {
             p.x = disp.getHeight();
         } else
             disp.getSize(p);
+        screenWidth = p.x;
         p.y = p.x*1528/1080;
 //        p.x *= 0.75;
 //        p.y *= 0.75;
@@ -758,30 +758,6 @@ public class Constructor extends Activity {
             number[i] = Integer.parseInt(String.valueOf(replace[i]));
         return number;
     }
-//
-//    private Bitmap resizeBitmap(Bitmap bbMap, int w, int h){
-//        Bitmap rbMap = Bitmap.createScaledBitmap(bbMap, w, h, true);
-////        Bitmap rbMap = Bitmap.createBitmap(bbMap);
-//        bbMap.recycle();
-////        if(replaceColor != 0){
-////            rbMap.copy(Bitmap.Config.ARGB_8888, true);
-////            int lenght = rbMap.getWidth()*rbMap.getHeight();
-////            int[] pixels = new int[lenght];
-////            rbMap.getPixels(pixels, 0, rbMap.getWidth(), 0, 0, rbMap.getWidth(), rbMap.getHeight());
-////            for(int i=0; i < lenght; ++i){
-////                int y = i/rbMap.getWidth();
-////                int x = i - (y*rbMap.getWidth());
-////                int pixel = rbMap.getPixel(x, y);
-////                if(pixel == searchColor){
-////                    rbMap.setPixel(x, y, replaceColor);
-////                } else if(pixel == replaceColor){
-////                    rbMap.setPixel(x, y, searchColor);
-////                }
-////
-////            }
-////        }
-//        return rbMap;
-//    }
 
     public static Bitmap lessResolution (InputStream filePath, int width, int height){
         int reqHeight=width;
@@ -847,7 +823,7 @@ public class Constructor extends Activity {
         return inSampleSize;
     }
 
-    private void addLayoutToCanvas(String filename, Canvas canvas, int color, int changeColor, boolean isFill){
+    private void addLayoutToCanvas(String filename, Canvas canvas, int color, Point p, boolean isFill){
         try {
             InputStream is = getAssets().open("raw/" + filename);
 //            Bitmap bMap = BitmapFactory.decodeStream(is);
@@ -1003,35 +979,47 @@ public class Constructor extends Activity {
     }
 
     private class CreateImageBackground extends AsyncTask<Integer, Integer, Boolean>{
+        private Point p = new Point();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            p.y = vFlip.getHeight();
+            p.x = p.y*1080/1528;
+        }
+
         @Override
         protected Boolean doInBackground(Integer... integers) {
             if(phone_number.length != 10) return false;
-            bmapBackground = Bitmap.createBitmap(p.x, p.y, Bitmap.Config.ARGB_8888);
+            bmapBackground = Bitmap.createBitmap(screenWidth, p.y, Bitmap.Config.RGB_565);
             Canvas bCanvas = new Canvas(bmapBackground);
             String[] filename = new String[3];
             background_round = integers[0];
+            Point p2 = new Point();
+            p2.x = screenWidth;
+            p2.y = p.y;
             switch (integers[0]){
                 case 0:
                     filename[0] = "flag/40.png";
-                    addLayoutToCanvas(filename[0], bCanvas, colors_array[phone_number[0]], Color.WHITE, true);
                     filename[2] = "figure/" + phone_number[2] + "01.png";
-                    addLayoutToCanvas(filename[2], bCanvas, colors_array[phone_number[1]], Color.WHITE, true);
+                    addLayoutToCanvas(filename[0], bCanvas, colors_array[phone_number[0]], p2, true);
+                    addLayoutToCanvas(filename[2], bCanvas, colors_array[phone_number[1]], p, true);
                     break;
                 case 1:
                     filename[0] = "flag/10.png";
-                    addLayoutToCanvas(filename[0], bCanvas, colors_array[phone_number[0]], Color.WHITE, true);
                     filename[1] = "flag/20.png";
-                    addLayoutToCanvas(filename[1], bCanvas, colors_array[phone_number[1]], Color.WHITE, true);
                     filename[2] = "flag/30.png";
-                    addLayoutToCanvas(filename[2], bCanvas, colors_array[phone_number[2]], Color.WHITE, true);
+                    addLayoutToCanvas(filename[0], bCanvas, colors_array[phone_number[0]], p2, true);
+                    addLayoutToCanvas(filename[1], bCanvas, colors_array[phone_number[1]], p2, true);
+                    addLayoutToCanvas(filename[2], bCanvas, colors_array[phone_number[2]], p2, true);
                     break;
                 case 2:
                     filename[0] = "flag/40.png";
-                    addLayoutToCanvas(filename[0], bCanvas, 0, 0, false);
                     filename[2] = "figure/" + phone_number[2] + "01.png";
-                    addLayoutToCanvas(filename[2], bCanvas, colors_array[phone_number[1]], Color.WHITE, true);
                     filename[1] = "figure/" + phone_number[2] + "00.png";
-                    addLayoutToCanvas(filename[1], bCanvas, colors_array[phone_number[0]], Color.WHITE, true);
+                    addLayoutToCanvas(filename[0], bCanvas, 0, p2, false);
+                    addLayoutToCanvas(filename[2], bCanvas, colors_array[phone_number[1]], p, true);
+                    addLayoutToCanvas(filename[1], bCanvas, colors_array[phone_number[0]], p, true);
                     break;
                 default:
                     break;
@@ -1134,7 +1122,7 @@ public class Constructor extends Activity {
         @Override
         protected Boolean doInBackground(Integer... ints) {
             if(phone_number.length != 10) return false;
-            bmapOverlay = Bitmap.createBitmap(p.x, p.y, Bitmap.Config.ARGB_8888);
+            bmapOverlay = Bitmap.createBitmap(p.x, p.y, Bitmap.Config.ARGB_4444);
             Canvas canvas = new Canvas(bmapOverlay);
 
             String[] filename = new String[10];
@@ -1154,7 +1142,7 @@ public class Constructor extends Activity {
 
 //_______________________CHARACTER__________________________________________________________________
             filename[3] = (phone_number[3] == 10 ? 0 : phone_number[3]) + "XXXXXXX.png";
-            addLayoutToCanvas(filename[3], canvas, 0, 0, false);
+            addLayoutToCanvas(filename[3], canvas, 0, p, false);
 
             int[] aSorted = check.SortClothes(aZipperType);
             System.out.println(Arrays.toString(aSorted) + " == " + Arrays.toString(aZipperType));
@@ -1162,7 +1150,7 @@ public class Constructor extends Activity {
                 case 3:
                     for( int file : aSorted ){
                         System.out.println(String.valueOf(file).length() > 4 ? String.valueOf(file).substring(1) : String.valueOf(file) + "XXXX.png");
-                        addLayoutToCanvas((String.valueOf(file).length() > 4 ? String.valueOf(file).substring(1) : String.valueOf(file)) + "XXXX.png", canvas, 0, 0, false);
+                        addLayoutToCanvas((String.valueOf(file).length() > 4 ? String.valueOf(file).substring(1) : String.valueOf(file)) + "XXXX.png", canvas, 0, p, false);
                     }
                     break;
                 case 2:
@@ -1173,18 +1161,18 @@ public class Constructor extends Activity {
                         if(i == indexOfClothes){
                             filename[5] = (String.valueOf(aSorted[i]).length() > 4 ? String.valueOf(aSorted[i]).substring(1) : String.valueOf(aSorted[i])) + "XXXX.png";
                             System.out.println(filename[5]);
-                            addLayoutToCanvas(filename[5], canvas, 0, 0, false);
+                            addLayoutToCanvas(filename[5], canvas, 0, p, false);
                             filename[7] = "uzors/" + (String.valueOf(aSorted[i]).length() > 4 ? String.valueOf(aSorted[i]).substring(1, 4) : String.valueOf(aSorted[i]).substring(0, 3))
                                     + "X" + (String.valueOf(aSorted[indexOfUzor]).length() > 4 ? String.valueOf(aSorted[indexOfUzor]).substring(2, 3) : String.valueOf(aSorted[indexOfUzor]).substring(1, 2))
                                     + "0XX.png";
                             System.out.println(filename[7]);
-                            addLayoutToCanvas(filename[7], canvas, colors_array[aSorted[indexOfUzor] % 10], colors_array[9], true);
+                            addLayoutToCanvas(filename[7], canvas, colors_array[aSorted[indexOfUzor] % 10], p, true);
                         } else if(i == indexOfUzor || (aSorted[i] == aSorted[indexOfUzor] && i == indexOfUzor)){
                             //do nothing
                         } else {
                             filename[9] = (String.valueOf(aSorted[i]).length() > 4 ? String.valueOf(aSorted[i]).substring(1) : String.valueOf(aSorted[i])) + "XXXX.png";
                             System.out.println(filename[9]);
-                            addLayoutToCanvas(filename[9], canvas, 0, 0, false);
+                            addLayoutToCanvas(filename[9], canvas, 0, p, false);
                         }
                     }
 
@@ -1194,9 +1182,9 @@ public class Constructor extends Activity {
                     filename[7] = "uzors/" + (String.valueOf(aZipperType[0]).length() > 4 ? String.valueOf(aZipperType[0]).substring(1, 4) : String.valueOf(aZipperType[0]).substring(0, 3))
                             + "X" + (String.valueOf(aZipperType[1]).length() > 4 ? String.valueOf(aZipperType[1]).substring(2, 3) : String.valueOf(aZipperType[1]).substring(1, 2)) + "0XX.png";
                     filename[9] = "glasses/" + (phone_number[3] == 10 ? 0 : phone_number[3]) + "XXXXX" + phone_number[9] + phone_number[8] + ".png";
-                    addLayoutToCanvas(filename[5], canvas, 0, 0, false);
-                    addLayoutToCanvas(filename[7], canvas, colors_array[aZipperType[1] % 10], colors_array[9], true);
-                    addLayoutToCanvas(filename[9], canvas, 0, 0, false);
+                    addLayoutToCanvas(filename[5], canvas, 0, p, false);
+                    addLayoutToCanvas(filename[7], canvas, colors_array[aZipperType[1] % 10], p, true);
+                    addLayoutToCanvas(filename[9], canvas, 0, p, false);
                     System.out.println(filename[5]);
                     System.out.println(filename[7]);
                     System.out.println(filename[9]);
