@@ -23,12 +23,14 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,6 +40,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
@@ -94,6 +97,13 @@ public class TrainingPart extends Activity {
 //        return false;
 //    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.slide_b_in, R.anim.slide_b_out);
+    }
+
     private Dialog DialogManager(int dType){
         final Dialog dialog = new Dialog(mContext);//, R.style.myBackgroundStyle);
         switch (dType){
@@ -118,7 +128,7 @@ public class TrainingPart extends Activity {
                 break;
             case D_CHOOSER:
                 dialog.setContentView(R.layout.type_chooser);
-                dialog.setTitle("Choose number chain:");
+                dialog.setTitle("Number of Elements:");
                 dialog.setCancelable(false);
                 String[] typeToChoose = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
                 final Spinner dSpinner = (Spinner) dialog.findViewById(R.id.spinnerChooserType);
@@ -129,6 +139,7 @@ public class TrainingPart extends Activity {
                     public void onClick(View view) {
                         dialog.dismiss();
                         finish();
+                        overridePendingTransition(R.anim.slide_b_in, R.anim.slide_b_out);
                     }
                 });
                 Button bdSelect = (Button) dialog.findViewById(R.id.btnChooserSelect);
@@ -151,6 +162,34 @@ public class TrainingPart extends Activity {
                 break;
         }
         return null;
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+            Integer tel[] = new Integer[10];
+            try {
+                for (int i = 0; i < editTextsTraining.length; i++)
+                    tel[i] = editTextsTraining[i].getText().length() != 0 ?
+                            Integer.parseInt(String.valueOf(editTextsTraining[i].getText()).replaceAll("[^0-9]+", "")) : null;
+
+            } catch (NumberFormatException nfe) {
+                System.out.println("Could not parse " + nfe);
+            }
+            if (Arrays.equals(tel, charge_number)) {
+                Toast.makeText(mContext, "CORRECT!", Toast.LENGTH_SHORT).show();
+            } else {
+                for (int i = 0; i < editTextsTraining.length; i++)
+                    editTextsTraining[i].setText("");
+                Toast.makeText(mContext, "WRONG NUMBER!", Toast.LENGTH_SHORT).show();
+            }
+            if (!ThreadState)
+                new ImageBuilder().execute();
+        }
+        InputMethodManager imm = (InputMethodManager) getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editTextsTraining[0].getWindowToken(), 0);
+        return super.onKeyUp(keyCode, event);
     }
 
     @Override

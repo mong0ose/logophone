@@ -2,7 +2,6 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="#109ee3"
     android:layout_height="match_parent">
 
     <TextView
@@ -62,8 +61,8 @@
         android:background="#109ee3">
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
             android:ems="10"
             android:id="@+id/testEditText1"
             android:editable="false"
@@ -80,8 +79,8 @@
             android:phoneNumber="true" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
             android:ems="10"
             android:id="@+id/testEditText2"
             android:editable="false"
@@ -95,8 +94,8 @@
             android:phoneNumber="true" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
             android:ems="10"
             android:id="@+id/testEditText3"
             android:editable="false"
@@ -110,8 +109,8 @@
             android:phoneNumber="true" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
             android:ems="10"
             android:id="@+id/testEditText4"
             android:editable="false"
@@ -128,8 +127,8 @@
             android:phoneNumber="true" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
             android:ems="10"
             android:id="@+id/testEditText5"
             android:editable="false"
@@ -143,8 +142,8 @@
             android:phoneNumber="true" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
             android:ems="10"
             android:id="@+id/testEditText6"
             android:editable="false"
@@ -158,8 +157,8 @@
             android:phoneNumber="true" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
             android:ems="10"
             android:id="@+id/testEditText7"
             android:editable="false"
@@ -176,8 +175,8 @@
             android:phoneNumber="true" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
             android:ems="10"
             android:id="@+id/testEditText8"
             android:editable="false"
@@ -191,8 +190,8 @@
             android:phoneNumber="true" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
             android:ems="10"
             android:id="@+id/testEditText9"
             android:editable="false"
@@ -206,8 +205,8 @@
             android:phoneNumber="true" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
             android:ems="10"
             android:id="@+id/testEditText10"
             android:editable="false"

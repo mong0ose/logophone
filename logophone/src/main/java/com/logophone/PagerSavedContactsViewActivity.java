@@ -32,6 +32,13 @@ public class PagerSavedContactsViewActivity extends Activity {
 
     ViewPager pager;
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.slide_b_in, R.anim.slide_b_out);
+    }
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pager_saved_contacts);
@@ -100,7 +107,7 @@ public class PagerSavedContactsViewActivity extends Activity {
 //            textView.setText(images[position].replaceAll("[^0-9]+", ""));
             String splitedStr[] = images[position].split("_");
             int strLenght = splitedStr[0].length();
-            textView.setText(splitedStr[1] + " " + splitedStr[2].replaceAll(".jpg", "") + " (" + splitedStr[0].substring(strLenght-10, strLenght) + ")");
+            textView.setText(splitedStr[1] + " " + splitedStr[2].replaceAll(".jpg", "") + "\n#: " + splitedStr[0].substring(strLenght-10, strLenght));
             ImageLoader.getInstance().displayImage(images[position], imageView, options, new SimpleImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String imageUri, View view) {

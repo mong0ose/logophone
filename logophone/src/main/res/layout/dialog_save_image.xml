@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/checkBoxAddContactImage"
         android:layout_below="@+id/etLastNameSave"
-        android:text="Check here to add image to contact."
+        android:text="Assign to a contact."
         android:enabled="false" />
 
     <View

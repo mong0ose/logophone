@@ -2,7 +2,6 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="#109ee3"
     android:layout_height="match_parent">
 
     <ViewFlipper
@@ -54,8 +53,8 @@
         android:background="#109ee3">
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
             android:ems="10"
             android:id="@+id/trainEditText1"
             android:editable="false"
@@ -72,8 +71,8 @@
             android:phoneNumber="true" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
             android:ems="10"
             android:id="@+id/trainEditText2"
             android:editable="false"
@@ -87,8 +86,8 @@
             android:phoneNumber="true" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
             android:ems="10"
             android:id="@+id/trainEditText3"
             android:editable="false"
@@ -102,8 +101,8 @@
             android:phoneNumber="true" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
             android:ems="10"
             android:id="@+id/trainEditText4"
             android:editable="false"
@@ -120,8 +119,8 @@
             android:phoneNumber="true" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
             android:ems="10"
             android:id="@+id/trainEditText5"
             android:editable="false"
@@ -135,8 +134,8 @@
             android:phoneNumber="true" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
             android:ems="10"
             android:id="@+id/trainEditText6"
             android:editable="false"
@@ -150,8 +149,8 @@
             android:phoneNumber="true" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
             android:ems="10"
             android:id="@+id/trainEditText7"
             android:editable="false"
@@ -168,8 +167,8 @@
             android:phoneNumber="true" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
             android:ems="10"
             android:id="@+id/trainEditText8"
             android:editable="false"
@@ -183,8 +182,8 @@
             android:phoneNumber="true" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
             android:ems="10"
             android:id="@+id/trainEditText9"
             android:editable="false"
@@ -198,8 +197,8 @@
             android:phoneNumber="true" />
 
         <EditText
-            android:layout_width="24dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
             android:ems="10"
             android:id="@+id/trainEditText10"
             android:editable="false"

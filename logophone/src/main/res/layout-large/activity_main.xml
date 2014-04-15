@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@android:color/black">
+    android:background="#040404">
 
     <ImageView
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
         android:src="@drawable/logomain"
@@ -25,8 +25,12 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:src="@drawable/logo1"
-        android:adjustViewBounds="true"
-        android:maxWidth="400dp" />
+        android:adjustViewBounds="false"
+        android:maxWidth="400dp"
+        android:layout_below="@+id/imageView"
+        android:scaleType="matrix"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="50dp" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -36,40 +40,40 @@
         android:layout_below="@+id/imageView">
 
         <Button
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:text="@string/construct"
-                android:id="@+id/btnConstruct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/construct"
+            android:id="@+id/btnConstruct"
             android:layout_below="@+id/btnTest"
-            android:paddingLeft="35dp"
-            android:layout_weight="1"
-            android:layout_margin="3dp"
-            android:textSize="30dp"
-            android:paddingRight="35dp"
+            android:textSize="30sp"
             android:background="@android:drawable/btn_default"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="55dp"
+            android:paddingRight="35dp" />
 
         <Button
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:text="@string/spravka"
-                android:id="@+id/btnInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/spravka"
+            android:id="@+id/btnInfo"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="false"
-            android:paddingLeft="35dp"
-            android:layout_weight="1"
-            android:layout_margin="3dp"
-            android:textSize="30dp"
-            android:paddingRight="35dp"
+            android:textSize="30sp"
             android:background="@android:drawable/btn_default"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="55dp"
+            android:paddingRight="35dp" />
 
         <Button
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:text="@string/training"
-                android:id="@+id/btnTraining"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="@string/training"
+            android:id="@+id/btnTraining"
             android:layout_below="@+id/btnLearn"
             android:paddingLeft="35dp"
             android:layout_weight="1"
@@ -77,27 +81,41 @@
             android:textSize="30dp"
             android:paddingRight="35dp"
             android:background="@android:drawable/btn_default"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:visibility="gone" />
 
         <Button
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:text="@string/table"
-                android:id="@+id/btnTable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/table"
+            android:id="@+id/btnTable"
             android:layout_below="@+id/btnInfo"
-            android:paddingLeft="35dp"
-            android:layout_weight="1"
-            android:layout_margin="3dp"
-            android:textSize="30dp"
-            android:paddingRight="35dp"
+            android:textSize="30sp"
             android:background="@android:drawable/btn_default"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="55dp"
+            android:paddingRight="35dp" />
 
         <Button
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:text="@string/newbie"
-                android:id="@+id/btnLearn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Game Modes"
+            android:id="@+id/btnTypeChooser"
+            android:textSize="30sp"
+            android:background="@android:drawable/btn_default"
+            android:textColor="@android:color/white"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="55dp"
+            android:paddingRight="35dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:text="@string/newbie"
+            android:id="@+id/btnLearn"
             android:layout_below="@+id/btnTable"
             android:paddingLeft="35dp"
             android:layout_weight="1"
@@ -105,50 +123,51 @@
             android:textSize="30dp"
             android:paddingRight="35dp"
             android:background="@android:drawable/btn_default"
-            android:textColor="@android:color/white" />
-
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:text="@string/test"
-                android:id="@+id/btnTest"
-            android:layout_below="@+id/btnTraining"
-            android:paddingLeft="35dp"
-            android:layout_weight="1"
-            android:layout_margin="3dp"
-            android:textSize="30dp"
-            android:paddingRight="35dp"
-            android:background="@android:drawable/btn_default"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:visibility="gone" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:text="Gallery"
+            android:text="@string/test"
+            android:id="@+id/btnTest"
+            android:layout_below="@+id/btnTraining"
             android:paddingLeft="35dp"
-            android:id="@+id/btnGallery"
-            android:layout_alignParentLeft="true"
             android:layout_weight="1"
-            android:layout_margin="3dp"
             android:textSize="30dp"
             android:paddingRight="35dp"
             android:background="@android:drawable/btn_default"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:visibility="gone" />
 
         <Button
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:text="@string/exit"
-                android:id="@+id/btnExit"
-            android:paddingLeft="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gallery"
+            android:id="@+id/btnGallery"
+            android:layout_alignParentLeft="true"
+            android:textSize="30sp"
+            android:background="@android:drawable/btn_default"
+            android:textColor="@android:color/white"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="55dp"
+            android:paddingRight="35dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/exit"
+            android:id="@+id/btnExit"
             android:layout_below="@+id/btnConstruct"
             android:layout_alignParentLeft="true"
-            android:layout_weight="1"
-            android:layout_margin="3dp"
-            android:textSize="30dp"
-            android:paddingRight="35dp"
+            android:textSize="30sp"
             android:background="@android:drawable/btn_default"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="55dp"
+            android:paddingRight="35dp" />
     </LinearLayout>
 
 </RelativeLayout>

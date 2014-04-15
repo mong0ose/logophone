@@ -24,6 +24,13 @@ public class TableLayoutFixed extends Activity {
             Color.rgb(1, 1, 1)                  // BLACK
     };
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.slide_b_in, R.anim.slide_b_out);
+    }
+
     private static final String[][] doublearray = new String[][]{{"№", "Character", "Clothing", "Color", "Figure", "Pattern", "Glasses"},
             {"0", "Duck", "Necktie", "White", "Circle", "Circles", "Circles"},
             {"1", "Mouse", "Trunks", "Red", "Vertical rectangle", "Vertical stripes", "Vertical rectangles"},

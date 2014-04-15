@@ -98,6 +98,13 @@ public class Visualizer extends Activity{
 //        return false;
 //    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.slide_b_in, R.anim.slide_b_out);
+    }
+
     private Dialog DialogManager(int dType){
         final Dialog dialog = new Dialog(mContext);//, R.style.myBackgroundStyle);
         switch (dType){
@@ -122,7 +129,7 @@ public class Visualizer extends Activity{
                 break;
             case D_CHOOSER:
                 dialog.setContentView(R.layout.type_chooser);
-                dialog.setTitle("Choose number chain:");
+                dialog.setTitle("Number of Elements:");
                 dialog.setCancelable(false);
                 String[] typeToChoose = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
                 final Spinner dSpinner = (Spinner) dialog.findViewById(R.id.spinnerChooserType);
@@ -133,6 +140,7 @@ public class Visualizer extends Activity{
                     public void onClick(View view) {
                         dialog.dismiss();
                         finish();
+                        overridePendingTransition(R.anim.slide_b_in, R.anim.slide_b_out);
                     }
                 });
                 Button bdSelect = (Button) dialog.findViewById(R.id.btnChooserSelect);

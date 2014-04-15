@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#040404">
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageViewSelect"
+        android:src="@drawable/logohome"
+        android:scaleType="fitCenter"
+        android:cropToPadding="false"
+        android:adjustViewBounds="false"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" />
+
+    <ImageView
+        android:layout_width="600dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageViewSelect2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/logo2"
+        android:adjustViewBounds="false"
+        android:layout_below="@+id/imageViewSelect"
+        android:scaleType="fitCenter"
+        android:layout_alignParentLeft="false" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/imageViewSelect">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/newbie"
+            android:id="@+id/btnLearn"
+            android:background="@android:drawable/btn_default"
+            android:textColor="@android:color/white"
+            android:textSize="45sp"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:layout_marginTop="6dp"
+            android:paddingLeft="100dp"
+            android:paddingRight="100dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/training"
+            android:id="@+id/btnTraining"
+            android:background="@android:drawable/btn_default"
+            android:textColor="@android:color/white"
+            android:textSize="45sp"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:layout_marginTop="6dp"
+            android:paddingLeft="100dp"
+            android:paddingRight="100dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/test"
+            android:id="@+id/btnTest"
+            android:background="@android:drawable/btn_default"
+            android:textColor="@android:color/white"
+            android:textSize="45sp"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:layout_marginTop="6dp"
+            android:paddingLeft="100dp"
+            android:paddingRight="100dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:id="@+id/btnBackToMainMenu"
+            android:background="@android:drawable/btn_default"
+            android:textColor="@android:color/white"
+            android:textSize="45sp"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:layout_marginTop="6dp"
+            android:paddingLeft="100dp"
+            android:paddingRight="100dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

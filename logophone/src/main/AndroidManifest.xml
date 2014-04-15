@@ -19,7 +19,8 @@
         android:debuggable="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" >
+        <!--android:theme="@style/AppTheme" >-->
         <activity
             android:name="com.logophone.MainActivity"
             android:screenOrientation="portrait"
@@ -33,6 +34,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:name="com.logophone.Visualizer"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"
@@ -40,6 +42,7 @@
             android:parentActivityName="com.logophone.MainActivity">
         </activity>
         <activity
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:name="com.logophone.TrainingPart"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"
@@ -47,12 +50,14 @@
             android:parentActivityName="com.logophone.MainActivity">
         </activity>
         <activity
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:name="com.logophone.TableLayoutFixed"
             android:screenOrientation="portrait"
             android:hardwareAccelerated="true"
             android:parentActivityName="com.logophone.MainActivity">
         </activity>
         <activity
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:name="com.logophone.Constructor"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"
@@ -60,28 +65,39 @@
             android:parentActivityName="com.logophone.MainActivity">
         </activity>
         <activity
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:name="com.logophone.TestingGame"
             android:screenOrientation="portrait"
             android:hardwareAccelerated="true"
             android:parentActivityName="com.logophone.MainActivity">
         </activity>
         <activity
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:name="com.logophone.Information"
             android:screenOrientation="portrait"
             android:hardwareAccelerated="false"
             android:parentActivityName="com.logophone.MainActivity">
         </activity>
         <activity
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:name="com.logophone.GridSavedContactsViewActivity"
             android:screenOrientation="portrait"
             android:hardwareAccelerated="true"
             android:parentActivityName="com.logophone.MainActivity">
         </activity>
         <activity
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:name="com.logophone.PagerSavedContactsViewActivity"
             android:screenOrientation="portrait"
             android:hardwareAccelerated="true"
             android:parentActivityName="com.logophone.GridSavedContactsViewActivity">
+        </activity>
+        <activity
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:name="com.logophone.GameModeChooser"
+            android:screenOrientation="portrait"
+            android:hardwareAccelerated="true"
+            android:parentActivityName="com.logophone.MainActivity">
         </activity>
 
     </application>

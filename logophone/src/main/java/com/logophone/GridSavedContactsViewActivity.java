@@ -45,6 +45,13 @@ public class GridSavedContactsViewActivity extends Activity {
     String[] files;
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.slide_b_in, R.anim.slide_b_out);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.grid_saved_contacts);
@@ -95,6 +102,7 @@ public class GridSavedContactsViewActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 startImagePagerActivity(position);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
     }
@@ -143,7 +151,7 @@ public class GridSavedContactsViewActivity extends Activity {
             }
             String splitedStr[] = files[position].split("_");
 //            holder.textView.setText(files[position].replaceAll("[^0-9]+", ""));
-            holder.textView.setText(splitedStr[0] + "\n" + splitedStr[1] + "\n" + splitedStr[2].replaceAll(".jpg", ""));
+            holder.textView.setText(splitedStr[1] + "\n" + splitedStr[2].replaceAll(".jpg", "") + "\n" + splitedStr[0]);
 
             ImageLoader.getInstance().displayImage(imageUrls[position], holder.imageView, opts, new SimpleImageLoadingListener() {
                         @Override

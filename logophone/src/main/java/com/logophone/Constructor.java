@@ -110,6 +110,13 @@ public class Constructor extends Activity {
 //        return false;
 //    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.slide_b_in, R.anim.slide_b_out);
+    }
+
     private Dialog DialogManager(int dType){
         final Dialog dialog = new Dialog(mContext);//, R.style.myBackgroundStyle);
         final Drawable xD = this.getResources().getDrawable(R.drawable.cancel32);
@@ -244,7 +251,7 @@ public class Constructor extends Activity {
                 break;
             case D_GET_NUMBER:
                 dialog.setContentView(R.layout.dialog_get_number);
-                dialog.setTitle("Set Number to roll:");
+                dialog.setTitle("Enter a phone number:");
                 dialog.setCancelable(false);
                 currentID = 0;
                 currentName = null;
@@ -296,6 +303,7 @@ public class Constructor extends Activity {
                     public void onClick(View view) {
                         dialog.dismiss();
                         finish();
+                        overridePendingTransition(R.anim.slide_b_in, R.anim.slide_b_out);
                     }
                 });
                 Button bGo = (Button)dialog.findViewById(R.id.btnDialogGetNumberGo);
@@ -730,7 +738,7 @@ public class Constructor extends Activity {
                         currentName = (String) c.getString(c.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                         currentID = (long) c.getInt(c.getColumnIndexOrThrow(ContactsContract.Data.RAW_CONTACT_ID));
                         String num = phone.replaceAll("[^0-9]+", "");
-                        etNumber.setText(num.substring(num.length() - 10));
+                        etNumber.setText(num.length() > 10 ? num.substring(num.length() - 10) : num);
 //                        etNumber.setText("" + convert(phone.replaceAll("[^0-9]+", "")));
 //                        Toast.makeText(mContext, "Person ID: " + currentID, Toast.LENGTH_SHORT).show();
 //                        phone_number = convert(phone.replaceAll("\\D+", ""));
@@ -849,6 +857,39 @@ public class Constructor extends Activity {
         }
     }
 
+    private Bitmap reGenerateBackground(){
+        Bitmap bitBack = Bitmap.createBitmap(screenWidth, p.y, Bitmap.Config.RGB_565);
+        Canvas bCanvas = new Canvas(bitBack);
+        String[] filename = new String[3];
+        switch (background_round){
+            case 0:
+                filename[0] = "flag/40.png";
+                filename[2] = "figure/" + phone_number[2] + "01.png";
+                addLayoutToCanvas(filename[0], bCanvas, colors_array[phone_number[0]], p, true);
+                addLayoutToCanvas(filename[2], bCanvas, colors_array[phone_number[1]], p, true);
+                break;
+            case 1:
+                filename[0] = "flag/10.png";
+                filename[1] = "flag/20.png";
+                filename[2] = "flag/30.png";
+                addLayoutToCanvas(filename[0], bCanvas, colors_array[phone_number[0]], p, true);
+                addLayoutToCanvas(filename[1], bCanvas, colors_array[phone_number[1]], p, true);
+                addLayoutToCanvas(filename[2], bCanvas, colors_array[phone_number[2]], p, true);
+                break;
+            case 2:
+                filename[0] = "flag/40.png";
+                filename[2] = "figure/" + phone_number[2] + "01.png";
+                filename[1] = "figure/" + phone_number[2] + "00.png";
+                addLayoutToCanvas(filename[0], bCanvas, 0, p, false);
+                addLayoutToCanvas(filename[2], bCanvas, colors_array[phone_number[1]], p, true);
+                addLayoutToCanvas(filename[1], bCanvas, colors_array[phone_number[0]], p, true);
+                break;
+            default:
+                break;
+        }
+        return bitBack;
+    }
+
     public void setContactPhoto(byte[] bytes, long personId) {
         ContentValues values = new ContentValues();
         int photoRow = -1;
@@ -892,7 +933,7 @@ public class Constructor extends Activity {
             intentShare.setType("image/jpeg");
             Bitmap bmpToSend = Bitmap.createBitmap(p.x, p.y, Bitmap.Config.ARGB_8888);
             Canvas saveCanvas = new Canvas(bmpToSend);
-            saveCanvas.drawBitmap(bmapBackground, new Matrix(), null);
+            saveCanvas.drawBitmap(reGenerateBackground(), new Matrix(), null);
             saveCanvas.drawBitmap(bmapOverlay, new Matrix(), null);
 
             try {
@@ -953,8 +994,10 @@ public class Constructor extends Activity {
             boolean result = false;
             Bitmap bmpToSave = Bitmap.createBitmap(p.x, p.y, Bitmap.Config.ARGB_8888);
             Canvas saveCanvas = new Canvas(bmpToSave);
-            saveCanvas.drawBitmap(bmapBackground, new Matrix(), null);
+            Bitmap bmpBackSave = reGenerateBackground();
+            saveCanvas.drawBitmap(bmpBackSave, new Matrix(), null);
             saveCanvas.drawBitmap(bmapOverlay, new Matrix(), null);
+            bmpBackSave.recycle();
             try {
                 ByteArrayOutputStream bOut = new ByteArrayOutputStream();
                 bmpToSave.compress(Bitmap.CompressFormat.JPEG, 100, bOut);
@@ -1135,7 +1178,7 @@ public class Constructor extends Activity {
                 if(check.newCheckNoStrict()) showtype = 3;
                 else if(check.newCheckPleasure()) showtype = 2;
                 else if(check.newCheckStrict()) showtype = 1;
-                currentShowType = showtype;
+                currentShowType = showtype >= 2 ? 2 : 1;
             } else {
                 currentShowType = ints[0];
             }

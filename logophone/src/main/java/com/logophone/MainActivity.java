@@ -39,6 +39,13 @@ public class MainActivity extends Activity {
     };
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.slide_b_in, R.anim.slide_b_out);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -48,79 +55,48 @@ public class MainActivity extends Activity {
             success = folder.mkdir();
         }
 
-        Button bTable, bTest, bTraining, bVisualizer, bConstructor, bInfo, bExit, bGallery;
+        Button bTable, bTest, bTraining, bVisualizer, bConstructor, bInfo, bExit, bGallery, bModes;
         bGallery = (Button)findViewById(R.id.btnGallery);
-        bGallery.getBackground().setColorFilter(colors_array[1], PorterDuff.Mode.MULTIPLY);
+        bGallery.getBackground().setColorFilter(colors_array[6], PorterDuff.Mode.MULTIPLY);
         bGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(folder.exists() && folder.list().length > 0)
+                if(folder.exists() && folder.list().length > 0){
                     startActivity(new Intent(mContext, GridSavedContactsViewActivity.class));
-                else
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                } else
                     Toast.makeText(mContext, "Gallery is empty!", Toast.LENGTH_SHORT).show();
-//                Uri tUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI.buildUpon().build();
-//
-//                System.out.println("!!!!!!!!!!!!!!!" + tUri.toString() + "!!!!!!!!!!!!!!! FROM PATH");
-//                System.out.println("!!!!!!!!!!!!!!!" + getRealPathFromURI(tUri) + "!!!!!!!!!!!!!!!");
-//                Cursor mCursor = getContentResolver().query(tUri, null,
-//                        MediaStore.Images.Media.DATA + " like ? ",
-//                        new String[] {"%testdir%"},
-//                        null);
-//                if(mCursor.moveToFirst()){
-//                    folder = mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID));
-//                }
-//                mCursor.close();
-//                Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI.buildUpon().appendEncodedPath(folder).build();
-//                System.out.println("!!!!!!!!!!!!!!!" + uri.toString() + "!!!!!!!!!!!!!!! FROM CURSOR");
-//                System.out.println("!!!!!!!!!!!!!!!" + getRealPathFromURI(uri) + "!!!!!!!!!!!!!!!");
-//                Toast.makeText(mContext, getRealPathFromURI(uri), Toast.LENGTH_SHORT).show();
-//                Intent nIntent = new Intent(Intent.ACTION_VIEW, uri);
-//                startActivity(nIntent);
             }
         });
-
-        bVisualizer = (Button)findViewById(R.id.btnLearn);
-        bVisualizer.getBackground().setColorFilter(colors_array[8], PorterDuff.Mode.MULTIPLY);
-        bVisualizer.setOnClickListener(new View.OnClickListener() {
+        bModes = (Button) findViewById(R.id.btnTypeChooser);
+        bModes.getBackground().setColorFilter(colors_array[4], PorterDuff.Mode.MULTIPLY);
+        bModes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(mContext, Visualizer.class));
-            }
-        });
-        bTraining = (Button) findViewById(R.id.btnTraining);
-        bTraining.getBackground().setColorFilter(colors_array[2], PorterDuff.Mode.MULTIPLY);
-        bTraining.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(mContext, TrainingPart.class));
-            }
-        });
-        bTest = (Button)findViewById(R.id.btnTest);
-        bTest.getBackground().setColorFilter(colors_array[3], PorterDuff.Mode.MULTIPLY);
-        bTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(mContext, TestingGame.class));
+                startActivity(new Intent(mContext, GameModeChooser.class));
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
         bTable = (Button)findViewById(R.id.btnTable);
-        bTable.getBackground().setColorFilter(colors_array[4], PorterDuff.Mode.MULTIPLY);
+        bTable.getBackground().setColorFilter(colors_array[3], PorterDuff.Mode.MULTIPLY);
         bTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(mContext, TableLayoutFixed.class));
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
         bConstructor = (Button)findViewById(R.id.btnConstruct);
-        bConstructor.getBackground().setColorFilter(colors_array[5], PorterDuff.Mode.MULTIPLY);
+        bConstructor.getBackground().setColorFilter(colors_array[1], PorterDuff.Mode.MULTIPLY);
         bConstructor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(mContext, Constructor.class));
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
         bInfo = (Button)findViewById(R.id.btnInfo);
-        bInfo.getBackground().setColorFilter(colors_array[6], PorterDuff.Mode.MULTIPLY);
+        bInfo.getBackground().setColorFilter(colors_array[2], PorterDuff.Mode.MULTIPLY);
         bInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,6 +110,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 finish();
+                overridePendingTransition(R.anim.slide_b_in, R.anim.slide_b_out);
             }
         });
     }

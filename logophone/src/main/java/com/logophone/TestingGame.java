@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -74,6 +75,13 @@ public class TestingGame extends Activity {
             Color.rgb(1, 1, 1)                  // BLACK
     };
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.slide_b_in, R.anim.slide_b_out);
+    }
+
     private Dialog DialogManager(int DialogID){
         final Dialog dialog = new Dialog(mContext);//, R.style.myBackgroundStyle);
         switch (DialogID){
@@ -116,6 +124,7 @@ public class TestingGame extends Activity {
                     public void onClick(View view) {
                         dialog.dismiss();
                         finish();
+                        overridePendingTransition(R.anim.slide_b_in, R.anim.slide_b_out);
                     }
                 });
                 Button bBadRedo = (Button)dialog.findViewById(R.id.btnBadContinue);
@@ -133,6 +142,48 @@ public class TestingGame extends Activity {
                 break;
         }
         return null;
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+            Integer tel[] = new Integer[10];
+            int showThis = 1;
+            try {
+                for (int i = 0; i < editTextsTesting.length; i++)
+                    tel[i] = editTextsTesting[i].getText().length() != 0 ?
+                            Integer.parseInt(String.valueOf(editTextsTesting[i].getText()).replaceAll("[^0-9]+", "")) : null;
+
+            } catch(NumberFormatException nfe) {
+                System.out.println("Could not parse " + nfe);
+            }
+            if(Arrays.equals(tel, charge_number)){
+                if(GbTypeSize >= 10){
+                    TypeSizeIteration = GbTypeSize / 10;
+                    if(TypeSizeIteration > counter){
+                        counter++;
+                        showThis = 10;
+                    } else{
+                        GbTypeSize++;
+                        counter = 0;
+                        showThis = GbTypeSize % 10;
+                    }
+                } else{
+                    GbTypeSize++;
+                    showThis = GbTypeSize;
+                }
+                Toast.makeText(mContext, "CORRECT! NEXT LEVEL ->", Toast.LENGTH_SHORT).show();
+                if(!ThreadState)
+                    new ImageBuilder().execute(showThis);
+            } else{
+                Toast.makeText(mContext, "WRONG NUMBER! SCORE: " + GbTypeSize, Toast.LENGTH_SHORT).show();
+                GbTypeSize = 1;
+                TypeSizeIteration = 0;
+                DialogManager(D_BAD_ANSWER);
+            }
+            txtCounter.setVisibility(View.GONE);
+        }
+        return super.onKeyUp(keyCode, event);
     }
 
     @Override
@@ -368,6 +419,8 @@ public class TestingGame extends Activity {
             @Override
             public void onClick(View view) {
                 view.setAnimation(animAlpha);
+                GbTypeSize = 1;
+                TypeSizeIteration = 0;
                 DialogManager(D_TIME_CHOOSER);
             }
         });

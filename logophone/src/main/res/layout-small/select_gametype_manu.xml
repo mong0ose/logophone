@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#040404">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:src="@drawable/logomain"
+        android:scaleType="fitEnd"
+        android:cropToPadding="false"
+        android:adjustViewBounds="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/logo0"
+        android:adjustViewBounds="false"
+        android:layout_below="@+id/imageView"
+        android:scaleType="matrix" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/imageView">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/newbie"
+            android:id="@+id/btnLearn"
+            android:layout_below="@+id/btnTable"
+            android:paddingLeft="35dp"
+            android:textSize="20dp"
+            android:paddingRight="35dp"
+            android:background="@android:drawable/btn_default"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/training"
+            android:id="@+id/btnTraining"
+            android:layout_below="@+id/btnLearn"
+            android:paddingLeft="35dp"
+            android:textSize="20dp"
+            android:paddingRight="35dp"
+            android:background="@android:drawable/btn_default"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/test"
+            android:id="@+id/btnTest"
+            android:layout_below="@+id/btnTraining"
+            android:paddingLeft="35dp"
+            android:textSize="20dp"
+            android:paddingRight="35dp"
+            android:background="@android:drawable/btn_default"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:id="@+id/btnBackToMainMenu"
+            android:paddingLeft="35dp"
+            android:paddingRight="35dp"
+            android:background="@android:drawable/btn_default"
+            android:textColor="@android:color/white"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>
